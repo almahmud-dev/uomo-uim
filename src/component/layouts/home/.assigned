@@ -1,0 +1,34 @@
+# Home Page Task
+
+**Owner:** Shoumen
+**Task:** সম্পূর্ণ Home Page layout এবং outlet implement করা **(responsive এবং pixel-perfect)**
+**Status:** Started
+
+## নির্দেশনা / Instructions
+
+* এটি Home Page এর প্রধান কাজের folder। **অনুগ্রহ করে এই folder থেকেই কাজ শুরু করবেন।**
+* এই page এর মূল entry point হলো **Home.jsx**।
+* প্রয়োজনীয় সকল component (যেমন: Navbar, HeroSection, Footer ইত্যাদি) **Home.jsx** এর মধ্যে import করতে হবে।
+* সব component সঠিকভাবে **Home.jsx** এ integrate করতে হবে যাতে সম্পূর্ণ Home Page render হয়।
+
+## Figma Design Reference
+
+* Figma তে mark করা node: **{home 1}**
+* Layout এবং design সম্পূর্ণভাবে Figma অনুযায়ী implement করতে হবে।
+
+## Development Requirements
+
+* Page টি **fully responsive** হতে হবে (mobile, tablet, desktop)।
+* Figma design অনুযায়ী **pixel-perfect implementation** নিশ্চিত করতে হবে।
+* Styling এর জন্য **Tailwind CSS** ব্যবহার করতে হবে।
+* Component গুলো যতটা সম্ভব **reusable এবং modular** করে তৈরি করার চেষ্টা করবেন।
+
+## Important Notes
+
+* সকল update এবং কাজের progress Git এ commit করবেন।
+* Project structure পরিবর্তন না করে কাজ করার চেষ্টা করবেন।
+* প্রয়োজনে নতুন component তৈরি করা যেতে পারে, তবে folder structure maintain করতে হবে।
+
+## Figma Design Link
+
+https://www.figma.com/design/xqNSsmXsrk6PWGgoX3DCF2/Uomo_Theme--Copy---Copy-?node-id=0-1&p=f&t=rCVpyftzpC3RPXO9-0

@@ -1,0 +1,26 @@
+# Shop Process Pages Task
+
+**Owner:** Al Mahamud  
+**Task:** Shop process সম্পর্কিত page এবং component implement করা (responsive এবং pixel-perfect)  
+**Status:** Started  
+
+**নির্দেশনা / Instructions:**  
+- এই task এর প্রধান কাজের folder হলো **./component/shopMain/shopPage/**।  
+- **অনুগ্রহ করে এই folder থেকেই কাজ শুরু করবেন।**  
+- এই folder এর ভেতরে থাকা component গুলো Figma design অনুযায়ী তৈরি করতে হবে।  
+
+**Assigned Components (Figma Nodes):**  
+- **41_shop_cart** → Cart Component  
+- **42_shop_checkout** → Shop Checkout Component  
+- **43_shop_confirmation** → Shop Confirmation / Order Info Component  
+- **44_order_tracking** → Order Tracking Component  
+
+- উপরোক্ত component গুলো Figma design অনুসরণ করে তৈরি করতে হবে।  
+- প্রতিটি component **responsive** হতে হবে এবং সব screen size এ ঠিকভাবে কাজ করতে হবে।  
+- Design অনুযায়ী **pixel-perfect implementation** নিশ্চিত করতে হবে।  
+- প্রয়োজন অনুযায়ী **Tailwind CSS** ব্যবহার করবেন।  
+- Component গুলো যতটা সম্ভব **modular এবং reusable** করে তৈরি করার চেষ্টা করবেন।  
+- কাজের সকল update **./component/shopMain/shopPage/** folder এর মধ্যেই commit করতে হবে যাতে কাজ track করা সহজ হয়।
+
+**Figma Design Reference:**  
+Figma project এ উল্লেখিত node গুলো দেখে component গুলো implement করতে হবে।

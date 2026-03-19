@@ -1,0 +1,108 @@
+# Dashboard Pages Task
+
+**Owner:** Jihad
+**Task:** Dashboard সম্পর্কিত সকল page এবং component implement করা **(responsive এবং pixel-perfect)**
+**Status:** Not started
+
+---
+
+## কাজ কোথা থেকে শুরু করবেন
+
+Dashboard এর জন্য component গুলো প্রথমে তৈরি করতে হবে নিচের folder থেকে:
+
+`./component/dashboard/`
+
+এই folder এর ভিতরে Figma design অনুযায়ী সব dashboard related component তৈরি করতে হবে।
+
+---
+
+## Assigned Components (Figma Nodes)
+
+নিচের Figma node অনুযায়ী component গুলো তৈরি করতে হবে:
+
+* **45_my_account** → My Account Component
+* **46_orders** → Orders Component
+* **47_addresses** → Addresses Component
+* **48_account_details** → Account Details Component
+* **49_wishlist** → Wishlist Component
+
+উপরের প্রতিটি component Figma design অনুযায়ী তৈরি করতে হবে।
+
+---
+
+## Component Integration Location
+
+Component তৈরি করার পর সেগুলো integrate করতে হবে নিচের folder structure অনুযায়ী:
+
+`./component/mainDashboard/`
+
+এই folder এর ভিতরে dashboard এর main structure আগে থেকেই তৈরি করা আছে।
+
+---
+
+## Dashboard Structure
+
+Dashboard layout component:
+
+`./component/mainDashboard/rootDashboard/DashboardLayout`
+
+Dashboard page component গুলো রাখা হবে:
+
+`./component/mainDashboard/dashborarAllComponent/`
+
+এই folder এর ভিতরে নিচের component গুলো থাকবে:
+
+* DashboardAccount
+* DashboardOrder
+* DashboardAddress
+* DashboardAccDetails
+* DashboardWishlist
+* LogOut
+
+আপনার তৈরি করা component গুলো এখানে import এবং integrate করতে হবে।
+
+---
+
+## Dashboard Route Structure
+
+Project এ dashboard route ইতিমধ্যে setup করা আছে। Route গুলো হলো:
+
+* `/dashboard` → DashboardAccount (Default Page)
+* `/dashboard/order` → DashboardOrder
+* `/dashboard/address` → DashboardAddress
+* `/dashboard/account-details` → DashboardAccDetails
+* `/dashboard/wishlist` → DashboardWishlist
+* `/dashboard/logout` → LogOut
+
+এই route অনুযায়ী component গুলো কাজ করবে।
+
+---
+
+## Development Requirements
+
+* Figma design অনুযায়ী component implement করতে হবে
+* সব page **fully responsive** হতে হবে (mobile, tablet, desktop)
+* Layout **pixel-perfect** রাখতে হবে
+* Styling এর জন্য **Tailwind CSS** ব্যবহার করতে হবে
+* Component গুলো যতটা সম্ভব **modular এবং reusable** করতে হবে
+
+---
+
+## Work Flow (Step by Step)
+
+1️⃣ প্রথমে component তৈরি করবেন
+`./component/dashboard/`
+
+2️⃣ এরপর component গুলো integrate করবেন
+`./component/mainDashboard/dashborarAllComponent/`
+
+3️⃣ Dashboard layout এবং route অনুযায়ী component render হবে।
+
+---
+
+## Important Notes
+
+* কাজ করার সময় project structure পরিবর্তন করবেন না
+* প্রয়োজন হলে নতুন component তৈরি করতে পারেন
+* সকল update নিয়মিত **Git commit** করতে হবে
+* কোনো route পরিবর্তনের প্রয়োজন হলে আগে team lead এর সাথে আলোচনা করতে হবে
