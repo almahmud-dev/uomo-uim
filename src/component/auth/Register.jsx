@@ -7,7 +7,7 @@ const Register = () => {
   const { close } = allIcons;
 
   return (
-    <div className="w-[420px] h-full bg-white p-10">
+    <div className="w-105 h-full bg-white p-10">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <p className="texts_16_medium text-head">CREATE AN ACCOUNT</p>
