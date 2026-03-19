@@ -3,7 +3,7 @@ import Product from "@/component/common/Product";
 import React, { useEffect, useRef } from "react";
 import Link from 'next/link';
 const product = "/assets/images/product.png";
-// import mixitup from "mixitup";
+import mixitup from "mixitup";
 import Button from "@/component/common/Button";
 import Container from "@/component/common/Container";
 
@@ -24,7 +24,7 @@ const Products = () => {
   }, []);
   return (
     <>
-      <section className=" mt-[38px] md:mt-[60px] lg:mt-23.5">
+      <section className=" mt-9.5 md:mt-15 lg:mt-23.5">
         <Container>
           <div className="heading text-center">
             <h2 className="lg:head_35_regular font-medium text-[26px]  text-head">

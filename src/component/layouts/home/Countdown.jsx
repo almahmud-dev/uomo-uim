@@ -3,7 +3,10 @@ import Button from "@/component/common/Button";
 import Container from "@/component/common/Container";
 import React from "react";
 import Link from 'next/link';
-import ReactCountdown, { zeroPad } from "react-countdown";
+import dynamic from "next/dynamic";
+import { zeroPad } from "react-countdown";
+
+const ReactCountdown = dynamic(() => import("react-countdown"), { ssr: false });
 
 const Countdown = () => {
   return (
