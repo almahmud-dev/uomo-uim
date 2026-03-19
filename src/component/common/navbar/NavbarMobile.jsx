@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import React, { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { GoSearch } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -19,7 +19,7 @@ import allIcons from "@/helper/iconProvider";
 import allImages from "@/helper/imagesProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
-
+import useCartStore from "@/store/cartSlice";
 const socialIcons = [
   { id: 1, icon: FaFacebookF, link: "https://www.facebook.com" },
   { id: 2, icon: FaTwitter, link: "https://www.twitter.com" },
@@ -128,7 +128,9 @@ const TabRow = ({ activeTab, onTabChange }) => (
 const NavbarMobile = () => {
   const { navIconItems } = allIcons;
   const { navLogo } = allImages;
-
+  // add to cart korle aita diye data dhorbe
+const { cartItems } = useCartStore();
+const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const [isOpen, setIsOpen] = useState(false);
   const [panel, setPanel] = useState("main");
   const [isCartOpen, setIsCartOpen] = useState(false); // Cart state
@@ -232,7 +234,7 @@ const NavbarMobile = () => {
               imgSrc={navLogo}
               className="w-[111px] h-[27px]"
             />
-            <button 
+            <button
               onClick={handleCartOpen}
               className="relative cursor-pointer pr-[10px]"
             >
@@ -240,7 +242,7 @@ const NavbarMobile = () => {
                 {navIconItems[3].icon}
               </span>
               <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
-                {navIconItems[3].badge}
+                {cartCount}
               </span>
             </button>
           </div>
@@ -301,7 +303,7 @@ const NavbarMobile = () => {
                   </span>
                   <IoChevronForward className="text-[16px] text-head shrink-0" />
                 </button>
-              )
+              ),
             )}
           </div>
 
