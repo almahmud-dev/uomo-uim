@@ -1,11 +1,13 @@
-'use client';
 import { useQuery } from "@tanstack/react-query";
 
-const useAllProduct = () => {
+const useAllProduct = (limit = 20, skip = 0, search = "", category = "") => {
   return useQuery({
-    queryKey: ["allproduct"],
+    queryKey: ["allproduct", limit, skip, search, category],
     queryFn: async () => {
-      const res = await fetch("/api/products");
+      let url = `/api/products?limit=${limit}&skip=${skip}`;
+      if (search) url += `&q=${search}`;
+      if (category) url += `&category=${category}`;
+      const res = await fetch(url);
       return res.json();
     },
   });
