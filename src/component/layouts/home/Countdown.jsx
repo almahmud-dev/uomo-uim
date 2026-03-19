@@ -75,7 +75,7 @@ const Countdown = () => {
                     <p className="font-jost font-normal lg:text-[30px] text-[18px] text-head leading-7.5">
                       {zeroPad(seconds)}
                     </p>
-                    <span className="font-jost font-bold lg:text-base text-[14px] text-[#767676] leading-7.5">
+                    <span className="font-jost font-bold lg:text-base text-[14px] text-second leading-7.5">
                       SEC
                     </span>
                   </div>
