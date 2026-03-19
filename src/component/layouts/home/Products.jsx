@@ -1,157 +1,90 @@
 'use client';
 import Product from "@/component/common/Product";
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from 'next/link';
-const product = "/assets/images/product.png";
-import mixitup from "mixitup";
 import Button from "@/component/common/Button";
 import Container from "@/component/common/Container";
+import useAllProduct from "@/coustomHook/useAllProduct";
 
 const Products = () => {
-  const containerRef = useRef(null);
+  const [filter, setFilter] = useState("all");
+  const { data, isLoading } = useAllProduct(8);
+  const products = data?.products || [];
 
-  useEffect(() => {
-    if (containerRef.current) {
-      mixitup(containerRef.current, {
-        animation: {
-          duration: 400,
-        },
-        selectors: {
-          target: ".mix",
-        },
-      });
-    }
-  }, []);
+  const getFiltered = () => {
+    if (filter === "all") return products;
+    if (filter === "newArrivals") return products.filter((p) => p.rating >= 4.5);
+    if (filter === "bestSeller") return products.filter((p) => p.stock > 50);
+    if (filter === "toprating") return products.filter((p) => p.rating >= 4.8);
+    return products;
+  };
+
+  const filters = [
+    { key: "all", label: "ALL" },
+    { key: "newArrivals", label: "NEW ARRIVALS" },
+    { key: "bestSeller", label: "BEST SELLER" },
+    { key: "toprating", label: "TOP RATING" },
+  ];
+
   return (
     <>
-      <section className=" mt-9.5 md:mt-15 lg:mt-23.5">
+      <section className="mt-9.5 md:mt-15 lg:mt-23.5">
         <Container>
           <div className="heading text-center">
-            <h2 className="lg:head_35_regular font-medium text-[26px]  text-head">
+            <h2 className="lg:head_35_regular font-medium text-[26px] text-head">
               OUR TRENDY{" "}
               <span className="lg:head_35_bold font-bold text-[26px] text-head">
                 PRODUCTS
               </span>
             </h2>
             <div className="flex flex-wrap justify-center items-center lg:gap-10 gap-4 mt-4 lg:mt-7.75">
-              <Link href="#">
-                <p
-                  data-filter=".all"
-                  className="lg:texts_16_medium text-[14px] text-second hover:text-head duration-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0  after:w-0 after:h-0.5 after:bg-head after:transition-all after:duration-400 hover:after:w-[60%]"
+              {filters.map((f) => (
+                <button
+                  key={f.key}
+                  onClick={() => setFilter(f.key)}
+                  className={`lg:texts_16_medium text-[14px] duration-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-head after:transition-all after:duration-400 hover:after:w-[60%] cursor-pointer ${
+                    filter === f.key
+                      ? "text-head after:w-[60%]"
+                      : "text-second hover:text-head"
+                  }`}
                 >
-                  ALL
-                </p>
-              </Link>
-              <Link href="#">
-                <p
-                  data-filter=".newArrivals"
-                  className="lg:texts_16_medium text-[14px] text-second hover:text-head duration-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0  after:w-0 after:h-0.5 after:bg-head after:transition-all after:duration-400 hover:after:w-[60%]"
-                >
-                  NEWARRIVALS
-                </p>
-              </Link>
-              <Link href="#">
-                <p
-                  data-filter=".bestSeller"
-                  className="lg:texts_16_medium text-[14px] text-second hover:text-head duration-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0  after:w-0 after:h-0.5 after:bg-head after:transition-all after:duration-400 hover:after:w-[60%]"
-                >
-                  BEST SELLER
-                </p>
-              </Link>
-              <Link href="#">
-                <p
-                  data-filter=".toprating"
-                  className="lg:texts_16_medium text-[14px] text-second hover:text-head duration-500 relative after:content-[''] after:absolute after:bottom-0 after:left-0  after:w-0 after:h-0.5 after:bg-head after:transition-all after:duration-400 hover:after:w-[60%]"
-                >
-                  TOP RATING
-                </p>
-              </Link>
+                  {f.label}
+                </button>
+              ))}
             </div>
           </div>
-          <div
-            ref={containerRef}
-            className="mt-5.5 grid lg:grid-cols-4 grid-cols-2 justify-center  md:gap-7.5 gap-3.5 "
-          >
-            <div className="mix all newArrivals bestSeller">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cropped Faux Leather Jacket"}
-                itemPrice={"29"}
-              />
+
+          {isLoading ? (
+            <div className="mt-5.5 grid lg:grid-cols-4 grid-cols-2 md:gap-7.5 gap-3.5">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-gray-200 h-80 w-full" />
+              ))}
             </div>
-            <div className="mix all newArrivals bestSeller">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Calvin Shorts"}
-                itemPrice={"62"}
-              />
+          ) : (
+            <div className="mt-5.5 grid lg:grid-cols-4 grid-cols-2 justify-center md:gap-7.5 gap-3.5">
+              {getFiltered().map((product) => (
+                <Product
+                  key={product.id}
+                  id={product.id}
+                  imgSrc={product.thumbnail}
+                  imgAlt={product.title}
+                  catagory={product.category}
+                  itemName={product.title}
+                  itemPrice={product.price}
+                  discountPrice={
+                    product.discountPercentage > 0
+                      ? (product.price - (product.price * product.discountPercentage) / 100).toFixed(2)
+                      : null
+                  }
+                />
+              ))}
             </div>
-            <div className="mix all  ">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"CKirby T-Shirt"}
-                itemPrice={"17"}
-              />
-            </div>
-            <div className="mix all  toprating">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cableknit Shawl"}
-                itemPrice={"129"}
-                discountPrice={"99"}
-              />
-            </div>
-            <div className="mix all  ">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cropped Faux Leather Jacket"}
-                itemPrice={"29"}
-              />
-            </div>
-            <div className="mix all newArrivals toprating">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cropped Faux Leather Jacket"}
-                itemPrice={"29"}
-              />
-            </div>
-            <div className="mix all newArrivals ">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cropped Faux Leather Jacket"}
-                itemPrice={"29"}
-              />
-            </div>
-            <div className="mix all  toprating">
-              <Product
-                imgSrc={product}
-                imgAlt={product}
-                catagory={"Dresses"}
-                itemName={"Cropped Faux Leather Jacket"}
-                itemPrice={"129"}
-                discountPrice={"99"}
-              />
-            </div>
-          </div>
+          )}
+
           <div className="mt-10.5 text-center">
-            <Button
-              className={"hover:after:w-24"}
-              btnText={"SEE ALL PRODUCT"}
-            />
+            <Link href="/shop">
+              <Button className={"hover:after:w-24"} btnText={"SEE ALL PRODUCT"} />
+            </Link>
           </div>
         </Container>
       </section>
