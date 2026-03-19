@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { useCartStore } from "../cart/Cart";
+import useCartStore from "@/store/cartSlice";
 import { FaAngleDown } from "react-icons/fa6";
 
 // ─── Main ShopCheckout ─────────────────────────────────────────────────────────

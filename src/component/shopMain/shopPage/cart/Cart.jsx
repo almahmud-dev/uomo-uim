@@ -3,70 +3,19 @@ import React from "react";
 import Link from 'next/link';
 import { IoCloseOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
-import { create } from "zustand";
+import useCartStore from "@/store/cartSlice";
 import { FiPlus } from "react-icons/fi";
 import { FaMinus } from "react-icons/fa6";
 import { LiaDollarSignSolid } from "react-icons/lia";
 
-// ─── Dummy Products ────────────────────────────────────────────────────────────
-const DUMMY_ITEMS = [
-  {
-    id: 1,
-    title: "Zessi Dresses",
-    price: 99,
-    quantity: 3,
-    thumbnail: "https://placehold.co/80x80/d1d5db/9ca3af",
-  },
-  {
-    id: 2,
-    title: "Kirby T-Shirt",
-    price: 99,
-    quantity: 3,
-    color: "Yellow",
-    size: "L",
-    thumbnail: "https://placehold.co/80x80/d1d5db/9ca3af",
-  },
-  {
-    id: 3,
-    title: "Cableknit Shawl",
-    price: 99,
-    quantity: 3,
-    thumbnail: "https://placehold.co/80x80/d1d5db/9ca3af",
-  },
-];
 
-// ─── Zustand Store ─────────────────────────────────────────────────────────────
-export const useCartStore = create((set) => ({
-  items: DUMMY_ITEMS,
-  addToCart: (product) =>
-    set((state) => {
-      const existing = state.items.find((i) => i.id === product.id);
-      if (existing) {
-        return {
-          items: state.items.map((i) =>
-            i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i,
-          ),
-        };
-      }
-      return { items: [...state.items, { ...product, quantity: 1 }] };
-    }),
-  removeCart: (id) =>
-    set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
-  updateQuantity: (id, quantity) =>
-    set((state) => ({
-      items: state.items.map((i) => (i.id === id ? { ...i, quantity } : i)),
-    })),
-  clearCart: () => set({ items: [] }),
-}));
 
 // ─── Main Cart ─────────────────────────────────────────────────────────────────
 const Cart = () => {
-  const { items: cartItems, removeCart, updateQuantity } = useCartStore();
+  const { cartItems, removeFromCart, increaseQty, decreaseQty } = useCartStore();
 
-  const increment = (item) => updateQuantity(item.id, item.quantity + 1);
-  const decrement = (item) => {
-    if (item.quantity > 1) updateQuantity(item.id, item.quantity - 1);
-  };
+  const increment = (item) => increaseQty(item.id);
+  const decrement = (item) => decreaseQty(item.id);
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -118,13 +67,13 @@ const Cart = () => {
                     <div className="shrink-0">
                       <img
                         className="w-16 h-16 md:w-30 md:h-30 object-cover bg-gray-200 rounded-sm"
-                        src={cart.thumbnail}
+                        src={cart.image}
                         alt={cart.title}
                       />
                     </div>
                     <div>
                       <h3 className="text-[14px] md:text-[16px] font-normal text-head">
-                        {cart.title}
+                        {cart.name}
                       </h3>
                       {cart.color && (
                         <p className="text-[12px] md:text-[13px] text-gray-500 mt-0.5">
@@ -181,7 +130,7 @@ const Cart = () => {
 
                   {/* Remove */}
                   <button
-                    onClick={() => removeCart(cart.id)}
+                    onClick={() => removeFromCart(cart.id)}
                     className="absolute top-4 right-0 md:static text-gray-400 hover:text-[#DB4444] transition-colors cursor-pointer"
                   >
                     <IoCloseOutline className="text-[20px]" />
