@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { motion } from "framer-motion";
 import { HiCheck } from "react-icons/hi";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { useCartStore } from "../cart/Cart";
+import useCartStore from "@/store/cartSlice";
 
 // CartLayout provides: <section>, <div className="container">, <h1>, <StepIndicator>
 const ShopInfo = () => {
-  const { items: cartItems, clearCart } = useCartStore();
+  const { cartItems, clearCart } = useCartStore();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -137,7 +137,7 @@ const ShopInfo = () => {
             className="flex justify-between items-center py-3.25"
           >
             <span className="text-[13px] sm:text-[14px] text-second font-medium">
-              {item.title}{" "}
+              {item.name}{" "}
               <span className="font-medium text-second">x{item.quantity}</span>
             </span>
             <span className="text-[13px] sm:text-[14px] text-head font-normal flex items-center gap-0.5">
