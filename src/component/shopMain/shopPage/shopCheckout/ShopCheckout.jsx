@@ -9,7 +9,7 @@ import { FaAngleDown } from "react-icons/fa6";
 // ─── Main ShopCheckout ─────────────────────────────────────────────────────────
 
 const ShopCheckout = () => {
-  const { items: cartItems } = useCartStore();
+ const { cartItems } = useCartStore();
   const [paymentMethod, setPaymentMethod] = useState("bank");
 
   const subtotal = cartItems.reduce(
@@ -233,7 +233,7 @@ const ShopCheckout = () => {
           {cartItems.map((item) => (
             <div key={item.id} className="flex justify-between py-3.25">
               <span className="texts_14_medium text-second">
-                {item.title} x{item.quantity}
+                {item.name} x{item.quantity}
               </span>
               <span className="texts_14_medium text-second flex items-center">
                 <LiaDollarSignSolid />
