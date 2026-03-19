@@ -1,22 +1,24 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import Container from "../Container";
 import allImages from "@/helper/imagesProvider";
 import Images from "../Images";
 import { navItems, quickLinks } from "@/helper/projectArrayObj";
-import Link from 'next/link';
+import Link from "next/link";
 import allIcons from "@/helper/iconProvider";
 const NavDownImg = "/assets/images/nav-dropImage.png";
 import Button from "../Button";
 import Login from "../../auth/Login";
 import AddToCart from "../../shopMain/addToCart/AddToCart";
 import NavTabs from "../../navtabs/NavTabs";
-
+import useCartStore from "@/store/cartSlice";
 const NavbarLg = () => {
   // for icon and images
   const { navLogo } = allImages;
   const { navIconItems, close } = allIcons;
-
+// add to cart korle aita diye data dhorbe
+const { cartItems } = useCartStore();
+const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   // for manage state
 
   const [hoverItems, setHoverITems] = useState(null);
@@ -223,7 +225,9 @@ const NavbarLg = () => {
                                       key={index}
                                       className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                     >
-                                      <Link href={items.link}>{items.name}</Link>
+                                      <Link href={items.link}>
+                                        {items.name}
+                                      </Link>
                                     </li>
                                   );
                                 },
@@ -318,7 +322,7 @@ const NavbarLg = () => {
                       className=" relative text-[22px] text-head "
                     >
                       <span className="absolute bg-third  w-[19px] h-[19px] flex  flex items-center justify-center text-xs font-medium text-white  rounded-full  bottom-[-10px] !right-[-8px]">
-                        {items.badge}
+                        {cartCount}
                       </span>
                       {items.icon}
                     </Link>
@@ -378,7 +382,9 @@ const NavbarLg = () => {
                                       key={items.id}
                                       className="texts_14_regular text-head  w-fit !leading-[35px] relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                     >
-                                      <Link href={items.link}>{items.name}</Link>
+                                      <Link href={items.link}>
+                                        {items.name}
+                                      </Link>
                                     </li>
                                   );
                                 })}
