@@ -2,8 +2,11 @@
 import React, { useState } from "react";
 import Images from "./Images";
 import { FaHeart } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
+import useCartStore from "@/store/cartSlice";
 
 const Product = ({
+  id,
   imgSrc,
   imgAlt,
   catagory,
@@ -12,21 +15,38 @@ const Product = ({
   discountPrice,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const router = useRouter();
+  const { addToCart } = useCartStore();
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // card click এ navigate হবে না
+    addToCart({
+      id,
+      name: itemName,
+      price: discountPrice ? Number(discountPrice) : Number(itemPrice),
+      image: imgSrc,
+      category: catagory,
+      quantity: 1,
+    });
+  };
+
   return (
     <>
-      <div className="lg:w-82.5 w-full relative group ">
+      <div
+        className="lg:w-82.5 w-full relative group cursor-pointer"
+        onClick={() => router.push(`/shop/${id}`)}
+      >
         <div className="relative overflow-hidden ">
-          <Images className={"w-full object-cover"} imgSrc={imgSrc} imgAlt={imgAlt}  />
+          <Images className={"w-full object-cover"} imgSrc={imgSrc} imgAlt={imgAlt} />
           {/* Badge Start */}
 
-          
-
           {/* Add To Cart Start */}
-
-          <button className="texts_14_medium text-head bg-white  w-full pt-4 pb-2.5 text-center absolute  bottom-4 left-1/2 -translate-x-1/2 translate-y-[50%] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer">
+          <button
+            onClick={handleAddToCart}
+            className="texts_14_medium text-head bg-white  w-full pt-4 pb-2.5 text-center absolute  bottom-4 left-1/2 -translate-x-1/2 translate-y-[50%] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer"
+          >
             ADD TO CART
           </button>
-
           {/* Add To Cart End*/}
         </div>
 
@@ -36,7 +56,7 @@ const Product = ({
             <p className="texts_14_regular text-second">{catagory}</p>
 
             <div
-              onClick={() => setIsLiked(!isLiked)}
+              onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
               className="cursor-pointer"
             >
               {isLiked ? (
