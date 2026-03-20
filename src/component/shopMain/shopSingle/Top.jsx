@@ -3,7 +3,7 @@ import Container from "@/component/common/Container";
 import Images from "@/component/common/Images";
 import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import { BsShare } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -16,22 +16,35 @@ import useCartStore from "@/store/cartSlice";
 const Top = ({ id }) => {
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const { data: product, isLoading } = useSingleProduct(id);
   const { addToCart } = useCartStore();
 
   const handleMinus = () => { if (count > 1) setCount(count - 1); };
   const handlePlus = () => { if (count < 10) setCount(count + 1); };
 
+  // discount price calculate
+  const discountedPrice = product?.discountPercentage > 0
+    ? (product.price - (product.price * product.discountPercentage) / 100)
+    : product?.price;
+
+  // count অনুযায়ী total price
+  const totalPrice = discountedPrice ? (discountedPrice * count).toFixed(2) : 0;
+
   const handleAddToCart = () => {
     if (!product) return;
     addToCart({
       id: product.id,
       name: product.title,
-      price: product.price,
+      price: discountedPrice,
       image: product.thumbnail,
       category: product.category,
       quantity: count,
     });
+    // popup দেখাও
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2500);
   };
 
   if (isLoading) {
@@ -54,7 +67,18 @@ const Top = ({ id }) => {
   const images = product?.images || [product?.thumbnail];
 
   return (
-    <div className="mt-[74px] mb-6 lg:mt-12.5 lg:mb-25">
+    <div className="mt-[74px] mb-6 lg:pt-12.5 lg:pb-25">
+      {/* Add to Cart Popup */}
+      {showPopup && (
+        <div className="fixed top-24 right-6 z-[9999] bg-head text-white px-6 py-4 shadow-lg flex items-center gap-3 transition-all duration-300">
+          <Images imgSrc={product?.thumbnail} className="w-12 h-12 object-cover" />
+          <div>
+            <p className="texts_14_medium">{product?.title}</p>
+            <p className="texts_13_regular">Added to cart ✓</p>
+          </div>
+        </div>
+      )}
+
       <Container>
         <div className="flex flex-col xl:flex-row gap-y-8 xl:gap-x-15">
           {/* Left Side: Images */}
@@ -72,7 +96,7 @@ const Top = ({ id }) => {
             </div>
 
             {/* Main Slider */}
-            <div className="w-full xl:w-[570px] relative group">
+            <div className="w-full xl:w-142.5 relative group">
               <Swiper
                 modules={[Navigation]}
                 navigation={{ nextEl: ".button-next-custom", prevEl: ".button-prev-custom" }}
@@ -106,9 +130,18 @@ const Top = ({ id }) => {
             <h3 className="text-xl xl:head_26_regular font-normal text-head">
               {product?.title}
             </h3>
-            <h4 className="text-[22px] font-medium text-head mt-2">
-              ${product?.price}
-            </h4>
+
+            {/* Price */}
+            <div className="mt-2">
+              {product?.discountPercentage > 0 ? (
+                <div className="flex items-center gap-2">
+                  <span className="line-through text-second text-[16px]">${product?.price}</span>
+                  <span className="text-[22px] font-medium text-head">${(discountedPrice * count).toFixed(2)}</span>
+                </div>
+              ) : (
+                <span className="text-[22px] font-medium text-head">${(product?.price * count).toFixed(2)}</span>
+              )}
+            </div>
 
             <p className="texts_14_regular text-head max-w-125 leading-6 pt-4 lg:pt-6.25">
               {product?.description}
@@ -116,10 +149,10 @@ const Top = ({ id }) => {
 
             {/* Buttons */}
             <div className="flex items-center gap-x-2.5 lg:gap-x-5 my-6 lg:my-8">
-              <div className="w-[100px] lg:w-[125px] h-12 lg:h-[60px] border border-[#e4e4e4] flex items-center justify-between px-3 lg:px-5 shrink-0">
-                <button onClick={handleMinus} className="cursor-pointer text-xl text-[#767676] hover:text-black transition-colors">-</button>
+              <div className="w-[100px] lg:w-[125px] h-12 lg:h-[60px] border border-footer flex items-center justify-between px-3 lg:px-5 shrink-0">
+                <button onClick={handleMinus} className="cursor-pointer text-xl text-second hover:text-black transition-colors">-</button>
                 <span className="text-head font-medium">{count}</span>
-                <button onClick={handlePlus} className="cursor-pointer text-xl text-[#767676] hover:text-black transition-colors">+</button>
+                <button onClick={handlePlus} className="cursor-pointer text-xl text-second hover:text-black transition-colors">+</button>
               </div>
               <button
                 onClick={handleAddToCart}
@@ -131,8 +164,16 @@ const Top = ({ id }) => {
 
             {/* Wishlist & Share */}
             <div className="flex gap-x-8 lg:pb-8">
-              <button className="text-head text-[13px] font-medium flex items-center gap-x-2 uppercase relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-[80%] after:border-b-2 after:border-head">
-                <FaRegHeart /> Add to wishlist
+              <button
+                onClick={() => setIsWishlisted(!isWishlisted)}
+                className="text-head text-[13px] font-medium flex items-center gap-x-2 uppercase relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-[80%] after:border-b-2 after:border-head"
+              >
+                {isWishlisted ? (
+                  <FaHeart className="text-red-500" />
+                ) : (
+                  <FaRegHeart />
+                )}
+                {isWishlisted ? "WISHLISTED" : "Add to wishlist"}
               </button>
               <button className="text-head text-[13px] font-medium flex items-center gap-x-2 uppercase">
                 <BsShare /> Share
