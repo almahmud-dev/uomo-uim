@@ -4,7 +4,6 @@ import Container from "@/component/common/Container";
 import React, { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 const blogImg = "/assets/images/blogImg.png";
-import mixitup from "mixitup";
 import { Progress } from "@/components/ui/progress";
 import Button from "../../common/Button";
 
@@ -21,8 +20,9 @@ const BlogList = () => {
 
   const containerRef = useRef(null);
   useEffect(() => {
-    if (containerRef.current) {
-      mixitup(containerRef.current, {
+  if (containerRef.current) {
+    import('mixitup').then((mixitup) => {
+      mixitup.default(containerRef.current, {
         animation: {
           duration: 400,
         },
@@ -30,11 +30,12 @@ const BlogList = () => {
           target: ".mix",
         },
       });
-    }
-  }, []);
+    });
+  }
+}, []);
 
   return (
-    <section className=" py-[50px]  lg:pt-[90px] mt-[85px] lg:pb-[98px]">
+    <section className=" py-12.5  lg:pt-22.5 pt-21.25 lg:pb-24.5">
       <Container>
         <h2 className="head_35_bold text-center md:text-start text-head pb-2.75 ">The Blog</h2>
         <div className="flex flex-wrap justify-center md:justify-start gap-5 md:gap-10 pb-9 md:pb-12.5">
@@ -89,7 +90,7 @@ const BlogList = () => {
         </div>
         <div
           ref={containerRef}
-          className="grid  grid-cols-1 lg:grid-cols-2 gap-[50px] lg:gap-7.5 pb-12.5"
+          className="grid  grid-cols-1 lg:grid-cols-2 gap-12.5 lg:gap-7.5 pb-12.5"
         >
           <div className="mix all company beauty">
             <Link href={"/elements/blog"}>
