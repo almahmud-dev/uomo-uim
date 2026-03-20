@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FiChevronLeft } from "react-icons/fi";
 import { IoStar } from "react-icons/io5";
 import Button from "./Button";
-import { useBlogStore } from "@/store/blogStore"; // ← Zustand store
+import { useBlogStore } from "@/store/blogStore"; // Zustand store
 import { useParams } from "next/navigation";
 
 const SingleBlog = () => {
@@ -22,7 +22,7 @@ const SingleBlog = () => {
 
   useEffect(() => {
     if (id) fetchArticleById(id);
-    return () => clearSelectedArticle(); // unmount এ clean করো
+    return () => clearSelectedArticle(); // unmount e clean kore
   }, [id]);
 
   const formatDate = (dateStr) => {
@@ -39,7 +39,7 @@ const SingleBlog = () => {
   // ── Loading ──
   if (detailLoading) {
     return (
-      <div className="mt-[85px] py-[60px] lg:pt-[85px] lg:pb-[110px]">
+      <div className="mt-21.25 py-15 lg:pt-21.25 lg:pb-27.5">
         <Container>
           <div className="lg:pl-60 animate-pulse">
             <div className="h-8 bg-gray-200 w-2/3 mb-4 rounded" />
@@ -59,7 +59,7 @@ const SingleBlog = () => {
   // ── Error ──
   if (detailError || !selectedArticle) {
     return (
-      <div className="mt-[85px] py-[60px] text-center">
+      <div className="mt-21.25 py-15 text-center">
         <p className="text-gray-500">Article not found.</p>
         <Link
           href="/elements/blog-posts"
@@ -74,7 +74,7 @@ const SingleBlog = () => {
   const article = selectedArticle;
 
   return (
-    <div className="mt-[85px] py-[60px] lg:pt-[85px] lg:pb-[110px]">
+    <div className="mt-21.25 py-15 lg:pt-21.25 lg:pb-27.5">
       <Container>
         {/* ── Title & Meta ── */}
         <div className="lg:pl-60">
@@ -94,7 +94,7 @@ const SingleBlog = () => {
 
         {/* ── Cover Image ── */}
         {(article.cover_image || article.social_image) && (
-          <div className="mb-6 lg:mb-12.5 h-[200px] w-full sm:h-full">
+          <div className="mb-6 lg:mb-12.5 h-50 w-full sm:h-full">
             <Images
               className="object-cover h-full w-full"
               imgSrc={article.cover_image || article.social_image}
@@ -121,13 +121,13 @@ const SingleBlog = () => {
           </p>
         </div>
 
-        {/* ── Share Buttons ── */}
+        {/* --- Share Buttons --- */}
         <div className="flex flex-wrap gap-2.5 lg:justify-center">
           <Link
             href={`https://www.facebook.com/sharer/sharer.php?u=${article.url}`}
             target="_blank"
           >
-            <div className="w-[220px] lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#306199] inline-block cursor-pointer">
+            <div className="w-55 lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#306199] inline-block cursor-pointer">
               <p className="texts_14_regular text-white">Share on Facebook</p>
             </div>
           </Link>
@@ -135,7 +135,7 @@ const SingleBlog = () => {
             href={`https://twitter.com/intent/tweet?url=${article.url}&text=${article.title}`}
             target="_blank"
           >
-            <div className="w-[220px] lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#26C4F1] inline-block cursor-pointer">
+            <div className="w-55 lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#26C4F1] inline-block cursor-pointer">
               <p className="texts_14_regular text-white">Share on Twitter</p>
             </div>
           </Link>
@@ -143,7 +143,7 @@ const SingleBlog = () => {
             href={`https://pinterest.com/pin/create/button/?url=${article.url}`}
             target="_blank"
           >
-            <div className="w-[220px] lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#E82B2D] inline-block cursor-pointer">
+            <div className="w-55 lg:w-auto pt-3.5 pb-3 pl-14.5 pr-12 bg-[#E82B2D] inline-block cursor-pointer">
               <p className="texts_14_regular text-white">Share on Pinterest</p>
             </div>
           </Link>
@@ -152,7 +152,7 @@ const SingleBlog = () => {
           </div>
         </div>
 
-        {/* ── Prev / Next ── */}
+        {/* --- Prev / Next --- */}
         <div className="max-w-232.5 mx-auto px-4 mt-12.5">
           <div className="flex justify-between gap-2 lg:gap-0 items-start border-t border-b border-[#E4E4E4] pt-11.25 pb-10.5 mb-12.5">
             <div>
@@ -175,7 +175,7 @@ const SingleBlog = () => {
             </div>
           </div>
 
-          {/* ── Reviews ── */}
+          {/* --- Reviews --- */}
           <h2 className="texts_18_medium text-head mb-6.5">Reviews</h2>
           {[1, 2].map((i) => (
             <div
@@ -206,7 +206,7 @@ const SingleBlog = () => {
             </div>
           ))}
 
-          {/* ── Review Form ── */}
+          {/* --- Review Form --- */}
           <div>
             <h3 className="texts_18_medium text-head mb-1">
               Be the first to review &quot;{article.title}&quot;
