@@ -28,7 +28,7 @@ const CollectionSlider = ({
   });
 
   const NavButton = ({ className, icon }) => (
-    <button className={`${className} absolute top-1/2 -translate-y-1/2 h-[40px] w-[40px] border border-footer rounded-full flex justify-center items-center bg-white z-10 cursor-pointer`}>
+    <button className={`${className} absolute top-1/2 -translate-y-1/2 h-10 w-10 border border-footer rounded-full flex justify-center items-center bg-white z-10 cursor-pointer`}>
       <span className="text-xl text-gray_00">{icon}</span>
     </button>
   );
@@ -88,8 +88,8 @@ const CollectionSlider = ({
       <div className="mt-10">
         {/* Desktop */}
         <div className="relative hidden lg:block">
-          <NavButton className={`${prevButton} left-[-25px]`} icon={chevron[0].icon} />
-          <NavButton className={`${nextButton} right-[-25px]`} icon={chevron[1].icon} />
+          <NavButton className={`${prevButton} -left-6.25`} icon={chevron[0].icon} />
+          <NavButton className={`${nextButton} -right-6.25`} icon={chevron[1].icon} />
           <Swiper {...swiperConfig(prevButton, nextButton, 4)}>
             {renderSlides()}
           </Swiper>
@@ -97,8 +97,8 @@ const CollectionSlider = ({
 
         {/* Tablet */}
         <div className="relative lg:hidden md:block hidden">
-          <NavButton className={`${prevButton} left-[-15px]`} icon={chevron[0].icon} />
-          <NavButton className={`${nextButton} right-[-15px]`} icon={chevron[1].icon} />
+          <NavButton className={`${prevButton} -left-3.75`} icon={chevron[0].icon} />
+          <NavButton className={`${nextButton} -right-3.75`} icon={chevron[1].icon} />
           <Swiper {...swiperConfig(prevButton, nextButton, 3)}>
             {renderSlides()}
           </Swiper>
@@ -106,8 +106,8 @@ const CollectionSlider = ({
 
         {/* Mobile */}
         <div className="relative block md:hidden">
-          <NavButton className={`${prevButton} left-[-10px]`} icon={chevron[0].icon} />
-          <NavButton className={`${nextButton} right-[-10px]`} icon={chevron[1].icon} />
+          <NavButton className={`${prevButton} -left-2.5`} icon={chevron[0].icon} />
+          <NavButton className={`${nextButton} -right-2.5`} icon={chevron[1].icon} />
           <Swiper {...swiperConfig(prevButton, nextButton, 2)}>
             {renderSlides()}
           </Swiper>
