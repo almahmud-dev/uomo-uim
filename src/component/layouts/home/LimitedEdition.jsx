@@ -11,7 +11,7 @@ import useAllProduct from "@/coustomHook/useAllProduct";
 const LimitedEdition = () => {
   const { chevron } = allIcons;
   const swiperRef = useRef(null);
-  const { data, isLoading } = useAllProduct(10);
+  const { data, isLoading } = useAllProduct(20, 30);
   const products = data?.products || [];
 
   const swiperConfig = (prevClass, nextClass, slides) => ({
@@ -45,7 +45,7 @@ const LimitedEdition = () => {
 
   const NavButton = ({ className, icon }) => (
     <button
-      className={`${className} absolute top-[50%] -translate-y-1/2 h-[35px] w-[35px] border border-footer rounded-full flex justify-center items-center bg-white z-10 cursor-pointer`}
+      className={`${className} absolute top-[50%] -translate-y-1/2 h-8.75 w-8.75 border border-footer rounded-full flex justify-center items-center bg-white z-10 cursor-pointer`}
     >
       <span className="text-xl text-second">{icon}</span>
     </button>
