@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useEffect } from "react";
 import Container from "./Container";
 import Images from "./Images";
@@ -61,7 +61,10 @@ const SingleBlog = () => {
     return (
       <div className="mt-[85px] py-[60px] text-center">
         <p className="text-gray-500">Article not found.</p>
-        <Link href="/elements/blog-posts" className="text-sm underline mt-4 inline-block">
+        <Link
+          href="/elements/blog-posts"
+          className="text-sm underline mt-4 inline-block"
+        >
           ← Back to Blog
         </Link>
       </div>
@@ -73,7 +76,6 @@ const SingleBlog = () => {
   return (
     <div className="mt-[85px] py-[60px] lg:pt-[85px] lg:pb-[110px]">
       <Container>
-
         {/* ── Title & Meta ── */}
         <div className="lg:pl-60">
           <h2 className="head_35_bold text-head">{article.title}</h2>
@@ -114,7 +116,8 @@ const SingleBlog = () => {
           )}
 
           <p className="texts_14_regular text-head max-w-232.5 mb-12.5">
-            {article.readable_publish_date} · {article.reading_time_minutes} min read
+            {article.readable_publish_date} · {article.reading_time_minutes} min
+            read
           </p>
         </div>
 
@@ -184,10 +187,14 @@ const SingleBlog = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="texts_14_regular text-head">Janice Miller</p>
-                    <p className="texts_14_regular text-second">April 06, 2020</p>
+                    <p className="texts_14_regular text-second">
+                      April 06, 2020
+                    </p>
                   </div>
                   <div className="flex gap-1.25 text-[#EEBA36]">
-                    {[...Array(5)].map((_, j) => <IoStar key={j} />)}
+                    {[...Array(5)].map((_, j) => (
+                      <IoStar key={j} />
+                    ))}
                   </div>
                 </div>
                 <p className="texts_14_regular text-second max-w-210 mt-5">
@@ -205,18 +212,25 @@ const SingleBlog = () => {
               Be the first to review &quot;{article.title}&quot;
             </h3>
             <p className="texts_14_regular text-head mb-7.5">
-              Your email address will not be published. Required fields are marked *
+              Your email address will not be published. Required fields are
+              marked *
             </p>
             <div className="flex items-center gap-4.5 mb-4">
-              <label className="texts_14_regular text-head">Your rating *</label>
+              <label className="texts_14_regular text-head">
+                Your rating *
+              </label>
               <div className="flex gap-1.25 text-[#EEBA36]">
-                {[...Array(5)].map((_, j) => <IoStar key={j} size={13} />)}
+                {[...Array(5)].map((_, j) => (
+                  <IoStar key={j} size={13} />
+                ))}
               </div>
             </div>
             <div className="space-y-7.5">
               <div className="textarea-container w-full">
                 <textarea id="message" placeholder=" " className="textarea" />
-                <label htmlFor="message" className="textarea-label">ADD REVIEW</label>
+                <label htmlFor="message" className="textarea-label">
+                  ADD REVIEW
+                </label>
               </div>
               <div className="input-container w-full">
                 <input type="text" placeholder=" " className="input" />
@@ -230,7 +244,8 @@ const SingleBlog = () => {
             <div className="flex items-center gap-2.75 mt-7.5">
               <input className="text-second" type="checkbox" />
               <p className="texts_14_regular text-second">
-                Save my name, email, and website in this browser for the next time I comment.
+                Save my name, email, and website in this browser for the next
+                time I comment.
               </p>
             </div>
             <Button

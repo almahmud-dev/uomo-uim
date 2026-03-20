@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Blog from "@/component/common/Blog";
 import Container from "@/component/common/Container";
 import React, { useEffect } from "react";
@@ -20,7 +20,7 @@ const BlogList = () => {
     loadMore,
   } = useBlogStore();
 
-  // প্রথমবার mount হলে data আনো (articles খালি থাকলে)
+  // FirstTIme mount hole data anbe & (articles kahli kore dibe)
   useEffect(() => {
     if (articles.length === 0) {
       fetchArticles(1, activeTag);
@@ -28,7 +28,7 @@ const BlogList = () => {
   }, []);
 
   const visibleItems = articles.length;
-  const percentage   = Math.min((visibleItems / total) * 100, 100);
+  const percentage = Math.min((visibleItems / total) * 100, 100);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
@@ -68,7 +68,7 @@ const BlogList = () => {
           ))}
         </div>
 
-        {/* ── Skeleton Loader (প্রথমবার) ── */}
+        {/* ── Skeleton Loader (FirstTime) ── */}
         {loading && articles.length === 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12.5 lg:gap-7.5 pb-12.5">
             {[...Array(4)].map((_, i) => (

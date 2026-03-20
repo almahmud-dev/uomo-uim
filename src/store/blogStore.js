@@ -21,7 +21,7 @@ export const useBlogStore = create((set, get) => ({
   loading: false,
   hasMore: true,
   total: 100,
-  selectedArticle: null,  // single blog detail
+  selectedArticle: null, // single blog detail
   detailLoading: false,
   detailError: null,
 
@@ -29,9 +29,9 @@ export const useBlogStore = create((set, get) => ({
 
   // ─── Actions ─────────────────────────────────────────
 
-  // Tag filter change → reset করে নতুন data আনো
+  // Tag filter change kore reset kore new data anbe
   setActiveTag: async (tag) => {
-    // একই tag বার বার click করলে কিছু করব না
+    // ekoi tag bar bar click korle kichu e hobe na
     if (get().activeTag === tag) return;
 
     set({ activeTag: tag, articles: [], page: 1, hasMore: true });
@@ -91,6 +91,6 @@ export const useBlogStore = create((set, get) => ({
     }
   },
 
-  // Detail page থেকে বের হলে clear করো
+  // Detail page theke ber hole clear korar jonno:
   clearSelectedArticle: () => set({ selectedArticle: null }),
 }));
