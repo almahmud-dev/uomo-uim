@@ -72,7 +72,7 @@ const Top = ({ id }) => {
   const images = product?.images || [product?.thumbnail];
 
   return (
-    <div className="pt-18.5 pb-6 lg:pt-12.5 lg:pb-25">
+    <div className="pt-18.5 pb-6 lg:pt-31.25 lg:pb-25">
       {/* Add to Cart Popup */}
       {showPopup && (
         <div className="fixed top-24 right-6 z-9999 bg-head text-white px-6 py-4 shadow-lg flex items-center gap-3 transition-all duration-300">
