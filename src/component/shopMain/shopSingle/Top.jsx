@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Container from "@/component/common/Container";
 import Images from "@/component/common/Images";
 import { MdNavigateNext } from "react-icons/md";
@@ -21,15 +21,20 @@ const Top = ({ id }) => {
   const { data: product, isLoading } = useSingleProduct(id);
   const { addToCart } = useCartStore();
 
-  const handleMinus = () => { if (count > 1) setCount(count - 1); };
-  const handlePlus = () => { if (count < 10) setCount(count + 1); };
+  const handleMinus = () => {
+    if (count > 1) setCount(count - 1);
+  };
+  const handlePlus = () => {
+    if (count < 10) setCount(count + 1);
+  };
 
   // discount price calculate
-  const discountedPrice = product?.discountPercentage > 0
-    ? (product.price - (product.price * product.discountPercentage) / 100)
-    : product?.price;
+  const discountedPrice =
+    product?.discountPercentage > 0
+      ? product.price - (product.price * product.discountPercentage) / 100
+      : product?.price;
 
-  // count অনুযায়ী total price
+  // count onujayi total price
   const totalPrice = discountedPrice ? (discountedPrice * count).toFixed(2) : 0;
 
   const handleAddToCart = () => {
@@ -42,7 +47,7 @@ const Top = ({ id }) => {
       category: product.category,
       quantity: count,
     });
-    // popup দেখাও
+    // popup dekhabe
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2500);
   };
@@ -52,7 +57,7 @@ const Top = ({ id }) => {
       <div className="mt-12.5 mb-25">
         <Container>
           <div className="animate-pulse flex gap-15">
-            <div className="bg-gray-200 h-[500px] w-[570px]" />
+            <div className="bg-gray-200 h-125 w-142.5" />
             <div className="flex-1 flex flex-col gap-4">
               <div className="bg-gray-200 h-8 w-3/4" />
               <div className="bg-gray-200 h-6 w-1/4" />
@@ -67,11 +72,14 @@ const Top = ({ id }) => {
   const images = product?.images || [product?.thumbnail];
 
   return (
-    <div className="mt-[74px] mb-6 lg:pt-12.5 lg:pb-25">
+    <div className="pt-18.5 pb-6 lg:pt-12.5 lg:pb-25">
       {/* Add to Cart Popup */}
       {showPopup && (
-        <div className="fixed top-24 right-6 z-[9999] bg-head text-white px-6 py-4 shadow-lg flex items-center gap-3 transition-all duration-300">
-          <Images imgSrc={product?.thumbnail} className="w-12 h-12 object-cover" />
+        <div className="fixed top-24 right-6 z-9999 bg-head text-white px-6 py-4 shadow-lg flex items-center gap-3 transition-all duration-300">
+          <Images
+            imgSrc={product?.thumbnail}
+            className="w-12 h-12 object-cover"
+          />
           <div>
             <p className="texts_14_medium">{product?.title}</p>
             <p className="texts_13_regular">Added to cart ✓</p>
@@ -87,7 +95,7 @@ const Top = ({ id }) => {
               {images.map((img, i) => (
                 <div
                   key={i}
-                  className={`min-w-[80px] xl:w-auto cursor-pointer border-2 ${activeImg === i ? "border-head" : "border-transparent"}`}
+                  className={`min-w-20 xl:w-auto cursor-pointer border-2 ${activeImg === i ? "border-head" : "border-transparent"}`}
                   onClick={() => setActiveImg(i)}
                 >
                   <Images imgSrc={img} className="w-20 h-20 object-cover" />
@@ -99,14 +107,23 @@ const Top = ({ id }) => {
             <div className="w-full xl:w-142.5 relative group">
               <Swiper
                 modules={[Navigation]}
-                navigation={{ nextEl: ".button-next-custom", prevEl: ".button-prev-custom" }}
+                navigation={{
+                  nextEl: ".button-next-custom",
+                  prevEl: ".button-prev-custom",
+                }}
                 spaceBetween={10}
                 slidesPerView={1}
                 className="w-full h-auto"
               >
                 {images.map((img, index) => (
-                  <SwiperSlide key={index} className="relative flex justify-center items-center bg-[#F5F5F5]">
-                    <Images imgSrc={img} className="w-full h-auto object-contain" />
+                  <SwiperSlide
+                    key={index}
+                    className="relative flex justify-center items-center bg-[#F5F5F5]"
+                  >
+                    <Images
+                      imgSrc={img}
+                      className="w-full h-auto object-contain"
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -135,11 +152,17 @@ const Top = ({ id }) => {
             <div className="mt-2">
               {product?.discountPercentage > 0 ? (
                 <div className="flex items-center gap-2">
-                  <span className="line-through text-second text-[16px]">${product?.price}</span>
-                  <span className="text-[22px] font-medium text-head">${(discountedPrice * count).toFixed(2)}</span>
+                  <span className="line-through text-second text-[16px]">
+                    ${product?.price}
+                  </span>
+                  <span className="text-[22px] font-medium text-head">
+                    ${(discountedPrice * count).toFixed(2)}
+                  </span>
                 </div>
               ) : (
-                <span className="text-[22px] font-medium text-head">${(product?.price * count).toFixed(2)}</span>
+                <span className="text-[22px] font-medium text-head">
+                  ${(product?.price * count).toFixed(2)}
+                </span>
               )}
             </div>
 
@@ -149,14 +172,24 @@ const Top = ({ id }) => {
 
             {/* Buttons */}
             <div className="flex items-center gap-x-2.5 lg:gap-x-5 my-6 lg:my-8">
-              <div className="w-[100px] lg:w-[125px] h-12 lg:h-[60px] border border-footer flex items-center justify-between px-3 lg:px-5 shrink-0">
-                <button onClick={handleMinus} className="cursor-pointer text-xl text-second hover:text-black transition-colors">-</button>
+              <div className="w-25 lg:w-31.25 h-12 lg:h-15 border border-footer flex items-center justify-between px-3 lg:px-5 shrink-0">
+                <button
+                  onClick={handleMinus}
+                  className="cursor-pointer text-xl text-second hover:text-black transition-colors"
+                >
+                  -
+                </button>
                 <span className="text-head font-medium">{count}</span>
-                <button onClick={handlePlus} className="cursor-pointer text-xl text-second hover:text-black transition-colors">+</button>
+                <button
+                  onClick={handlePlus}
+                  className="cursor-pointer text-xl text-second hover:text-black transition-colors"
+                >
+                  +
+                </button>
               </div>
               <button
                 onClick={handleAddToCart}
-                className="h-12 lg:w-[280px] lg:h-[60px] bg-head text-white text-[12px] lg:texts_14_medium tracking-widest cursor-pointer uppercase px-10 lg:px-0"
+                className="h-12 lg:w-70 lg:h-15 bg-head text-white text-[12px] lg:texts_14_medium tracking-widest cursor-pointer uppercase px-10 lg:px-0"
               >
                 ADD TO CART
               </button>
@@ -182,10 +215,19 @@ const Top = ({ id }) => {
 
             {/* Meta */}
             <div className="space-y-1 mt-8">
-              <h5 className="texts_13_regular text-[#767676]">SKU: <span className="text-head">{product?.sku || "N/A"}</span></h5>
-              <h5 className="texts_13_regular text-[#767676]">Category: <span className="text-head">{product?.category}</span></h5>
-              <h5 className="texts_13_regular text-[#767676]">Brand: <span className="text-head">{product?.brand || "N/A"}</span></h5>
-              <h5 className="texts_13_regular text-[#767676]">Rating: <span className="text-head">⭐ {product?.rating}</span></h5>
+              <h5 className="texts_13_regular text-second">
+                SKU: <span className="text-head">{product?.sku || "N/A"}</span>
+              </h5>
+              <h5 className="texts_13_regular text-second">
+                Category: <span className="text-head">{product?.category}</span>
+              </h5>
+              <h5 className="texts_13_regular text-second">
+                Brand:{" "}
+                <span className="text-head">{product?.brand || "N/A"}</span>
+              </h5>
+              <h5 className="texts_13_regular text-second">
+                Rating: <span className="text-head">⭐ {product?.rating}</span>
+              </h5>
             </div>
           </div>
         </div>
