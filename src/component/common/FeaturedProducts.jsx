@@ -11,16 +11,16 @@ const FeaturedProducts = ({ imgSrc, imgAlt, price, category }) => {
         imgAlt={imgAlt}
         className="w-full h-full object-cover"
       />
-      <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-500 ease-in-out"></div>
+      <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"></div>
       <div className="absolute bottom-10 left-10">
-        <p className="texts_14_regular text-head group-hover:text-white transition-color duration-500">
+        <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
           {price}
         </p>
-        <h3 className="head_26_medium text-head group-hover:text-white transition-color duration-500 pb-1.25">
+        <h3 className="head_26_medium text-head group-hover:text-white transition-colors duration-700 pb-1.25">
           {category}
         </h3>
         <Button
-          className="hover:after:w-12.5 group-hover:after:bg-white group-hover:text-white transition-color duration-500"
+          className="hover:after:w-12.5 group-hover:after:bg-white group-hover:text-white transition-colors duration-700"
           btnText="SHOP NOW"
         />
       </div>

@@ -48,14 +48,14 @@ const LookBook = () => {
               category={p2?.title}
             />
           </div>
-          <div className="relative group w-full overflow-hidden hover:bg-red">
-            <Images imgSrc={p3?.thumbnail} className="w-full object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-500 ease-in-out"></div>
+          <div className="relative group w-full overflow-hidden hover:bg-red h-[300px] lg:h-[715px]">
+            <Images imgSrc={p3?.thumbnail} className="w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"></div>
             <div className="absolute bottom-10 left-10">
-              <p className="texts_14_regular text-head group-hover:text-white transition-color duration-500">
+              <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
                 STARTING AT ${p3?.price}
               </p>
-              <h3 className="head_26_medium text-head group-hover:text-white transition-color duration-500 pb-1.25">
+              <h3 className="head_26_medium text-head group-hover:text-white transition-colors duration-700 pb-1.25">
                 {p3?.title}
               </h3>
             </div>
@@ -64,14 +64,14 @@ const LookBook = () => {
 
         {/* Bottom */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7.5 mt-7.5">
-          <div className="relative group overflow-hidden w-full hover:bg-red">
-            <Images imgSrc={p4?.thumbnail} className="w-full object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-500 ease-in-out"></div>
+          <div className="relative group overflow-hidden w-full hover:bg-red h-[300px] lg:h-[715px]">
+            <Images imgSrc={p4?.thumbnail} className="w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"></div>
             <div className="absolute bottom-10 left-10">
-              <p className="texts_14_regular text-head group-hover:text-white transition-color duration-500">
+              <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
                 STARTING AT ${p4?.price}
               </p>
-              <h3 className="head_26_medium text-head group-hover:text-white transition-color duration-500 pb-1.25">
+              <h3 className="head_26_medium text-head group-hover:text-white transition-colors duration-700 pb-1.25">
                 {p4?.title}
               </h3>
             </div>
