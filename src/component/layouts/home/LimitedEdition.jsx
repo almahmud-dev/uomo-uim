@@ -53,7 +53,7 @@ const LimitedEdition = () => {
 
   if (isLoading) {
     return (
-      <section className="mt-[37px] lg:mt-22.75">
+      <section className="pt-9.25 lg:mt-22.75">
         <Container>
           <div className="text-center">
             <h2 className="head_35_regular text-head">
@@ -71,7 +71,7 @@ const LimitedEdition = () => {
   }
 
   return (
-    <section className="mt-[37px] lg:mt-22.75">
+    <section className="pt-9.25 lg:pt-22.75">
       <Container>
         <div className="text-center">
           <h2 className="head_35_regular text-head">
@@ -81,8 +81,8 @@ const LimitedEdition = () => {
 
         {/* Desktop — lg */}
         <div className="hidden lg:block mt-8.25 relative">
-          <NavButton className="lg-swiper-button-prev left-[-10px]" icon={chevron[0].icon} />
-          <NavButton className="lg-swiper-button-next right-[-10px]" icon={chevron[1].icon} />
+          <NavButton className="lg-swiper-button-prev -left-2.5" icon={chevron[0].icon} />
+          <NavButton className="lg-swiper-button-next -right-2.5" icon={chevron[1].icon} />
           <Swiper {...swiperConfig("lg-swiper-button-prev", "lg-swiper-button-next", 4)}>
             {renderSlides()}
           </Swiper>
@@ -90,8 +90,8 @@ const LimitedEdition = () => {
 
         {/* Tablet — md */}
         <div className="hidden md:block lg:hidden mt-5 relative">
-          <NavButton className="md-swiper-button-prev left-[-10px]" icon={chevron[0].icon} />
-          <NavButton className="md-swiper-button-next right-[-10px]" icon={chevron[1].icon} />
+          <NavButton className="md-swiper-button-prev -left-2.5" icon={chevron[0].icon} />
+          <NavButton className="md-swiper-button-next -right-2.5" icon={chevron[1].icon} />
           <Swiper {...swiperConfig("md-swiper-button-prev", "md-swiper-button-next", 3)}>
             {renderSlides()}
           </Swiper>
@@ -99,8 +99,8 @@ const LimitedEdition = () => {
 
         {/* Mobile — xs */}
         <div className="block md:hidden mt-3 relative">
-          <NavButton className="xs-swiper-button-prev left-[-10px]" icon={chevron[0].icon} />
-          <NavButton className="xs-swiper-button-next right-[-10px]" icon={chevron[1].icon} />
+          <NavButton className="xs-swiper-button-prev -left-2.5" icon={chevron[0].icon} />
+          <NavButton className="xs-swiper-button-next -right-2.5" icon={chevron[1].icon} />
           <Swiper {...swiperConfig("xs-swiper-button-prev", "xs-swiper-button-next", 2)} className="z-0">
             {renderSlides()}
           </Swiper>
