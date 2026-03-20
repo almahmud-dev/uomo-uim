@@ -17,7 +17,7 @@ const ShopFilter = () => {
         <div className="w-105 bg-white h-full shadow-lg overflow-y-auto ">
           <div className="flex justify-between items-center mb-8 bg-footer pt-8.25 pb-6.5 pl-10 pr-10">
             <h3 className='texts_16_medium text-head uppercase'>Filter By</h3>
-            <button class="text-head texts_16_medium ">✕</button>
+            <button className="text-head texts_16_medium ">✕</button>
           </div>
           {/* Categories */}
           <div className="pl-10 pt-9.5 pr-10 pb-4 mb-4">

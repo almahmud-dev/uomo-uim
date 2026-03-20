@@ -1,6 +1,6 @@
-'use client';
+"use client";
 import React, { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import Container from "@/component/common/Container";
 import { shopList1 } from "@/helper/projectArrayObj";
 import allIcons from "@/helper/iconProvider";
@@ -55,16 +55,35 @@ const ShopBanner = () => {
             <p className="text-head texts_14_medium">HOME / THE SHOP</p>
             <div className="flex items-center gap-x-7.5">
               <select className="border-b-2 border-head">
-                <option className="text-head texts_14_medium" value="default">Default Sorting</option>
-                <option className="text-head texts_14_medium" value="popularity">Popularity</option>
-                <option className="text-head texts_14_medium" value="rating">Average Rating</option>
-                <option className="text-head texts_14_medium" value="latest">Latest</option>
-                <option className="text-head texts_14_medium" value="price-low">Price: Low to High</option>
-                <option className="text-head texts_14_medium" value="price-high">Price: High to Low</option>
+                <option className="text-head texts_14_medium" value="default">
+                  Default Sorting
+                </option>
+                <option
+                  className="text-head texts_14_medium"
+                  value="popularity"
+                >
+                  Popularity
+                </option>
+                <option className="text-head texts_14_medium" value="rating">
+                  Average Rating
+                </option>
+                <option className="text-head texts_14_medium" value="latest">
+                  Latest
+                </option>
+                <option className="text-head texts_14_medium" value="price-low">
+                  Price: Low to High
+                </option>
+                <option
+                  className="text-head texts_14_medium"
+                  value="price-high"
+                >
+                  Price: High to Low
+                </option>
               </select>
               <div className="h-6 w-0.5 bg-gray-300 cursor-pointer"></div>
               <div className="flex justify-between items-center gap-x-3 cursor-pointer">
                 <button className="texts_14_medium text-head">VIEW</button>
+                <button className="texts_14_medium text-head">1</button>
                 <button className="texts_14_medium text-head">2</button>
                 <button className="texts_14_medium text-head">3</button>
                 <button className="texts_14_medium text-head">4</button>
@@ -79,7 +98,10 @@ const ShopBanner = () => {
             {isLoading ? (
               <div className="pt-10 pb-12.5 grid grid-cols-4 gap-7.5">
                 {[...Array(16)].map((_, i) => (
-                  <div key={i} className="animate-pulse bg-gray-200 h-80 w-full" />
+                  <div
+                    key={i}
+                    className="animate-pulse bg-gray-200 h-80 w-full"
+                  />
                 ))}
               </div>
             ) : (
@@ -95,7 +117,10 @@ const ShopBanner = () => {
                     itemPrice={product.price}
                     discountPrice={
                       product.discountPercentage > 0
-                        ? (product.price - (product.price * product.discountPercentage) / 100).toFixed(2)
+                        ? (
+                            product.price -
+                            (product.price * product.discountPercentage) / 100
+                          ).toFixed(2)
                         : null
                     }
                   />
@@ -114,7 +139,9 @@ const ShopBanner = () => {
               {visibleCount < total && (
                 <button onClick={handleLoadMore}>
                   <Button
-                    className={"texts_14_medium text-black hover:after:w-15 pt-4.25"}
+                    className={
+                      "texts_14_medium text-black hover:after:w-15 pt-4.25"
+                    }
                     btnText={"SHOW MORE"}
                   />
                 </button>
