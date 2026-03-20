@@ -8,8 +8,6 @@ const useCartStore = create(
 
       addToCart: (item) => set((state) => {
         const existing = state.cartItems.find((i) => i.id === item.id);
-        console.log("existing:", existing);
-  console.log("item.id:", item.id); 
         if (existing) {
           return {
             cartItems: state.cartItems.map((i) =>
@@ -40,6 +38,8 @@ const useCartStore = create(
     }),
     {
       name: 'cart-storage',
+      version: 2,
+      migrate: () => ({ cartItems: [] }),
     }
   )
 )

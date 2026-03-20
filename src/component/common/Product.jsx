@@ -19,7 +19,8 @@ const Product = ({
   const { addToCart } = useCartStore();
 
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // card click এ navigate হবে না
+    e.stopPropagation();
+    console.log("Adding to cart:", id);
     addToCart({
       id,
       name: itemName,
