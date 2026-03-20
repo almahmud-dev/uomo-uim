@@ -29,7 +29,7 @@ const NavTabs = ({ unMount }) => {
   }, [unMount]);
 
   return (
-    <div className="fixed inset-0 z-[999] flex">
+    <div className="fixed inset-0 z-999 flex">
       {/* Left — image */}
       <div className="w-[50%]">
         <Images
@@ -52,12 +52,12 @@ const NavTabs = ({ unMount }) => {
         </div>
 
         {/* Tabs — WOMEN / MEN / KIDS */}
-        <div className="flex gap-x-[26px] px-14 pt-6 mb-10">
+        <div className="flex gap-x-6.5 px-14 pt-6 mb-10">
           {navTabsData.map((item, index) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(index)}
-              className={`texts_14_medium tracking-wider px-5 py-2 transition-all duration-200  rounded-[4px] ${
+              className={`texts_14_medium tracking-wider px-5 py-2 transition-all duration-200  rounded-lg ${
                 activeTab === index
                   ? "bg-head text-white"
                   : "text-head hover:bg-secondbg"
@@ -69,9 +69,9 @@ const NavTabs = ({ unMount }) => {
         </div>
 
         {/* Content */}
-        <div className="flex gap-x-[160px] px-14 overflow-y-auto">
+        <div className="flex gap-x-40 px-14 overflow-y-auto">
           {/* Categories */}
-          <ul className="flex flex-col   min-w-[220px]">
+          <ul className="flex flex-col   min-w-55">
             {currentData.categories.map((cat) => (
               <li key={cat.id} className="relative">
                 <Link
@@ -84,19 +84,19 @@ const NavTabs = ({ unMount }) => {
                 </Link>
                 {/* Active underline — long line */}
                 {cat.isActive && (
-                  <span className="absolute top-1/2 translate-[-50%] left-full w-[80%] h-[2px] bg-head" />
+                  <span className="absolute top-1/2 translate-[-50%] left-full w-[80%] h-0.5 bg-head" />
                 )}
               </li>
             ))}
           </ul>
 
           {/* Sub Links */}
-          <ul className="flex flex-col gap-y-4 mt-[17px]">
+          <ul className="flex flex-col gap-y-4 mt-4.25">
             {currentData.subLinks.map((sub) => (
               <li key={sub.id}>
                 <Link
                   href={sub.link}
-                  className="texts_14_regular text-head relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[-5px] after:left-0 hover:after:w-[60%]  after:duration-500 after:ease-in-out"
+                  className="texts_14_regular text-head relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:-bottom-1.25 after:left-0 hover:after:w-[60%]  after:duration-500 after:ease-in-out"
                 >
                   {sub.name}
                 </Link>
