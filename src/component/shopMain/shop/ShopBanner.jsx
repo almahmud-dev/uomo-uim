@@ -13,11 +13,20 @@ import useAllProduct from "@/coustomHook/useAllProduct";
 const ShopBanner = () => {
   const [skip, setSkip] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
-const [cols, setCols] = useState(4);
+  const [cols, setCols] = useState(4);
+  const [sortBy, setSortBy] = useState("default");
   const limit = 16;
 
   const { data, isLoading } = useAllProduct(limit, skip);
-  const products = data?.products || [];
+  // Products sort korar jonno (Default Sorting) aita theke
+  const rawProducts = data?.products || [];
+  const products = [...rawProducts].sort((a, b) => {
+    if (sortBy === "price-low") return a.price - b.price;
+    if (sortBy === "price-high") return b.price - a.price;
+    if (sortBy === "rating") return b.rating - a.rating;
+    if (sortBy === "latest") return b.id - a.id;
+    return 0;
+  });
   const total = data?.total || 0;
   const visibleCount = skip + products.length;
   const percentage = total > 0 ? (visibleCount / total) * 100 : 0;
@@ -56,7 +65,7 @@ const [cols, setCols] = useState(4);
           <div className="flex justify-between">
             <p className="text-head texts_14_medium">HOME / THE SHOP</p>
             <div className="flex items-center gap-x-7.5">
-              <select className="border-b-2 border-head">
+              <select onChange={(e) => setSortBy(e.target.value)} className="border-b-2 border-head cursor-pointer bg-transparent outline-none texts_14_medium text-head px-2 appearance-none pr-6">
                 <option className="text-head texts_14_medium" value="default">
                   Default Sorting
                 </option>
@@ -85,12 +94,35 @@ const [cols, setCols] = useState(4);
               <div className="h-6 w-0.5 bg-gray-300 cursor-pointer"></div>
               <div className="flex justify-between items-center gap-x-3 cursor-pointer">
                 <button className="texts_14_medium text-head">VIEW</button>
-                <button onClick={() => setCols(1)} className="texts_14_medium text-head">1</button>
-                <button onClick={() => setCols(2)} className="texts_14_medium text-head">2</button>
-                <button onClick={() => setCols(3)} className="texts_14_medium text-head">3</button>
-                <button onClick={() => setCols(4)} className="texts_14_medium text-head">4</button>
+                <button
+                  onClick={() => setCols(1)}
+                  className="texts_14_medium text-head"
+                >
+                  1
+                </button>
+                <button
+                  onClick={() => setCols(2)}
+                  className="texts_14_medium text-head"
+                >
+                  2
+                </button>
+                <button
+                  onClick={() => setCols(3)}
+                  className="texts_14_medium text-head"
+                >
+                  3
+                </button>
+                <button
+                  onClick={() => setCols(4)}
+                  className="texts_14_medium text-head"
+                >
+                  4
+                </button>
               </div>
-              <button onClick={() => setFilterOpen(true)} className="border-l-2 pl-7.5 border-footer texts_14_medium text-head flex items-center gap-x-2.5 cursor-pointer">
+              <button
+                onClick={() => setFilterOpen(true)}
+                className="border-l-2 pl-7.5 border-footer texts_14_medium text-head flex items-center gap-x-2.5 cursor-pointer"
+              >
                 <span className="text-lg">{filter}</span> FILTER
               </button>
             </div>
@@ -151,7 +183,7 @@ const [cols, setCols] = useState(4);
             </div>
           </div>
         </Container>
-        <ShopFilter isOpen={filterOpen} onClose={() => setFilterOpen(false)}/>
+        <ShopFilter isOpen={filterOpen} onClose={() => setFilterOpen(false)} />
       </div>
     </section>
   );
