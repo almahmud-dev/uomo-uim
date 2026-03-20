@@ -12,6 +12,8 @@ import useAllProduct from "@/coustomHook/useAllProduct";
 
 const ShopBanner = () => {
   const [skip, setSkip] = useState(0);
+  const [filterOpen, setFilterOpen] = useState(false);
+const [cols, setCols] = useState(4);
   const limit = 16;
 
   const { data, isLoading } = useAllProduct(limit, skip);
@@ -28,7 +30,7 @@ const ShopBanner = () => {
 
   return (
     <section>
-      <div className="bg-[url('/assets/images/ShopBannerBg.png')] py-33.75 mx-15 bg-no-repeat bg-cover bg-center relative mt-[75px]">
+      <div className="bg-[url('/assets/images/ShopBannerBg.png')] py-33.75 mx-15 bg-no-repeat bg-cover bg-center relative pt-18.75">
         <Container>
           <div className="">
             <h3 className="font-bold text-[90px] uppercase tracking-wide text-[#efefef] bg-transparent">
@@ -39,7 +41,7 @@ const ShopBanner = () => {
             <ul className="flex items-center gap-x-10">
               {shopList1.map((items) => (
                 <li key={items.id}>
-                  <button className="texts_16_medium text-head relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[-2px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <button className="texts_16_medium text-head relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                     {items.title}
                   </button>
                 </li>
@@ -83,12 +85,12 @@ const ShopBanner = () => {
               <div className="h-6 w-0.5 bg-gray-300 cursor-pointer"></div>
               <div className="flex justify-between items-center gap-x-3 cursor-pointer">
                 <button className="texts_14_medium text-head">VIEW</button>
-                <button className="texts_14_medium text-head">1</button>
-                <button className="texts_14_medium text-head">2</button>
-                <button className="texts_14_medium text-head">3</button>
-                <button className="texts_14_medium text-head">4</button>
+                <button onClick={() => setCols(1)} className="texts_14_medium text-head">1</button>
+                <button onClick={() => setCols(2)} className="texts_14_medium text-head">2</button>
+                <button onClick={() => setCols(3)} className="texts_14_medium text-head">3</button>
+                <button onClick={() => setCols(4)} className="texts_14_medium text-head">4</button>
               </div>
-              <button className="border-l-2 pl-7.5 border-footer texts_14_medium text-head flex items-center gap-x-[10px] cursor-pointer">
+              <button onClick={() => setFilterOpen(true)} className="border-l-2 pl-7.5 border-footer texts_14_medium text-head flex items-center gap-x-2.5 cursor-pointer">
                 <span className="text-lg">{filter}</span> FILTER
               </button>
             </div>
@@ -96,7 +98,7 @@ const ShopBanner = () => {
 
           <div>
             {isLoading ? (
-              <div className="pt-10 pb-12.5 grid grid-cols-4 gap-7.5">
+              <div className={`pt-10 pb-12.5 grid grid-cols-${cols} gap-7.5`}>
                 {[...Array(16)].map((_, i) => (
                   <div
                     key={i}
@@ -105,7 +107,7 @@ const ShopBanner = () => {
                 ))}
               </div>
             ) : (
-              <div className="pt-10 pb-12.5 grid grid-cols-4 gap-7.5">
+              <div className={`pt-10 pb-12.5 grid grid-cols-${cols} gap-7.5`}>
                 {products.map((product) => (
                   <Product
                     key={product.id}
