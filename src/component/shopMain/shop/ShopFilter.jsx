@@ -5,7 +5,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
 
-const ShopFilter = () => {
+const ShopFilter = ({ isOpen, onClose}) => {
   const [open, setOpen] = useState(null);
 
   const toggle = (section) => {
@@ -14,10 +14,10 @@ const ShopFilter = () => {
   return (
     <>
       <section>
-        <div className="w-105 bg-white h-full shadow-lg overflow-y-auto ">
+        <div className={`fixed top-0 right-0 h-full w-105 bg-white shadow-lg overflow-y-auto z-50 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex justify-between items-center mb-8 bg-footer pt-8.25 pb-6.5 pl-10 pr-10">
             <h3 className='texts_16_medium text-head uppercase'>Filter By</h3>
-            <button className="text-head texts_16_medium ">✕</button>
+            <button onClick={onClose} className="text-head texts_16_medium ">✕</button>
           </div>
           {/* Categories */}
           <div className="pl-10 pt-9.5 pr-10 pb-4 mb-4">

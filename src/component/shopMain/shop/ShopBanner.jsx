@@ -151,7 +151,7 @@ const [cols, setCols] = useState(4);
             </div>
           </div>
         </Container>
-        <ShopFilter />
+        <ShopFilter isOpen={filterOpen} onClose={() => setFilterOpen(false)}/>
       </div>
     </section>
   );
