@@ -1,5 +1,6 @@
 import ShopSinglePg from "@/page/ShopSinglePg";
 
-export default function ShopSinglePage({ params }) {
-  return <ShopSinglePg id={params.id} />;
+export default async function ShopSinglePage({ params }) {
+  const { id } = await params;
+  return <ShopSinglePg id={id} />;
 }

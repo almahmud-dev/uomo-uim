@@ -2,9 +2,10 @@ import axios from "axios";
 
 export async function GET(request, { params }) {
   try {
-    const response = await axios.get(`https://dummyjson.com/products/${params.id}`);
+    const { id } = await params;
+    const response = await axios.get(`https://dummyjson.com/products/${id}`);
     return Response.json(response.data);
   } catch (error) {
-    return Response.json({ error: "Failed to fetch" }, { status: 500 });
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
