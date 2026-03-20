@@ -5,13 +5,13 @@ import Button from "./Button";
 
 const FeaturedProducts = ({ imgSrc, imgAlt, price, category }) => {
   return (
-    <div className="relative group overflow-hidden hover:bg-red h-[300px] lg:h-[350px]">
+    <div className="relative group overflow-hidden hover:bg-red h-75 lg:h-87.5">
       <Images
         imgSrc={imgSrc}
         imgAlt={imgAlt}
         className="w-full h-full object-cover"
       />
-      <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"></div>
+      <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-in-out"></div>
       <div className="absolute bottom-10 left-10">
         <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
           {price}
