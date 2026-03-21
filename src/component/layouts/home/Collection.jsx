@@ -35,7 +35,7 @@ const Collection = () => {
               {/* Men Collection */}
               <div className="relative group overflow-hidden">
                 <Images
-                  className="w-full object-cover min-h-[160px] sm:min-h-[200px] lg:min-h-0"
+                  className="w-full object-cover min-h-40 sm:min-h-50 lg:min-h-0"
                   imgSrc={mencollection}
                 />
                 <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-10 lg:left-10">
@@ -83,7 +83,7 @@ const Collection = () => {
                       <span className="font-bold">E-GIFT</span>{" "}
                       <span className="hidden xs:inline">CARDS</span>
                     </h3>
-                    <p className="texts_14_regular text-head text-[10px] sm:text-[13px] lg:text-[14px] pt-1 pb-2 sm:pb-4 hidden sm:block w-full max-w-[200px]">
+                    <p className="texts_14_regular text-head text-[10px] sm:text-[13px] lg:text-[14px] pt-1 pb-2 sm:pb-4 hidden sm:block w-full max-w-50">
                       Surprise someone with the gift they really want.
                     </p>
                     <Button
