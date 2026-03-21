@@ -5,9 +5,9 @@ import React from "react";
 const Support = () => {
   return (
     <>
-      <section className="my-[48px] lg:my-25.5">
+      <section className="my-12 lg:my-25.5">
         <Container>
-          <div className="grid grid-cols-1 gap-[74px] md:grid-cols-3 lg:gap-x-[258px]">
+          <div className="grid grid-cols-1 gap-18.5 md:grid-cols-3 lg:gap-x-64.5">
             <div className="text-center">
               <div className="flex justify-center  items-center">
                 <svg
