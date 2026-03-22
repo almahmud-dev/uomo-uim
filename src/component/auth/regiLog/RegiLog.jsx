@@ -131,6 +131,7 @@ const RegiLog = () => {
   };
 
   const handleRegSubmit = async () => {
+    console.log("reg submit called");
     if (validate()) {
       createUserWithEmailAndPassword(auth, formdata.email, formdata.password)
         .then((userCredential) => {
@@ -185,10 +186,11 @@ const RegiLog = () => {
     <>
       <section>
         <div className="container pt-43 pb-25">
-          <div className=" px-5 max-w-162.75 mx-auto">
+          <div className="px-5 max-w-162.75 mx-auto">
             {/* ── Tabs ── */}
             <div className="flex justify-center gap-10 mb-10">
               <button
+              type="button"
                 onClick={() => switchTab("login")}
                 className={`texts_16_medium text-head tracking-widest transition-all relative
       after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
@@ -201,6 +203,7 @@ const RegiLog = () => {
                 LOGIN
               </button>
               <button
+              type="button"
                 onClick={() => switchTab("register")}
                 className={`texts_16_medium text-head pb-0.5 tracking-widest transition-all relative
       after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
@@ -215,8 +218,9 @@ const RegiLog = () => {
             </div>
 
             {/* ══ LOGIN FORM ══ */}
-            {activeTab === "login" && (
-              <div className="flex flex-col">
+           
+             {activeTab === "login" && (
+              <form onSubmit={(e) => { e.preventDefault(); handleLoginSubmit(); }} className="flex flex-col">
                 {loginSuccess && (
                   <div className="bg-green-50 border border-footer text-green-700 px-4 py-3 text-sm mb-5">
                     ✅ Login successful! Redirecting...
@@ -296,7 +300,7 @@ const RegiLog = () => {
 
                 {/* LOG IN button  */}
                 <button
-                  onClick={handleLoginSubmit}
+                  type="submit"
                   className="w-full bg-head text-white pt-5.5 pb-3.5 text-[14px] font-medium
           hover:bg-[#DB4444] transition-all leading-6 mb-6"
                 >
@@ -312,12 +316,15 @@ const RegiLog = () => {
                     Create Account
                   </span>
                 </p>
-              </div>
+              </form>
             )}
+           
 
             {/* ══ REGISTER FORM ══ */}
             {activeTab === "register" && (
-              <div className="flex flex-col">
+              <form onSubmit={(e) => { e.preventDefault(); handleRegSubmit(); }}
+              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleRegSubmit(); } }}
+              className="flex flex-col">
                 {Success && (
                   <div className="bg-green-50 border border-footer text-green-700 px-4 py-3 text-sm">
                     ✅ Account created! Verification email sent. Redirecting...
@@ -400,14 +407,17 @@ const RegiLog = () => {
                   Your personal data will be used to support your experience
                   throughout this website, to manage access to your account, and
                   for other purposes described in our{" "}
-                  <a href="/privacy-policy" className="text-black underline">
-                    privacy policy
-                  </a>
+                  <span 
+  onClick={() => router.push("/privacy-policy")} 
+  className="text-black underline cursor-pointer"
+>
+  privacy policy
+</span>
                   .
                 </p>
 
                 <button
-                  onClick={handleRegSubmit}
+                  type="submit"
                   className="w-full bg-head text-white pt-5.5 pb-3.5 text-[14px] font-medium
           hover:bg-[#DB4444] transition-all leading-6 mt-3.5 mb-6"
                 >
@@ -423,7 +433,8 @@ const RegiLog = () => {
                     Log In
                   </span>
                 </p>
-              </div>
+              
+              </form>
             )}
           </div>
         </div>
