@@ -86,7 +86,7 @@ const Login = ({ unMount }) => {
       )}
 
       {/* Form */}
-      <div className="flex flex-col gap-y-5">
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="flex flex-col gap-y-5">
         {/* Email */}
         <div className="flex flex-col gap-1">
           <input
@@ -151,7 +151,7 @@ const Login = ({ unMount }) => {
 
         {/* Login Button */}
         <button
-          onClick={handleSubmit}
+          type="submit"
           className="w-full bg-head text-white pt-5.5 pb-3.5
           hover:bg-[#DB4444] transition-all leading-6 cursor-pointer texts_14_medium"
         >
@@ -168,7 +168,8 @@ const Login = ({ unMount }) => {
             Create Account
           </Link>
         </p>
-      </div>
+      
+      </form>
     </div>
   );
 };
