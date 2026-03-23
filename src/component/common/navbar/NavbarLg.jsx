@@ -155,7 +155,7 @@ const NavbarLg = () => {
                                             return (
                                               <li
                                                 key={index}
-                                                className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
+                                                className="texts_14_regular text-head leading-8.75! w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                               >
                                                 <Link href={items.link}>
                                                   {items.name}
@@ -166,7 +166,7 @@ const NavbarLg = () => {
                                       </ul>
                                     </div>
                                   </div>
-                                  <div className="ml-10 mt-[41px]">
+                                  <div className="ml-10 mt-10.25">
                                     <ul>
                                       {items.megaMenuData[3]?.links
                                         .slice(12)
@@ -174,7 +174,7 @@ const NavbarLg = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
+                                              className="texts_14_regular text-head leading-8.75! w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                             >
                                               <Link href={items.link}>
                                                 {items.name}
@@ -190,9 +190,9 @@ const NavbarLg = () => {
                                 <Images
                                   imgAlt={"navdropDownImage"}
                                   imgSrc={NavDownImg}
-                                  className={"w-[410px] h-[450px] object-cover"}
+                                  className={"w-102.5 h-112.5 object-cover"}
                                 />
-                                <div className=" absolute bottom-[30px] left-[30px]">
+                                <div className=" absolute bottom-7.5 left-7.5">
                                   <h4 className="text-[28px] font-medium  text-head">
                                     NEW <br />
                                     HORIZONS
@@ -200,7 +200,7 @@ const NavbarLg = () => {
                                   <Button
                                     btnText={"SHOP NOW"}
                                     className={
-                                      " mt-[2px] relative  after:absolute after:content-[''] after:w-[40%] after:h-[2px] after:bg-head after:bottom-[-1px] after:left-0 hover:after:w-full  after:duration-500 after:ease-in-out"
+                                      " mt-0.5 relative  after:absolute after:content-[''] after:w-[40%] after:h-0.5 after:bg-head after:-bottom-px after:left-0 hover:after:w-full  after:duration-500 after:ease-in-out"
                                     }
                                   />
                                 </div>
