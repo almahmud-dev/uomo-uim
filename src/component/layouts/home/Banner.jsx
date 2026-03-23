@@ -53,10 +53,10 @@ const Banner = () => {
                 "
               >
                 {/* ── Right Image — absolute, right-aligned, full height ── */}
-                <div className=" absolute sm:min-h-183 lg:min-h-0 top-full -translate-y-full right-0  hidden lg:block">
+                <div className="absolute top-0 bottom-0 right-0 hidden lg:block">
                   <Images
                   imgSrc={item.img}
-                  className="h-full w-full object-cover object-top"
+                  className="h-full w-auto object-contain object-bottom"
                   />
                 </div>
 
@@ -66,7 +66,7 @@ const Banner = () => {
                     right-0 bottom-0
                     md:h-full
                     h-[90%]
-                    w-[50%] sm:w-[50%] lg:w-[60%]
+                    w-[55%] sm:w-[58%] lg:w-[60%]
                     flex items-end justify-end lg:hidden
                   
                   "
