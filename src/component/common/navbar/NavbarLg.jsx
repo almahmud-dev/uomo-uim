@@ -12,20 +12,23 @@ import Login from "../../auth/Login";
 import AddToCart from "../../shopMain/addToCart/AddToCart";
 import NavTabs from "../../navtabs/NavTabs";
 import useCartStore from "@/store/cartSlice";
+import { FaHeart } from "react-icons/fa6"; // ✅ NEW: filled heart icon
+
 const NavbarLg = () => {
   // for icon and images
   const { navLogo } = allImages;
   const { navIconItems, close } = allIcons;
-// add to cart korle aita diye data dhorbe
-const { cartItems } = useCartStore();
-const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  // for manage state
 
+  // add to cart korle aita diye data dhorbe
+  const { cartItems, wishlistItems } = useCartStore(); // ✅ NEW: wishlistItems
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const wishlistCount = wishlistItems.length; // ✅ NEW: wishlist count
+
+  // for manage state
   const [hoverItems, setHoverITems] = useState(null);
   const [open, setIsOpen] = useState(null);
 
   //  for handle evetnt
-
   const handleclicked = (id) => {
     setIsOpen((prev) => (prev === id ? null : id));
   };
@@ -208,7 +211,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                       )}
 
                     {/* for journal */}
-
                     {items.hasMegaMenu &&
                       hoverItems === items.label &&
                       hoverItems === "JOURNAL" && (
@@ -284,7 +286,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                       )}
 
                     {/* for pages */}
-
                     {items.dropdownData &&
                       items.label === "PAGES" &&
                       hoverItems === "PAGES" && (
@@ -339,6 +340,25 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                       </div>
                     )}
                   </li>
+
+                ) : items.name === "Wishlist" ? ( // ✅ NEW: Wishlist block
+                  <li key={items.id}>
+                    <Link href={items.link} className="relative text-[22px] text-head">
+                      {/* Badge — item থাকলেই দেখাবে */}
+                      {wishlistCount > 0 && (
+                        <span className="absolute bg-third w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white rounded-full bottom-[-10px] !right-[-8px]">
+                          {wishlistCount}
+                        </span>
+                      )}
+                      {/* Icon switch — item থাকলে filled red, না থাকলে outline */}
+                      {wishlistCount > 0 ? (
+                        <FaHeart className="text-red-500" />
+                      ) : (
+                        items.icon
+                      )}
+                    </Link>
+                  </li>
+
                 ) : (
                   <li key={items.id} onClick={() => handleclicked(items.id)}>
                     <Link href={items.link} className="text-[22px] text-head">
@@ -350,7 +370,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                     </Link>
 
                     {/* for searching part */}
-
                     {isActive && items.name === "Search" && (
                       <div
                         className=" pt-[62px] pb-[73px] absolute bg-white left-0 w-full shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] top-[100%] "
@@ -396,7 +415,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                     )}
 
                     {/* for login part */}
-
                     {isActive && items.name === "Account" && (
                       <div
                         className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
@@ -409,7 +427,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                     )}
 
                     {/* for nav tabs part */}
-
                     {isActive && items.name === "Mobile Menu" && (
                       <div
                         className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
