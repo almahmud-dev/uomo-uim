@@ -49,8 +49,8 @@
   line-height: clamp(38px, 5vw + 22px, 80px);
 }
 .head_70_regular {
-  @apply font-normal text-[clamp(30px,5vw+16px,70px)];
-  line-height: clamp(38px, 5vw + 22px, 80px);
+  @apply font-normal text-[clamp(20px,3vw+8px,70px)];
+  line-height: clamp(26px, 3vw + 12px, 80px);
 }
 .head_35_regular {
   @apply font-normal text-[clamp(24px,2.5vw+12px,35px)];

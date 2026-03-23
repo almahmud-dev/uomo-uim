@@ -43,7 +43,7 @@ const Banner = () => {
                   mx-auto max-w-[1800px] w-full
                   bg-no-repeat bg-cover bg-center
                   overflow-hidden relative
-                  h-[480px] sm:h-[600px] md:h-[700px] lg:h-[800px]
+                  h-[480px] sm:h-[600px] md:h-[750px] lg:h-[800px]
                 "
               >
                 {/* ── Right Image — absolute, right-aligned, full height ── */}
@@ -57,7 +57,7 @@ const Banner = () => {
                     right-0 bottom-0
                     md:h-full
                     h-[90%]
-                    w-[50%] sm:w-[55%] lg:w-[60%]
+                    w-[50%] sm:w-[50%] lg:w-[60%]
                     flex items-end justify-end lg:hidden
                   
                   "
@@ -76,7 +76,7 @@ const Banner = () => {
                       absolute z-10
                       bottom-[60px] sm:bottom-[80px] lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%]
                       left-4 sm:left-[30px] xl:left-0
-                      w-[55%] sm:w-[48%] lg:w-[45%]
+                      w-[55%] sm:w-[52%] lg:w-[45%]
                     "
                   >
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -160,7 +160,7 @@ const Banner = () => {
             </Link>
           </div>
         </div>
-        <div className="absolute bottom-5.75 -right-20 -translate-y-[50%] hidden lg:block">
+        <div className="absolute bottom-5.75 right-0 xl:-right-20 -translate-y-[50%] hidden lg:block">
           <div className=" flex space-x-2.5 items-center rotate-270 z-10">
             <div className="w-7.5 h-0.5 bg-head"></div>
             <p className="texts_14_medium text-head">SCROLL</p>
