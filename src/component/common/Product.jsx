@@ -75,9 +75,9 @@ const isLiked = wishlistItems.some((item) => item.id === id);
               className="cursor-pointer"
             >
               {isLiked ? (
-                <FaHeart className="text-red cursor-pointer" size={14} />
+                <FaHeart className="text-red cursor-pointer" size={20} />
               ) : (
-                <FaHeart className="text-second cursor-pointer" size={14} />
+                <FaHeart className="text-second cursor-pointer" size={20} />
               )}
             </div>
           </div>
