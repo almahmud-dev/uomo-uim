@@ -35,11 +35,25 @@ const useCartStore = create(
       })),
 
       clearCart: () => set({ cartItems: [] }),
+
+      // ✅ Wishlist
+      wishlistItems: [],
+
+      addToWishlist: (item) => set((state) => {
+        const exists = state.wishlistItems.find((i) => i.id === item.id);
+        if (exists) return state;
+        return { wishlistItems: [...state.wishlistItems, item] };
+      }),
+
+      removeFromWishlist: (id) => set((state) => ({
+        wishlistItems: state.wishlistItems.filter((item) => item.id !== id),
+      })),
+
     }),
     {
       name: 'cart-storage',
       version: 2,
-      migrate: () => ({ cartItems: [] }),
+      migrate: () => ({ cartItems: [], wishlistItems: [] }),
     }
   )
 )
