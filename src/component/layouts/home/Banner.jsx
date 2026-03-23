@@ -56,7 +56,7 @@ const Banner = () => {
                 <div className="absolute top-0 bottom-0 right-0 hidden lg:block">
                   <Images
                   imgSrc={item.img}
-                  className="h-full w-auto object-contain object-bottom"
+                  className="h-full w-auto object-cover object-top"
                   />
                 </div>
 
