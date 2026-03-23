@@ -5,6 +5,7 @@ import { GoSearch } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUser } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6"; // ✅ NEW: filled heart icon
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import {
   FaFacebookF,
@@ -20,6 +21,7 @@ import allImages from "@/helper/imagesProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
+
 const socialIcons = [
   { id: 1, icon: FaFacebookF, link: "https://www.facebook.com" },
   { id: 2, icon: FaTwitter, link: "https://www.twitter.com" },
@@ -128,12 +130,15 @@ const TabRow = ({ activeTab, onTabChange }) => (
 const NavbarMobile = () => {
   const { navIconItems } = allIcons;
   const { navLogo } = allImages;
+
   // add to cart korle aita diye data dhorbe
-const { cartItems } = useCartStore();
-const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const { cartItems, wishlistItems } = useCartStore(); // ✅ NEW: wishlistItems
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const wishlistCount = wishlistItems.length; // ✅ NEW: wishlist count
+
   const [isOpen, setIsOpen] = useState(false);
   const [panel, setPanel] = useState("main");
-  const [isCartOpen, setIsCartOpen] = useState(false); // Cart state
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // SHOP state
   const [activeTab, setActiveTab] = useState(navTabsData[0].tab);
@@ -180,14 +185,8 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     }, 310);
   };
 
-  // Cart handlers
-  const handleCartOpen = () => {
-    setIsCartOpen(true);
-  };
-
-  const handleCartClose = () => {
-    setIsCartOpen(false);
-  };
+  const handleCartOpen = () => setIsCartOpen(true);
+  const handleCartClose = () => setIsCartOpen(false);
 
   const handleNavItemClick = (item) => {
     if (item.label === "SHOP") {
@@ -199,7 +198,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
       setActiveSimpleNav(item);
       setPanel("simple");
     }
-    // direct route items (HOME, COLLECTION, LOOKBOOK) — handled by Link below
   };
 
   const handleCategoryClick = (cat) => {
@@ -213,7 +211,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
       setPanel("main");
   };
 
-  // ── Helper: is this item a direct link (no sub-panel needed)? ──────────────
   const isDirectLink = (item) =>
     !item.hasDropdown && !item.hasMegaMenu && item.path;
 
@@ -223,28 +220,55 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
       <nav className="py-[21px]">
         <Container>
           <div className="flex items-center justify-between">
+            {/* Hamburger */}
             <button
               onClick={handleOpen}
               className="text-[28px] text-head cursor-pointer"
             >
               {navIconItems[4].icon}
             </button>
+
+            {/* Logo */}
             <Images
               imgAlt="mobile-nav"
               imgSrc={navLogo}
               className="w-[111px] h-[27px]"
             />
-            <button
-              onClick={handleCartOpen}
-              className="relative cursor-pointer pr-[10px]"
-            >
-              <span className="text-[26px] text-head">
-                {navIconItems[3].icon}
-              </span>
-              <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
-                {cartCount}
-              </span>
-            </button>
+
+            {/* ✅ NEW: Wishlist + Cart icons side by side */}
+            <div className="flex items-center gap-4">
+              {/* Wishlist icon */}
+              <Link
+                href="/dashboard/wishlist"
+                className="relative text-[22px] text-head pr-[10px]"
+              >
+                {/* Icon switch */}
+                {wishlistCount > 0 ? (
+                  <FaHeart className="text-red-500 text-[22px]" />
+                ) : (
+                  navIconItems[2].icon
+                )}
+                {/* Badge */}
+                {wishlistCount > 0 && (
+                  <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart icon — আগের মতোই */}
+              <button
+                onClick={handleCartOpen}
+                className="relative cursor-pointer pr-[10px]"
+              >
+                <span className="text-[26px] text-head">
+                  {navIconItems[3].icon}
+                </span>
+                <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
+                  {cartCount}
+                </span>
+              </button>
+            </div>
           </div>
         </Container>
       </nav>
@@ -280,7 +304,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {navItems.map((item, idx) =>
               isDirectLink(item) ? (
-                // ── Direct route: HOME, COLLECTION, LOOKBOOK ──
                 <Link
                   key={idx}
                   href={item.path}
@@ -292,7 +315,6 @@ const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
                   </span>
                 </Link>
               ) : (
-                // ── Sub-panel items: SHOP, JOURNAL, PAGES ──
                 <button
                   key={idx}
                   onClick={() => handleNavItemClick(item)}
