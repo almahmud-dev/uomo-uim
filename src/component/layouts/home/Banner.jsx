@@ -21,7 +21,7 @@ const Banner = () => {
   const sliderData = [1, 2, 3, 4, 5];
 
   return (
-    <section className="mt-[90px] overflow-hidden">
+    <section className="mt-22.5 overflow-hidden">
       <div className="lg:mx-15 mx-0 relative">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -40,14 +40,14 @@ const Banner = () => {
               <div
                 className="
                   bg-[url('/assets/images/bannerBg.png')]
-                  mx-auto max-w-[1800px] w-full
+                  mx-auto max-w-450 w-full
                   bg-no-repeat bg-cover bg-center
                   overflow-hidden relative
-                  h-[480px] sm:h-[600px] md:h-[750px] lg:h-[800px]
+                  h-120 sm:h-150 md:h-187.5 lg:h-200
                 "
               >
                 {/* ── Right Image — absolute, right-aligned, full height ── */}
-                <div className=" absolute min-h-[732px] top-[100%] translate-y-[-100%] right-0  hidden lg:block">
+                <div className=" absolute min-h-183 top-full -translate-y-full right-0  hidden lg:block">
                   <Images imgSrc={bannerRightImg} />
                 </div>
 
@@ -69,13 +69,13 @@ const Banner = () => {
                 </div>
 
                 {/* ── Left Content — absolute, vertically centered-bottom ── */}
-                <div className="container px-4 sm:px-[30px] xl:px-0 h-full relative">
+                <div className="container px-4 sm:px-7.5 xl:px-0 h-full relative">
                   <div
                     className="
                       leftContent
                       absolute z-10
-                      bottom-[60px] sm:bottom-[80px] lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%]
-                      left-4 sm:left-[30px] xl:left-0
+                      bottom-15 sm:bottom-20 lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%]
+                      left-4 sm:left-7.5 xl:left-0
                       w-[55%] sm:w-[52%] lg:w-[45%]
                     "
                   >
@@ -142,19 +142,19 @@ const Banner = () => {
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
           <div className="  flex flex-col gap-y-6.25 z-10">
             <Link href="#">
-              <FaFacebookF className="text-[#767676]" size={15} />
+              <FaFacebookF className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaTwitter className="text-[#767676]" size={15} />
+              <FaTwitter className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaInstagram className="text-[#767676]" size={15} />
+              <FaInstagram className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaPinterest className="text-[#767676]" size={15} />
+              <FaPinterest className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <p className="texts_14_medium text-[#767676] rotate-270 -ml-7.75 mt-6.5">
+              <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
                 FOLLOW US
               </p>
             </Link>
