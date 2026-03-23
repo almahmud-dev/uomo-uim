@@ -1,7 +1,7 @@
 'use client';
 import Images from "@/component/common/Images";
 import React, { useRef, useState } from "react";
-const bannerRightImg = "/assets/images/bannerRightImg.png";
+
 import Button from "@/component/common/Button";
 import {
   FaFacebookF,
@@ -17,8 +17,14 @@ import "swiper/css";
 const Banner = () => {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const sliderData = [1, 2, 3, 4, 5];
+  
+  const sliderData = [
+  { id: 1, img: "/assets/images/hero/bannerRightImg.png" },
+  { id: 2, img: "/assets/images/hero/bannerRightImg2.png" },
+  { id: 3, img: "/assets/images/hero/bannerRightImg3.png" },
+  { id: 4, img: "/assets/images/hero/bannerRightImg4.png" },
+  { id: 5, img: "/assets/images/hero/bannerRightImg5.png" },
+];
 
   return (
     <section className="mt-22.5 overflow-hidden">
@@ -34,7 +40,7 @@ const Banner = () => {
             disableOnInteraction: false,
           }}
         >
-          {sliderData.map((_, idx) => (
+          {sliderData.map((item, idx) => (
             <SwiperSlide key={idx}>
               {/* Outer wrapper — fixed height, overflow hidden */}
               <div
@@ -47,8 +53,11 @@ const Banner = () => {
                 "
               >
                 {/* ── Right Image — absolute, right-aligned, full height ── */}
-                <div className=" absolute min-h-183 top-full -translate-y-full right-0  hidden lg:block">
-                  <Images imgSrc={bannerRightImg} />
+                <div className=" absolute sm:min-h-183 lg:min-h-0 top-full -translate-y-full right-0  hidden lg:block">
+                  <Images
+                  imgSrc={item.img}
+                  className="h-full w-full object-cover object-top"
+                  />
                 </div>
 
                 <div
@@ -63,8 +72,8 @@ const Banner = () => {
                   "
                 >
                   <Images
-                    imgSrc={bannerRightImg}
-                    className="h-full w-full object-cover object-top"
+                    imgSrc={item.img}
+                    className="h-full w-full object-contain object-bottom"
                   />
                 </div>
 
