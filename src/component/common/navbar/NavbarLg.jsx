@@ -12,7 +12,7 @@ import Login from "../../auth/Login";
 import AddToCart from "../../shopMain/addToCart/AddToCart";
 import NavTabs from "../../navtabs/NavTabs";
 import useCartStore from "@/store/cartSlice";
-import { FaHeart } from "react-icons/fa6"; // ✅ NEW: filled heart icon
+import { FaHeart } from "react-icons/fa6"; // jokhne wiahliat hobe jokhn ai iocn dekahbe
 
 const NavbarLg = () => {
   // for icon and images
@@ -20,9 +20,9 @@ const NavbarLg = () => {
   const { navIconItems, close } = allIcons;
 
   // add to cart korle aita diye data dhorbe
-  const { cartItems, wishlistItems } = useCartStore(); // ✅ NEW: wishlistItems
+  const { cartItems, wishlistItems } = useCartStore(); // wishlistItems koita add kora hoyeceh
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const wishlistCount = wishlistItems.length; // ✅ NEW: wishlist count
+  const wishlistCount = wishlistItems.length; // NEW wishlist count koita hoyeche
 
   // for manage state
   const [hoverItems, setHoverITems] = useState(null);
@@ -86,7 +86,7 @@ const NavbarLg = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
+                                              className="texts_14_regular text-head leading-8.75! w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                             >
                                               <Link href={items.link}>
                                                 {items.name}
@@ -97,7 +97,7 @@ const NavbarLg = () => {
                                       )}
                                     </ul>
                                   </div>
-                                  <div className="mt-[29px]">
+                                  <div className="mt-7.25">
                                     <p className="texts_14_medium text-second pb-3">
                                       {items.megaMenuData[1]?.title}
                                     </p>
@@ -107,7 +107,7 @@ const NavbarLg = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
+                                              className="texts_14_regular text-head leading-8.75! w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                             >
                                               <Link href={items.link}>
                                                 {items.name}
@@ -130,7 +130,7 @@ const NavbarLg = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="texts_14_regular text-head !leading-[35px] w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
+                                              className="texts_14_regular text-head leading-8.75! w-fit   relative  after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%]  after:duration-500 after:ease-in-out"
                                             >
                                               <Link href={items.link}>
                                                 {items.name}
@@ -340,10 +340,12 @@ const NavbarLg = () => {
                       </div>
                     )}
                   </li>
-
                 ) : items.name === "Wishlist" ? ( // ✅ NEW: Wishlist block
                   <li key={items.id}>
-                    <Link href={items.link} className="relative text-[22px] text-head">
+                    <Link
+                      href={items.link}
+                      className="relative text-[22px] text-head"
+                    >
                       {/* Badge — item থাকলেই দেখাবে */}
                       {wishlistCount > 0 && (
                         <span className="absolute bg-third w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white rounded-full bottom-[-10px] !right-[-8px]">
@@ -358,7 +360,6 @@ const NavbarLg = () => {
                       )}
                     </Link>
                   </li>
-
                 ) : (
                   <li key={items.id} onClick={() => handleclicked(items.id)}>
                     <Link href={items.link} className="text-[22px] text-head">
