@@ -14,9 +14,9 @@ const Product = ({
   itemPrice,
   discountPrice,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } = useCartStore();
+const isLiked = wishlistItems.some((item) => item.id === id);
   const router = useRouter();
-  const { addToCart } = useCartStore();
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -30,6 +30,20 @@ const Product = ({
       quantity: 1,
     });
   };
+  const handleWishlist = (e) => {
+  e.stopPropagation();
+  if (isLiked) {
+    removeFromWishlist(id);
+  } else {
+    addToWishlist({
+      id,
+      name: itemName,
+      price: discountPrice ? Number(discountPrice) : Number(itemPrice),
+      image: imgSrc,
+      category: catagory,
+    });
+  }
+};
 
   return (
     <>
@@ -57,7 +71,7 @@ const Product = ({
             <p className="texts_14_regular text-second">{catagory}</p>
 
             <div
-              onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
+              onClick={handleWishlist}
               className="cursor-pointer"
             >
               {isLiked ? (
