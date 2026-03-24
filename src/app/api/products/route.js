@@ -18,7 +18,8 @@ export async function GET(request) {
     }
 
     const response = await axios.get(url);
-    return Response.json(response.data); // ← .products না, পুরো data
+    // products na shudhu aikahne puru data pabe
+    return Response.json(response.data);
   } catch (error) {
     return Response.json({ error: "Failed to fetch" }, { status: 500 });
   }

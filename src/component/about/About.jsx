@@ -34,7 +34,7 @@ const brands = [
 const About = () => {
   return (
     <section className=" mt-32 lg:mt-38">
-      <div className="max-w-[1413px] mx-auto">
+      <div className="max-w-352.5 mx-auto">
         <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-16 xl:mt-[90px] mb-10 sm:mb-12 lg:mb-16 xl:mb-[77px]">
 
           {/* Page Title */}

@@ -13,7 +13,7 @@ const TAG_MAP = {
   beauty:  "ux",
 };
 
-// ─── Blog List ────────────────────────────────────────────────────
+// -----Blog List-------
 export const fetchBlogList = async (tag = "all", page = 1) => {
   const devTag = TAG_MAP[tag] || "webdev";
   const url = `${BASE_URL}/articles?tag=${devTag}&page=${page}&per_page=${PER_PAGE}`;
@@ -24,7 +24,7 @@ export const fetchBlogList = async (tag = "all", page = 1) => {
   return res.json(); // array of articles
 };
 
-// ─── Single Article ───────────────────────────────────────────────
+// ------ Single Article --------
 export const fetchBlogById = async (id) => {
   const res = await fetch(`${BASE_URL}/articles/${id}`);
   if (!res.ok) throw new Error(`Article not found: ${res.status}`);
@@ -32,6 +32,6 @@ export const fetchBlogById = async (id) => {
   return res.json(); // single article object
 };
 
-// ─── Constants (store ও use করতে পারবে) ─────────────────────────
+// ------ Constants (store & use korte pare) --------
 export const BLOG_PER_PAGE = PER_PAGE;
 export const BLOG_TAGS = ["all", "company", "fashion", "style", "trends", "beauty"];
