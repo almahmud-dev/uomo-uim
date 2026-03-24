@@ -5,7 +5,7 @@ import { GoSearch } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUser } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa6"; // ✅ NEW: filled heart icon
+import { FaHeart } from "react-icons/fa6";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import {
   FaFacebookF,
@@ -21,6 +21,11 @@ import allImages from "@/helper/imagesProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
+// ✅ NEW: auth imports
+import useAuthStore from "@/store/authSlice";
+import { auth } from "@/firebase/firebase";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 const socialIcons = [
   { id: 1, icon: FaFacebookF, link: "https://www.facebook.com" },
@@ -56,7 +61,7 @@ const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
 );
 
 const DrawerSearch = () => (
-  <div className="flex items-center gap-[10px]  px-5 py-4 mb-3 border-b border-footer">
+  <div className="flex items-center gap-[10px] px-5 py-4 mb-3 border-b border-footer">
     <input
       type="text"
       placeholder="Search products..."
@@ -66,47 +71,98 @@ const DrawerSearch = () => (
   </div>
 );
 
-const DrawerFooter = () => (
-  <div className="px-5 pt-[29px] pb-5 border-t border-footer">
-    <div className="flex items-center gap-[10px] mb-4 ">
-      <FaRegUser className="text-[16px] text-head" />
-      <span className="texts_14_medium  text-head tracking-[0.5px]">
-        MY ACCOUNT
-      </span>
-    </div>
-    <div className="flex items-center mb-[10px]">
-      <span className="texts_14_regular text-second w-[80px] shrink-0">
-        Language
-      </span>
-      <span className="texts_13_regular text-head flex items-center gap-1">
-        United Kingdom | English <span className="text-[10px]">▼</span>
-      </span>
-    </div>
-    <div className="flex items-center mb-4">
-      <span className="texts_13_regular text-second w-[80px] shrink-0">
-        Currency
-      </span>
-      <span className="texts_13_regular text-head flex items-center gap-1">
-        $ USD <span className="text-[10px]">▼</span>
-      </span>
-    </div>
-    <div className="flex items-center gap-8">
-      {socialIcons.map((s) => (
-        <Link
-          key={s.id}
-          href={s.link}
-          className="text-[15px] text-head hover:text-second transition-colors"
+// ✅ FIXED: DrawerFooter — user থাকলে name+email+LOGOUT, না থাকলে LOGIN
+const DrawerFooter = ({ onClose }) => {
+  const { user, clearUser } = useAuthStore();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    clearUser();
+    onClose();
+    router.push("/");
+  };
+
+  return (
+    <div className="px-5 pt-[29px] pb-5 border-t border-footer">
+      {user ? (
+        <div className="mb-4">
+          {/* Avatar + Name + Email */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-9 h-9 rounded-full bg-secondbg border border-footer flex items-center justify-center shrink-0">
+              <span className="text-sm font-medium text-head">
+                {(user.displayName || user.email)?.[0]?.toUpperCase()}
+              </span>
+            </div>
+            <div className="flex flex-col overflow-hidden">
+              <span className="texts_14_medium text-head tracking-[0.3px] truncate">
+                {user.displayName || "My Account"}
+              </span>
+              <span className="text-[12px] text-second truncate">
+                {user.email}
+              </span>
+            </div>
+          </div>
+          {/* Logout button */}
+          <button
+            onClick={handleLogout}
+            className="w-full bg-head text-white text-[13px] font-medium tracking-widest py-2.5 hover:bg-[#DB4444] transition-colors"
+          >
+            LOGOUT
+          </button>
+        </div>
+      ) : (
+        <div
+          className="flex items-center gap-[10px] mb-4 cursor-pointer"
+          onClick={() => {
+            onClose();
+            router.push("/my-account");
+          }}
         >
-          <s.icon />
-        </Link>
-      ))}
+          <FaRegUser className="text-[16px] text-head" />
+          <span className="texts_14_medium text-head tracking-[0.5px]">
+            LOGIN
+          </span>
+        </div>
+      )}
+
+      {/* Language & Currency */}
+      <div className="flex items-center mb-[10px]">
+        <span className="texts_14_regular text-second w-[80px] shrink-0">
+          Language
+        </span>
+        <span className="texts_13_regular text-head flex items-center gap-1">
+          United Kingdom | English <span className="text-[10px]">▼</span>
+        </span>
+      </div>
+      <div className="flex items-center mb-4">
+        <span className="texts_13_regular text-second w-[80px] shrink-0">
+          Currency
+        </span>
+        <span className="texts_13_regular text-head flex items-center gap-1">
+          $ USD <span className="text-[10px]">▼</span>
+        </span>
+      </div>
+
+      {/* Social icons */}
+      <div className="flex items-center gap-8">
+        {socialIcons.map((s) => (
+          <Link
+            key={s.id}
+            href={s.link}
+            className="text-[15px] text-head hover:text-second transition-colors"
+          >
+            <s.icon />
+          </Link>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // WOMEN / MEN / KIDS tab pills
 const TabRow = ({ activeTab, onTabChange }) => (
-  <div className="flex items-center px-5 gap-2 pt-6 pb-5 ">
+  <div className="flex items-center px-5 gap-2 pt-6 pb-5">
     {navTabsData.map((tab) => (
       <button
         key={tab.id}
@@ -131,10 +187,9 @@ const NavbarMobile = () => {
   const { navIconItems } = allIcons;
   const { navLogo } = allImages;
 
-  // add to cart korle aita diye data dhorbe
-  const { cartItems, wishlistItems } = useCartStore(); // ✅ NEW: wishlistItems
+  const { cartItems, wishlistItems } = useCartStore();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const wishlistCount = wishlistItems.length; // ✅ NEW: wishlist count
+  const wishlistCount = wishlistItems.length;
 
   const [isOpen, setIsOpen] = useState(false);
   const [panel, setPanel] = useState("main");
@@ -235,20 +290,18 @@ const NavbarMobile = () => {
               className="w-[111px] h-[27px]"
             />
 
-            {/* ✅ NEW: Wishlist + Cart icons side by side */}
+            {/* Wishlist + Cart icons */}
             <div className="flex items-center gap-4">
               {/* Wishlist icon */}
               <Link
                 href="/dashboard/wishlist"
                 className="relative text-[22px] text-head pr-[10px]"
               >
-                {/* Icon switch */}
                 {wishlistCount > 0 ? (
                   <FaHeart className="text-red-500 text-[22px]" />
                 ) : (
                   navIconItems[2].icon
                 )}
-                {/* Badge */}
                 {wishlistCount > 0 && (
                   <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
                     {wishlistCount}
@@ -256,7 +309,7 @@ const NavbarMobile = () => {
                 )}
               </Link>
 
-              {/* Cart icon — আগের মতোই */}
+              {/* Cart icon */}
               <button
                 onClick={handleCartOpen}
                 className="relative cursor-pointer pr-[10px]"
@@ -273,7 +326,7 @@ const NavbarMobile = () => {
         </Container>
       </nav>
 
-      {/* ── Menu Drawer Backdrop ───────────────────────────────────────────────────── */}
+      {/* ── Menu Drawer Backdrop ───────────────────────────────────────── */}
       <div
         onClick={handleClose}
         className={`fixed inset-0 bg-black/30 z-[998] transition-opacity duration-300 ${
@@ -283,7 +336,7 @@ const NavbarMobile = () => {
         }`}
       />
 
-      {/* ── Menu Drawer ─────────────────────────────────────────────────────── */}
+      {/* ── Menu Drawer ─────────────────────────────────────────────────── */}
       <div
         className={`fixed top-0 left-0 w-[280px] h-full bg-white z-[999] overflow-hidden transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -329,10 +382,11 @@ const NavbarMobile = () => {
             )}
           </div>
 
-          <DrawerFooter />
+          {/* ✅ onClose pass করা হয়েছে */}
+          <DrawerFooter onClose={handleClose} />
         </div>
 
-        {/* ════ PANEL 2 — SHOP (tabs + category list) ════════════════════ */}
+        {/* ════ PANEL 2 — SHOP ════════════════════════════════════════════ */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("shop")}`}
         >
@@ -404,7 +458,7 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* ════ PANEL 4 — JOURNAL (grouped megaMenuData) ═════════════════ */}
+        {/* ════ PANEL 4 — JOURNAL ═════════════════════════════════════════ */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("journal")}`}
         >
@@ -434,7 +488,6 @@ const NavbarMobile = () => {
                     {group.title}
                   </span>
                 </div>
-
                 {group.links.map((link, lIdx) => (
                   <Link
                     key={lIdx}
@@ -452,7 +505,7 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* ════ PANEL 5 — SIMPLE DROPDOWN (PAGES etc.) ═══════════════════ */}
+        {/* ════ PANEL 5 — SIMPLE DROPDOWN ════════════════════════════════ */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("simple")}`}
         >
@@ -489,11 +542,12 @@ const NavbarMobile = () => {
             ))}
           </div>
 
-          <DrawerFooter />
+          {/* ✅ onClose pass করা হয়েছে */}
+          <DrawerFooter onClose={handleClose} />
         </div>
       </div>
 
-      {/* ── Cart Backdrop ───────────────────────────────────────────────────── */}
+      {/* ── Cart Backdrop ───────────────────────────────────────────────── */}
       <div
         onClick={handleCartClose}
         className={`fixed inset-0 bg-black/30 z-[1000] transition-opacity duration-300 ${
@@ -503,7 +557,7 @@ const NavbarMobile = () => {
         }`}
       />
 
-      {/* ── Cart Drawer (Right Side) ─────────────────────────────────────────────────────── */}
+      {/*  Cart Drawer  */}
       <div
         className={`fixed top-0 right-0 h-full bg-white z-[1001] transition-transform duration-300 ease-in-out ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
