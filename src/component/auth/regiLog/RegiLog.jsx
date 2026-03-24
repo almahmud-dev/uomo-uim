@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
@@ -14,8 +15,17 @@ import useAuthStore from "../../../store/authSlice";
 
 const RegiLog = () => {
   const router = useRouter();
-  const { setUser } = useAuthStore();
+  const { setUser, user, clearUser } = useAuthStore();
   const [activeTab, setActiveTab] = useState("login");
+
+  // ══ LOGOUT ══
+  const handleLogout = async () => {
+  await signOut(auth);
+  clearUser();
+  setTimeout(() => {
+    router.push("/");
+  }, 500);
+};
 
   // ══ LOGIN STATE ══
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -131,7 +141,6 @@ const RegiLog = () => {
   };
 
   const handleRegSubmit = async () => {
-    console.log("reg submit called");
     if (validate()) {
       createUserWithEmailAndPassword(auth, formdata.email, formdata.password)
         .then((userCredential) => {
@@ -182,6 +191,39 @@ const RegiLog = () => {
     setSuccess(false);
   };
 
+  // ══ LOGGED IN VIEW ══
+  if (user) {
+    return (
+      <section>
+        <div className="container pt-43 pb-25">
+          <div className="px-5 max-w-162.75 mx-auto text-center">
+            {/* Avatar */}
+            <div className="w-20 h-20 rounded-full bg-secondbg flex items-center justify-center mx-auto mb-5 border border-footer">
+              <span className="text-3xl font-medium text-head">
+                {(user.displayName || user.email)?.[0]?.toUpperCase()}
+              </span>
+            </div>
+
+            {/* Name & Email */}
+            <h2 className="texts_16_medium text-head tracking-widest mb-2">
+              {user.displayName || "My Account"}
+            </h2>
+            <p className="texts_14_regular text-second mb-10">{user.email}</p>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="w-full bg-head text-white pt-5.5 pb-3.5 text-[14px] font-medium hover:bg-[#DB4444] transition-all leading-6 tracking-widest"
+            >
+              LOGOUT
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ══ LOGGED OUT VIEW (Login / Register) ══
   return (
     <>
       <section>
@@ -190,44 +232,48 @@ const RegiLog = () => {
             {/* ── Tabs ── */}
             <div className="flex justify-center gap-10 mb-10">
               <button
-              type="button"
+                type="button"
                 onClick={() => switchTab("login")}
                 className={`texts_16_medium text-head tracking-widest transition-all relative
-      after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
-      ${
-        activeTab === "login"
-          ? "after:w-full"
-          : "opacity-40 after:w-0 hover:opacity-100 hover:after:w-full"
-      }`}
+                  after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
+                  ${
+                    activeTab === "login"
+                      ? "after:w-full"
+                      : "opacity-40 after:w-0 hover:opacity-100 hover:after:w-full"
+                  }`}
               >
                 LOGIN
               </button>
               <button
-              type="button"
+                type="button"
                 onClick={() => switchTab("register")}
                 className={`texts_16_medium text-head pb-0.5 tracking-widest transition-all relative
-      after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
-      ${
-        activeTab === "register"
-          ? "after:w-full"
-          : "opacity-40 after:w-0 hover:opacity-100 hover:after:w-full"
-      }`}
+                  after:absolute after:content-[''] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 after:duration-500 after:ease-in-out cursor-pointer
+                  ${
+                    activeTab === "register"
+                      ? "after:w-full"
+                      : "opacity-40 after:w-0 hover:opacity-100 hover:after:w-full"
+                  }`}
               >
                 REGISTER
               </button>
             </div>
 
             {/* ══ LOGIN FORM ══ */}
-           
-             {activeTab === "login" && (
-              <form onSubmit={(e) => { e.preventDefault(); handleLoginSubmit(); }} className="flex flex-col">
+            {activeTab === "login" && (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleLoginSubmit();
+                }}
+                className="flex flex-col"
+              >
                 {loginSuccess && (
                   <div className="bg-green-50 border border-footer text-green-700 px-4 py-3 text-sm mb-5">
                     ✅ Login successful! Redirecting...
                   </div>
                 )}
 
-                {/* Username field */}
                 {loginInputs.map((input, index) => (
                   <div
                     key={input.id}
@@ -277,7 +323,6 @@ const RegiLog = () => {
                   </span>
                 )}
 
-                {/* Remember & Lost password */}
                 <div className="flex justify-between items-center mb-6.5">
                   <label className="flex items-center gap-x-2 cursor-pointer">
                     <input
@@ -298,11 +343,10 @@ const RegiLog = () => {
                   </Link>
                 </div>
 
-                {/* LOG IN button  */}
                 <button
                   type="submit"
                   className="w-full bg-head text-white pt-5.5 pb-3.5 text-[14px] font-medium
-          hover:bg-[#DB4444] transition-all leading-6 mb-6"
+                    hover:bg-[#DB4444] transition-all leading-6 mb-6"
                 >
                   LOG IN
                 </button>
@@ -318,13 +362,22 @@ const RegiLog = () => {
                 </p>
               </form>
             )}
-           
 
             {/* ══ REGISTER FORM ══ */}
             {activeTab === "register" && (
-              <form onSubmit={(e) => { e.preventDefault(); handleRegSubmit(); }}
-              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleRegSubmit(); } }}
-              className="flex flex-col">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleRegSubmit();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleRegSubmit();
+                  }
+                }}
+                className="flex flex-col"
+              >
                 {Success && (
                   <div className="bg-green-50 border border-footer text-green-700 px-4 py-3 text-sm">
                     ✅ Account created! Verification email sent. Redirecting...
@@ -335,11 +388,7 @@ const RegiLog = () => {
                   <div
                     key={input.id}
                     className={`flex flex-col gap-1 ${
-                      index === 0
-                        ? "mb-7.25"
-                        : index === 1
-                          ? "mb-7.5"
-                          : "mb-7.5"
+                      index === 0 ? "mb-7.25" : "mb-7.5"
                     }`}
                   >
                     <div
@@ -407,19 +456,19 @@ const RegiLog = () => {
                   Your personal data will be used to support your experience
                   throughout this website, to manage access to your account, and
                   for other purposes described in our{" "}
-                  <span 
-  onClick={() => router.push("/privacy-policy")} 
-  className="text-black underline cursor-pointer"
->
-  privacy policy
-</span>
+                  <span
+                    onClick={() => router.push("/privacy-policy")}
+                    className="text-black underline cursor-pointer"
+                  >
+                    privacy policy
+                  </span>
                   .
                 </p>
 
                 <button
                   type="submit"
                   className="w-full bg-head text-white pt-5.5 pb-3.5 text-[14px] font-medium
-          hover:bg-[#DB4444] transition-all leading-6 mt-3.5 mb-6"
+                    hover:bg-[#DB4444] transition-all leading-6 mt-3.5 mb-6"
                 >
                   REGISTER
                 </button>
@@ -433,7 +482,6 @@ const RegiLog = () => {
                     Log In
                   </span>
                 </p>
-              
               </form>
             )}
           </div>
