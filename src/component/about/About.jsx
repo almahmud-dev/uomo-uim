@@ -17,8 +17,8 @@ const support = "/assets/images/about/support.png";
 
 const features = [
   { title: "FAST AND FREE DELIVERY", desc: "Free delivery for all orders over $140" },
+  { title: "24/7 CUSTOMER SUPPORT", desc: "Friendly 24/7 customer support" },
   { title: "MONEY BACK GUARANTEE", desc: "We return money within 30 days" },
-  { title: "EVERY SECURE PAYMENT", desc: "Your payment information is safe" },
 ];
 
 const brands = [
