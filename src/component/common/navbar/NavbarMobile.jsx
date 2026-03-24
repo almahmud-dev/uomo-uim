@@ -179,9 +179,9 @@ const TabRow = ({ activeTab, onTabChange }) => (
   </div>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ==============================
 // NavbarMobile
-// ─────────────────────────────────────────────────────────────────────────────
+//===============================
 
 const NavbarMobile = () => {
   const { navIconItems } = allIcons;
@@ -207,7 +207,7 @@ const NavbarMobile = () => {
 
   const currentTabData = navTabsData.find((t) => t.tab === activeTab);
 
-  // ── Panel position helper ──────────────────────────────────────────────────
+  // ========== Panel position helper ===============
   const pos = (target) => {
     if (panel === target) return "translate-x-0";
 
@@ -223,7 +223,7 @@ const NavbarMobile = () => {
     return "-translate-x-full";
   };
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
+  // ============ Handlers ====================
   const handleOpen = () => {
     setIsOpen(true);
     setPanel("main");
@@ -271,8 +271,8 @@ const NavbarMobile = () => {
 
   return (
     <>
-      {/* ── Top Nav Bar ────────────────────────────────────────────────── */}
-      <nav className="py-[21px]">
+      {/* ============ Top Nav Bar ============= */}
+      <nav className="py-5.25">
         <Container>
           <div className="flex items-center justify-between">
             {/* Hamburger */}
@@ -287,7 +287,7 @@ const NavbarMobile = () => {
             <Images
               imgAlt="mobile-nav"
               imgSrc={navLogo}
-              className="w-[111px] h-[27px]"
+              className="w-27.75 h-6.75"
             />
 
             {/* Wishlist + Cart icons */}
@@ -295,7 +295,7 @@ const NavbarMobile = () => {
               {/* Wishlist icon */}
               <Link
                 href="/dashboard/wishlist"
-                className="relative text-[22px] text-head pr-[10px]"
+                className="relative text-[22px] text-head pr-2.5"
               >
                 {wishlistCount > 0 ? (
                   <FaHeart className="text-red-500 text-[22px]" />
@@ -303,7 +303,7 @@ const NavbarMobile = () => {
                   navIconItems[2].icon
                 )}
                 {wishlistCount > 0 && (
-                  <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
+                  <span className="absolute bg-third w-4.5 h-4.5 flex items-center justify-center text-[11px] font-medium text-white rounded-full -bottom-1.5 right-0.5">
                     {wishlistCount}
                   </span>
                 )}
@@ -312,7 +312,7 @@ const NavbarMobile = () => {
               {/* Cart icon */}
               <button
                 onClick={handleCartOpen}
-                className="relative cursor-pointer pr-[10px]"
+                className="relative cursor-pointer pr-2.5"
               >
                 <span className="text-[26px] text-head">
                   {navIconItems[3].icon}
