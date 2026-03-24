@@ -317,7 +317,7 @@ const NavbarMobile = () => {
                 <span className="text-[26px] text-head">
                   {navIconItems[3].icon}
                 </span>
-                <span className="absolute bg-third w-[18px] h-[18px] flex items-center justify-center text-[11px] font-medium text-white rounded-full bottom-[-6px] right-[2px]">
+                <span className="absolute bg-third w-4.5 h-4.5 flex items-center justify-center text-[11px] font-medium text-white rounded-full -bottom-1.5 right-0.5">
                   {cartCount}
                 </span>
               </button>
@@ -326,23 +326,23 @@ const NavbarMobile = () => {
         </Container>
       </nav>
 
-      {/* ── Menu Drawer Backdrop ───────────────────────────────────────── */}
+      {/* ------ Menu Drawer Backdrop ------------- */}
       <div
         onClick={handleClose}
-        className={`fixed inset-0 bg-black/30 z-[998] transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/30 z-998 transition-opacity duration-300 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       />
 
-      {/* ── Menu Drawer ─────────────────────────────────────────────────── */}
+      {/* --------------- Menu Drawer -------------- */}
       <div
-        className={`fixed top-0 left-0 w-[280px] h-full bg-white z-[999] overflow-hidden transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 w-70 h-full bg-white z-999 overflow-hidden transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* ════ PANEL 1 — MAIN NAV ════════════════════════════════════════ */}
+        {/* ------------- PANEL 1 e MAIN NAV -------------- */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("main")}`}
         >
@@ -363,7 +363,7 @@ const NavbarMobile = () => {
                   onClick={handleClose}
                   className="w-full flex items-center justify-between px-5 bg-transparent text-left"
                 >
-                  <span className="texts_16_medium leading-[55px] text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[9px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <span className="texts_16_medium leading-13.75 text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-2.25 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                     {item.label}
                   </span>
                 </Link>
@@ -373,7 +373,7 @@ const NavbarMobile = () => {
                   onClick={() => handleNavItemClick(item)}
                   className="w-full flex items-center justify-between px-5 bg-transparent cursor-pointer text-left"
                 >
-                  <span className="texts_16_medium leading-[55px] text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[9px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <span className="texts_16_medium leading-13.75 text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-2.25 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                     {item.label}
                   </span>
                   <IoChevronForward className="text-[16px] text-head shrink-0" />
