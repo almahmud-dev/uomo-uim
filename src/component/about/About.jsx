@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 const about = "/assets/images/about/about.png";
 const about2 = "/assets/images/about/about2.png";
-const delivery = "/assets/images/about/delivery.png";
 const brand1 = "/assets/images/about/mango.png";
 const brand2 = "/assets/images/about/zara.png";
 const brand3 = "/assets/images/about/reebok.png";
@@ -12,13 +11,14 @@ const brand4 = "/assets/images/about/asos.png";
 const brand5 = "/assets/images/about/stradi.png";
 const brand6 = "/assets/images/about/adi.png";
 const brand7 = "/assets/images/about/bershka.png";
+const delivery = "/assets/images/about/delivery.png";
 const shield = "/assets/images/about/shield.png";
 const support = "/assets/images/about/support.png";
 
 const features = [
-  { title: "FAST AND FREE DELIVERY", desc: "Free delivery for all orders over $140" },
-  { title: "24/7 CUSTOMER SUPPORT", desc: "Friendly 24/7 customer support" },
-  { title: "MONEY BACK GUARANTEE", desc: "We return money within 30 days" },
+  { icon: delivery, title: "FAST AND FREE DELIVERY", desc: "Free delivery for all orders over $140" },
+  { icon: shield, title: "24/7 CUSTOMER SUPPORT", desc: "Friendly 24/7 customer support" },
+  { icon: support, title: "MONEY BACK GUARANTEE", desc: "We return money within 30 days" },
 ];
 
 const brands = [
@@ -115,7 +115,7 @@ const About = () => {
               {features.map((feature, i) => ( 
                 <div key={i} className="flex items-start gap-3 sm:gap-4 xl:gap-[18px]">
                   <div className="w-[38px] h-[38px] sm:w-[40px] sm:h-[40px] lg:w-[42px] lg:h-[42px] xl:w-[45px] xl:h-[45px] shrink-0 flex items-center justify-center">
-                    <img src={delivery} alt="" className="w-full h-full object-contain" />
+                    <img src={feature.icon} alt="" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <p className="text-[13px] sm:text-[14px] lg:text-[15px] xl:text-[16px] text-[#141F46] font-medium tracking-[0%] block mb-[4px]">
