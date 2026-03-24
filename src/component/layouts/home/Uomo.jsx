@@ -1,33 +1,39 @@
 'use client';
 import Container from "@/component/common/Container";
 import Images from "@/component/common/Images";
-import React from "react";
-const image = "/assets/images/uomoImg.png";
+import React, { useEffect } from "react";
+import { useProductStore } from "@/store/useProductStore";
 
 const Uomo = () => {
+  const { products, loading, fetchProducts } = useProductStore();
+
+  useEffect(() => {
+    fetchProducts({ limit: 12 });
+  }, []);
+
   return (
-    <>
-      <section className="mt-12.5 lg:mt-20.25">
-        <Container>
-          <div className="">
-            <h2 className="head_35_regular text-bold text-center">@UOMO</h2>
-            <div className="mt-8.5 grid grid-cols-3 lg:grid-cols-6 gap-3.75 lg:gap-1.5">
-              {[...new Array(12)].map((_, index) => {
-                return (
-                  <div key={index}>
-                    <Images
-                      imgSrc={image}
-                      imgAlt={image}
-                      className={"w-full rounded"}
-                    />
-                  </div>
-                );
-              })}
+    <section className="mt-12.5 lg:mt-20.25">
+      <Container>
+        <h2 className="head_35_regular text-bold text-center">@UOMO</h2>
+
+        {loading && <p className="text-center mt-4">Loading...</p>}
+
+        <div className="mt-8.5 grid grid-cols-3 lg:grid-cols-6 gap-3.75 lg:gap-3">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="border border-gray-200 shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-white p-2"
+            >
+              <Images
+                imgSrc={product.thumbnail}
+                imgAlt={product.title}
+                className="w-full h-32 object-contain"
+              />
             </div>
-          </div>
-        </Container>
-      </section>
-    </>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 };
 
