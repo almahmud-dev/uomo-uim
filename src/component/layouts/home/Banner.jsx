@@ -49,7 +49,7 @@ const Banner = () => {
                   mx-auto max-w-450 w-full
                   bg-no-repeat bg-cover bg-center
                   overflow-hidden relative
-                  h-120 sm:h-150 md:h-187.5 lg:h-200
+                  h-105 sm:h-150 md:h-187.5 lg:h-200
                 "
               >
                 {/* ── Right Image — absolute, right-aligned, full height ── */}
@@ -65,15 +65,14 @@ const Banner = () => {
                     absolute z-0
                     right-0 bottom-0
                     md:h-full
-                    h-[90%]
-                    w-[55%] sm:w-[58%] lg:w-[60%]
+                    h-[95%]
+                    w-[60%] sm:w-[65%] lg:w-[60%]
                     flex items-end justify-end lg:hidden
-                  
                   "
                 >
                   <Images
                     imgSrc={item.img}
-                    className="h-full w-full object-contain object-bottom"
+                    className="h-full w-full object-cover object-top"
                   />
                 </div>
 
@@ -83,9 +82,9 @@ const Banner = () => {
                     className="
                       leftContent
                       absolute z-10
-                      bottom-15 sm:bottom-20 lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%]
+                      bottom-12 sm:bottom-20 lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%]
                       left-4 sm:left-7.5 xl:left-0
-                      w-[55%] sm:w-[52%] lg:w-[45%]
+                      w-[52%] sm:w-[50%] lg:w-[45%]
                     "
                   >
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -97,7 +96,8 @@ const Banner = () => {
 
                     <h1
                       className="
-                        head_70_regular pb-2 text-head hidden  lg:block  "
+                      head_70_regular
+                      pb-2 text-head hidden lg:block  "
                     >
                       <span className="whitespace-nowrap">
                         {" "}
