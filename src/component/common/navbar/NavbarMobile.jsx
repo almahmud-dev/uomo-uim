@@ -21,7 +21,6 @@ import allImages from "@/helper/imagesProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
-// ✅ NEW: auth imports
 import useAuthStore from "@/store/authSlice";
 import { auth } from "@/firebase/firebase";
 import { signOut } from "firebase/auth";
@@ -35,9 +34,9 @@ const socialIcons = [
   { id: 5, icon: FaPinterestP, link: "https://www.pinterest.com" },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ===========================
 // Shared UI pieces
-// ─────────────────────────────────────────────────────────────────────────────
+// ============================
 
 const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
   <div className="flex items-center justify-between px-5 py-4 border-b border-footer">
@@ -47,13 +46,13 @@ const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
     <Images
       imgAlt="mobile-nav"
       imgSrc={navLogo}
-      className="w-[111px] h-[27px]"
+      className="w-27.75 h-6.75"
     />
-    <button onClick={onCartClick} className="relative cursor-pointer pr-[10px]">
+    <button onClick={onCartClick} className="relative cursor-pointer pr-2.5">
       <span className="text-[23px] text-head">
         <HiOutlineShoppingBag />
       </span>
-      <span className="absolute bg-third w-[17px] h-[17px] flex items-center justify-center text-[10px] font-medium text-white rounded-full bottom-[-5px] right-[2px]">
+      <span className="absolute bg-third w-4.25 h-4.25 flex items-center justify-center text-[10px] font-medium text-white rounded-full -bottom-1.25 right-0.5">
         {cartBadge}
       </span>
     </button>
@@ -61,7 +60,7 @@ const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
 );
 
 const DrawerSearch = () => (
-  <div className="flex items-center gap-[10px] px-5 py-4 mb-3 border-b border-footer">
+  <div className="flex items-center gap-2.5 px-5 py-4 mb-3 border-b border-footer">
     <input
       type="text"
       placeholder="Search products..."
@@ -71,7 +70,7 @@ const DrawerSearch = () => (
   </div>
 );
 
-// ✅ FIXED: DrawerFooter — user থাকলে name+email+LOGOUT, না থাকলে LOGIN
+// ==== FIXED: DrawerFooter e user thakle name+email+LOGOUT ar jodi na thake LOGIN dekhabe =============
 const DrawerFooter = ({ onClose }) => {
   const { user, clearUser } = useAuthStore();
   const router = useRouter();
@@ -84,7 +83,7 @@ const DrawerFooter = ({ onClose }) => {
   };
 
   return (
-    <div className="px-5 pt-[29px] pb-5 border-t border-footer">
+    <div className="px-5 pt-7.25 pb-5 border-t border-footer">
       {user ? (
         <div className="mb-4">
           {/* Avatar + Name + Email */}
@@ -113,7 +112,7 @@ const DrawerFooter = ({ onClose }) => {
         </div>
       ) : (
         <div
-          className="flex items-center gap-[10px] mb-4 cursor-pointer"
+          className="flex items-center gap-2.5 mb-4 cursor-pointer"
           onClick={() => {
             onClose();
             router.push("/my-account");
@@ -126,9 +125,9 @@ const DrawerFooter = ({ onClose }) => {
         </div>
       )}
 
-      {/* Language & Currency */}
-      <div className="flex items-center mb-[10px]">
-        <span className="texts_14_regular text-second w-[80px] shrink-0">
+      {/* ------------------Language & Currency---------- */}
+      <div className="flex items-center mb-2.5">
+        <span className="texts_14_regular text-second w-20 shrink-0">
           Language
         </span>
         <span className="texts_13_regular text-head flex items-center gap-1">
@@ -136,7 +135,7 @@ const DrawerFooter = ({ onClose }) => {
         </span>
       </div>
       <div className="flex items-center mb-4">
-        <span className="texts_13_regular text-second w-[80px] shrink-0">
+        <span className="texts_13_regular text-second w-20 shrink-0">
           Currency
         </span>
         <span className="texts_13_regular text-head flex items-center gap-1">
@@ -167,7 +166,7 @@ const TabRow = ({ activeTab, onTabChange }) => (
       <button
         key={tab.id}
         onClick={() => onTabChange?.(tab.tab)}
-        className={`texts_15_medium px-3 py-[5px] rounded-[4px] tracking-[0.5px] transition-colors cursor-pointer ${
+        className={`texts_15_medium px-3 py-1.25 rounded-lg tracking-[0.5px] transition-colors cursor-pointer ${
           activeTab === tab.tab
             ? "bg-head text-white"
             : "text-head hover:bg-secondbg"
