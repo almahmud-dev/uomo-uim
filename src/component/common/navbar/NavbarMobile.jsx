@@ -382,11 +382,11 @@ const NavbarMobile = () => {
             )}
           </div>
 
-          {/* ✅ onClose pass করা হয়েছে */}
+          {/* ==== onClose pass kora hoyeche ===== */}
           <DrawerFooter onClose={handleClose} />
         </div>
 
-        {/* ════ PANEL 2 — SHOP ════════════════════════════════════════════ */}
+        {/* ----------------- PANEL 2 e SHOP ------------------------- */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("shop")}`}
         >
@@ -404,10 +404,10 @@ const NavbarMobile = () => {
               <button
                 key={cat.id}
                 onClick={() => handleCategoryClick(cat)}
-                className="w-full flex items-center justify-between px-5 h-[45px] bg-transparent cursor-pointer text-left"
+                className="w-full flex items-center justify-between px-5 h-11.25 bg-transparent cursor-pointer text-left"
               >
                 <span
-                  className={`texts_14_medium relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[0px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out tracking-[0.3px] ${
+                  className={`texts_14_medium relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out tracking-[0.3px] ${
                     cat.isActive ? "font-medium" : ""
                   } ${cat.isRed ? "text-red" : "text-head"}`}
                 >
@@ -419,7 +419,7 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* ════ PANEL 3 — SHOP SUB-LINKS ═════════════════════════════════ */}
+        {/* ------------- PANEL 3 e SHOP SUB-LINKS -------------------- */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("shopSub")}`}
         >
@@ -434,7 +434,7 @@ const NavbarMobile = () => {
 
           <button
             onClick={handleBack}
-            className="w-full flex items-center gap-2 px-5 h-[50px] bg-transparent cursor-pointer text-left"
+            className="w-full flex items-center gap-2 px-5 h-12.5 bg-transparent cursor-pointer text-left"
           >
             <IoChevronBack className="text-[15px] text-head shrink-0" />
             <span className="texts_14_medium text-head tracking-[0.5px]">
@@ -448,9 +448,9 @@ const NavbarMobile = () => {
                 key={link.id}
                 href={link.link}
                 onClick={handleClose}
-                className="flex items-center px-5 h-[46px] texts_14_regular text-head"
+                className="flex items-center px-5 h-11.5 texts_14_regular text-head"
               >
-                <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[0px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                   {link.name}
                 </span>
               </Link>
@@ -458,7 +458,7 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* ════ PANEL 4 — JOURNAL ═════════════════════════════════════════ */}
+        {/* --------------- PANEL 4 e JOURNAL --------------------- */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("journal")}`}
         >
@@ -472,10 +472,10 @@ const NavbarMobile = () => {
 
           <button
             onClick={handleBack}
-            className="w-full flex items-center gap-2 px-5 h-[52px] pt-4 pb-2 border-b border-footer bg-transparent cursor-pointer text-left"
+            className="w-full flex items-center gap-2 px-5 h-13 pt-4 pb-2 border-b border-footer bg-transparent cursor-pointer text-left"
           >
             <IoChevronBack className="text-lg text-head shrink-0" />
-            <span className="texts_16_medium leading-[45px] text-head tracking-[0.5px]">
+            <span className="texts_16_medium leading-11.25 text-head tracking-[0.5px]">
               {activeMegaItem?.label}
             </span>
           </button>
@@ -493,9 +493,9 @@ const NavbarMobile = () => {
                     key={lIdx}
                     href={link.link}
                     onClick={handleClose}
-                    className="flex items-center px-5 h-[44px] texts_13_regular"
+                    className="flex items-center px-5 h-11 texts_13_regular"
                   >
-                    <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[-2px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                    <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0.5 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                       {link.name}
                     </span>
                   </Link>
@@ -505,7 +505,7 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* ════ PANEL 5 — SIMPLE DROPDOWN ════════════════════════════════ */}
+        {/* ------------- PANEL 5 e SIMPLE DROPDOWN ------------- */}
         <div
           className={`absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos("simple")}`}
         >
@@ -519,10 +519,10 @@ const NavbarMobile = () => {
 
           <button
             onClick={handleBack}
-            className="w-full flex items-center gap-2 px-5 h-[52px] border-b border-footer bg-transparent cursor-pointer text-left"
+            className="w-full flex items-center gap-2 px-5 h-13 border-b border-footer bg-transparent cursor-pointer text-left"
           >
             <IoChevronBack className="text-[16px] text-head shrink-0" />
-            <span className="texts_16_medium text-head leading-[45px] tracking-[0.5px]">
+            <span className="texts_16_medium text-head leading-11.25 tracking-[0.5px]">
               {activeSimpleNav?.label}
             </span>
           </button>
@@ -535,22 +535,22 @@ const NavbarMobile = () => {
                 onClick={handleClose}
                 className="flex items-center px-5 texts_14_regular text-head"
               >
-                <span className="relative leading-[45px] after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[7px] after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                <span className="relative leading-11.25 after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.75 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
                   {link.name}
                 </span>
               </Link>
             ))}
           </div>
 
-          {/* ✅ onClose pass করা হয়েছে */}
+          {/*  onClose pass kora hoyeche */}
           <DrawerFooter onClose={handleClose} />
         </div>
       </div>
 
-      {/* ── Cart Backdrop ───────────────────────────────────────────────── */}
+      {/*  Cart Backdrop  */}
       <div
         onClick={handleCartClose}
-        className={`fixed inset-0 bg-black/30 z-[1000] transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/30 z-1000 transition-opacity duration-300 ${
           isCartOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -559,7 +559,7 @@ const NavbarMobile = () => {
 
       {/*  Cart Drawer  */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white z-[1001] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full bg-white z-1001 transition-transform duration-300 ease-in-out ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
