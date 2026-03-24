@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Container from "@/component/common/Container";
 import React from "react";
 
@@ -7,7 +7,6 @@ const DashboardAccDetails = () => {
     <>
       <Container>
         <div className="w-full mt-8 sm:mt-12 lg:mt-25">
-
           {/* First Name + Last Name */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-[27px] mb-5 sm:mb-7.5">
             <div className="flex-1 border border-[#c8dde9] focus-within:border-gray-400 transition-all">
@@ -81,7 +80,6 @@ const DashboardAccDetails = () => {
               Save Changes
             </button>
           </div>
-
         </div>
       </Container>
     </>

@@ -322,7 +322,7 @@ const NavbarLg = () => {
                       href={items.link}
                       className=" relative text-[22px] text-head "
                     >
-                      <span className="absolute bg-third  w-[19px] h-[19px] flex  flex items-center justify-center text-xs font-medium text-white  rounded-full  bottom-[-10px] !right-[-8px]">
+                      <span className="absolute bg-third  w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white  rounded-full  bottom-[-10px] !right-[-8px]">
                         {cartCount}
                       </span>
                       {items.icon}
@@ -340,7 +340,7 @@ const NavbarLg = () => {
                       </div>
                     )}
                   </li>
-                ) : items.name === "Wishlist" ? ( // ✅ NEW: Wishlist block
+                ) : items.name === "Wishlist" ? ( // New Wishlist block added
                   <li key={items.id}>
                     <Link
                       href={items.link}
