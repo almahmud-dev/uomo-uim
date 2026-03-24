@@ -12,26 +12,26 @@ const coundown = "/assets/images/countdown.png";
 const Countdown = () => {
   return (
     <>
-      <section className="lg:mt-25 mt-13">
+      <section className="bg-[#EBEBEB] lg:mt-25 mt-13">
         <div
-          className="bg-[#EBEBEB] pt-10 pb-9 md:pt-28 lg:pt-52.25 lg:mx-15
-          bg-no-repeat bg-cover bg-center min-h-75 md:min-h-100 lg:min-h-150"
+          className="pt-10 lg:mx-15
+          bg-no-repeat bg-cover bg-center"
         >
           <Container>
             {/* Main div */}
-            <div className="flex items-center gap:20 lg:gap-50.5">
+            <div className="flex items-center gap:20 lg:gap-50.5 h-full">
 
               {/* Text Div — max-w-[699px] */}
               <div className="max-w-174.75 w-full">
-                <div className="lg:mb-30 mb-6.25">
+                <div className="pb-29.75">
                   <div className="flex items-center gap-3.25">
                     <div className="w-10 h-0.5 bg-second-red"></div>
                     <p className="texts_14_medium text-second-red">
                       DEAL OF THE WEEK
                     </p>
                   </div>
-                  <h2 className="head_70_regular font-medium text-[30px] text-head pt-2.25 pb-2.75 w-full">
-                    <span className="head_70_bold font-bold text-[30px] text-head">
+                  <h2 className="head_70_regular font-medium text-head pt-2.25 pb-2.75  uppercase">
+                    <span className="head_70_bold font-bold text-head">
                       Spring
                     </span>{" "}
                     Collection
@@ -100,7 +100,7 @@ const Countdown = () => {
               </div>
 
               {/* Image Div — w-[426px] */}
-              <div className="hidden md:block w-106.5 min-w-106.5">
+              <div className="hidden md:block w-106.5 min-w-106.5 h-full">
                 <img
                   src={coundown}
                   alt="Spring Collection"
