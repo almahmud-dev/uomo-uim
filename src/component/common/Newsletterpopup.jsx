@@ -7,7 +7,7 @@ export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(true);
   const [email, setEmail] = useState("");
 //Imager er jonno
-  const { rithik } = allImages;
+  const { letterimg } = allImages;
 //Jodi open na hoy ba bar bar tuggol er jonno
   if (!isOpen) return null;
 
@@ -24,7 +24,7 @@ export default function NewsletterPopup() {
           {/* Left — image panel */}
           <div className="hidden md:flex relative md:w-65 lg:w-85 xl:w-100 shrink-0 overflow-hidden md:min-h-112.5 lg:min-h-125 xl:min-h-137.5">
             <Images
-              imgSrc={rithik}
+              imgSrc={letterimg}
               imgAlt="newsletter"
               className="w-full h-full object-cover"
             />
