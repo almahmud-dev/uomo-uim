@@ -34,14 +34,14 @@ const ShopBanner = () => {
     setSkip((prev) => prev + limit);
   };
 
-  // Responsive cols — screen size অনুযায়ী max cols limit
+  // Responsive cols — screen size onujayi max cols limit
   const getGridCols = () => {
     if (typeof window === "undefined") return cols;
     const width = window.innerWidth;
-    if (width < 640) return 1;           // sm: max 1
-    if (width < 768) return Math.min(cols, 2);  // md: max 2
-    if (width < 1024) return Math.min(cols, 3); // lg: max 3
-    return cols;                          // xl+: user chosen
+    if (width < 640) return 1;           // sm er jonno max 1
+    if (width < 768) return Math.min(cols, 2);  // md er jonno max 2
+    if (width < 1024) return Math.min(cols, 3); // lg er max 3
+    return cols;                          // xl pluse ja ja che user chosen
   };
 
   const { filter } = allIcons;
@@ -60,7 +60,7 @@ const ShopBanner = () => {
             <ul className="flex items-center gap-x-4 sm:gap-x-6 md:gap-x-10 whitespace-nowrap">
               {shopList1.map((items) => (
                 <li key={items.id}>
-                  <button className="texts_16_medium text-head relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:-bottom-0.5 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <button className="texts_16_medium cursor-pointer text-head relative after:absolute after:content-[''] after:w-0 after:h-0.5 after:bg-head after:bottom-[2.5px] after:left-0 after:transition-all after:duration-500 after:ease-in-out [&:hover::after]:w-[60%] py-1">
                     {items.title}
                   </button>
                 </li>
