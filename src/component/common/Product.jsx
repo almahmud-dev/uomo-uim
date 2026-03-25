@@ -48,17 +48,17 @@ const isLiked = wishlistItems.some((item) => item.id === id);
   return (
     <>
       <div
-        className="lg:w-82.5 w-full relative group cursor-pointer"
+        className="lg:w-82.5 w-full relative group cursor-pointer border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 p-3 rounded-sm"
         onClick={() => router.push(`/shop/${id}`)}
       >
-        <div className="relative overflow-hidden ">
+        <div className="relative overflow-hidden">
           <Images className={"w-full object-cover"} imgSrc={imgSrc} imgAlt={imgAlt} />
           {/* Badge Start */}
 
           {/* Add To Cart Start */}
           <button
             onClick={handleAddToCart}
-            className="texts_14_medium text-head bg-white  w-full pt-4 pb-2.5 text-center absolute  bottom-4 left-1/2 -translate-x-1/2 translate-y-[50%] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer"
+            className="texts_14_medium text-white bg-black w-full pt-4 pb-2.5 text-center absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer tracking-widest"
           >
             ADD TO CART
           </button>
