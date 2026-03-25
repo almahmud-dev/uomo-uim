@@ -22,7 +22,7 @@ const Uomo = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="border border-gray-200 shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-white p-2"
+              className="border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 p-3 rounded-sm"
             >
               <Images
                 imgSrc={product.thumbnail}
