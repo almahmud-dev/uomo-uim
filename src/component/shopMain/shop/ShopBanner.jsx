@@ -65,7 +65,10 @@ const ShopBanner = () => {
           <div className="flex justify-between">
             <p className="text-head texts_14_medium">HOME / THE SHOP</p>
             <div className="flex items-center gap-x-7.5">
-              <select onChange={(e) => setSortBy(e.target.value)} className="border-b-2 border-head cursor-pointer bg-transparent outline-none texts_14_medium text-head px-2 appearance-none pr-6">
+              <select
+                onChange={(e) => setSortBy(e.target.value)}
+                className="border-b-2 border-head cursor-pointer bg-transparent outline-none texts_14_medium text-head px-2 appearance-none pr-6"
+              >
                 <option className="text-head texts_14_medium" value="default">
                   Default Sorting
                 </option>
