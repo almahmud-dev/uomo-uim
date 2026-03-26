@@ -9,16 +9,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import useSingleProduct from "@/customHook/useSingleProduct";
 import useCartStore from "@/store/cartSlice";
 import Trend_product from "@/component/shopMain/shopSingle/Trend_product";
+
 const Top = ({ id }) => {
-  console.log("TOP RENDERED", id);
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const swiperRef = useRef(null);
   const { data: product, isLoading, isError } = useSingleProduct(id);
   const { addToCart } = useCartStore();
 
@@ -29,13 +30,11 @@ const Top = ({ id }) => {
     if (count < 10) setCount(count + 1);
   };
 
-  // discount price calculate
   const discountedPrice =
     product?.discountPercentage > 0
       ? product.price - (product.price * product.discountPercentage) / 100
       : product?.price;
 
-  // count onujayi total price
   const totalPrice = discountedPrice ? (discountedPrice * count).toFixed(2) : 0;
 
   const handleAddToCart = () => {
@@ -48,10 +47,10 @@ const Top = ({ id }) => {
       category: product.category,
       quantity: count,
     });
-    // popup dekhabe
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2500);
   };
+
   if (isLoading) {
     return (
       <div className="mt-12.5 mb-25">
@@ -68,12 +67,18 @@ const Top = ({ id }) => {
       </div>
     );
   }
+
   if (isError) return <div>Something went wrong.</div>;
-  const images = product?.images || [product?.thumbnail];
+
+  const images =
+    product?.images?.length > 0
+      ? product.images
+      : product?.thumbnail
+        ? [product.thumbnail]
+        : [];
 
   return (
     <div className="pt-18.5 pb-6 lg:pt-31.25 lg:pb-25">
-      {/* Add to Cart Popup */}
       {showPopup && (
         <div className="fixed top-24 right-6 z-9999 bg-head text-white px-6 py-4 shadow-lg flex items-center gap-3 transition-all duration-300">
           <Images
@@ -91,12 +96,18 @@ const Top = ({ id }) => {
         <div className="flex flex-col xl:flex-row gap-y-8 xl:gap-x-15">
           {/* Left Side: Images */}
           <div className="flex flex-col-reverse xl:flex-row gap-2.5">
+            {/* Thumbnails */}
             <div className="flex xl:flex-col gap-2.5 overflow-x-auto lg:overflow-visible">
               {images.map((img, i) => (
                 <div
                   key={i}
-                  className={`min-w-20 xl:w-auto cursor-pointer border-2 ${activeImg === i ? "border-head" : "border-transparent"}`}
-                  onClick={() => setActiveImg(i)}
+                  className={`min-w-20 xl:w-auto cursor-pointer border-2 ${
+                    activeImg === i ? "border-head" : "border-transparent"
+                  }`}
+                  onClick={() => {
+                    setActiveImg(i);
+                    swiperRef.current?.slideTo(i);
+                  }}
                 >
                   <Images imgSrc={img} className="w-20 h-20 object-cover" />
                 </div>
@@ -106,6 +117,8 @@ const Top = ({ id }) => {
             {/* Main Slider */}
             <div className="w-full xl:w-142.5 relative group">
               <Swiper
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                onSlideChange={(swiper) => setActiveImg(swiper.activeIndex)}
                 modules={[Navigation]}
                 navigation={{
                   nextEl: ".button-next-custom",
@@ -113,6 +126,7 @@ const Top = ({ id }) => {
                 }}
                 spaceBetween={10}
                 slidesPerView={1}
+                loop={false}
                 className="w-full h-auto"
               >
                 {images.map((img, index) => (
@@ -121,7 +135,7 @@ const Top = ({ id }) => {
                     className="relative flex justify-center items-center bg-[#F5F5F5]"
                   >
                     <Images
-                      imgSrc={images[activeImg]}
+                      imgSrc={img}
                       className="w-full h-auto object-contain"
                     />
                   </SwiperSlide>
@@ -148,7 +162,6 @@ const Top = ({ id }) => {
               {product?.title}
             </h3>
 
-            {/* Price */}
             <div className="mt-2">
               {product?.discountPercentage > 0 ? (
                 <div className="flex items-center gap-2">
@@ -170,7 +183,6 @@ const Top = ({ id }) => {
               {product?.description}
             </p>
 
-            {/* Buttons */}
             <div className="flex items-center gap-x-2.5 lg:gap-x-5 my-6 lg:my-8">
               <div className="w-25 lg:w-31.25 h-12 lg:h-15 border border-footer flex items-center justify-between px-3 lg:px-5 shrink-0">
                 <button
@@ -195,7 +207,6 @@ const Top = ({ id }) => {
               </button>
             </div>
 
-            {/* Wishlist & Share */}
             <div className="flex gap-x-8 lg:pb-8">
               <button
                 onClick={() => setIsWishlisted(!isWishlisted)}
@@ -213,7 +224,6 @@ const Top = ({ id }) => {
               </button>
             </div>
 
-            {/* Meta */}
             <div className="space-y-1 mt-8">
               <h5 className="texts_13_regular text-second">
                 SKU: <span className="text-head">{product?.sku || "N/A"}</span>
