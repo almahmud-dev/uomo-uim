@@ -1,7 +1,6 @@
 'use client';
 import Images from "@/component/common/Images";
 import React, { useRef, useState } from "react";
-
 import Button from "@/component/common/Button";
 import {
   FaFacebookF,
@@ -14,17 +13,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-const Banner = () => {
-  const swiperRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  
-  const sliderData = [
+const sliderData = [
   { id: 1, img: "/assets/images/hero/bannerRightImg.png" },
   { id: 2, img: "/assets/images/hero/bannerRightImg2.png" },
   { id: 3, img: "/assets/images/hero/bannerRightImg3.png" },
   { id: 4, img: "/assets/images/hero/bannerRightImg4.png" },
   { id: 5, img: "/assets/images/hero/bannerRightImg5.png" },
 ];
+
+const Banner = () => {
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section className="mt-22.5 overflow-hidden">
@@ -42,7 +41,6 @@ const Banner = () => {
         >
           {sliderData.map((item, idx) => (
             <SwiperSlide key={idx}>
-              {/* Outer wrapper — fixed height, overflow hidden */}
               <div
                 className="
                   bg-[url('/assets/images/bannerBg.png')]
@@ -52,14 +50,16 @@ const Banner = () => {
                   h-105 sm:h-150 md:h-187.5 lg:h-200
                 "
               >
-                {/* ── Right Image — absolute, right-aligned, full height ── */}
+                {/* Desktop image */}
                 <div className="absolute top-0 bottom-0 right-0 hidden lg:block">
                   <Images
-                  imgSrc={item.img}
-                  className="h-full w-auto object-cover object-top"
+                    imgSrc={item.img}
+                    className="h-full w-auto object-cover object-top"
+                    priority={idx === 0}
                   />
                 </div>
 
+                {/* Mobile image */}
                 <div
                   className="
                     absolute z-0
@@ -73,10 +73,11 @@ const Banner = () => {
                   <Images
                     imgSrc={item.img}
                     className="h-full w-full object-cover object-top"
+                    priority={idx === 0}
                   />
                 </div>
 
-                {/* ── Left Content — absolute, vertically centered-bottom ── */}
+                {/* Left Content */}
                 <div className="container px-4 sm:px-7.5 xl:px-0 h-full relative">
                   <div
                     className="
@@ -94,35 +95,20 @@ const Banner = () => {
                       </p>
                     </div>
 
-                    <h1
-                      className="
-                      head_70_regular
-                      pb-2 text-head hidden lg:block  "
-                    >
-                      <span className="whitespace-nowrap">
-                        {" "}
-                        SUMMER SALE STYLISH
-                      </span>
-                      <span className="head_70_bold block ">WOMENS</span>
+                    <h1 className="head_70_regular pb-2 text-head hidden lg:block">
+                      <span className="whitespace-nowrap"> SUMMER SALE STYLISH</span>
+                      <span className="head_70_bold block">WOMENS</span>
                     </h1>
-                    <h1
-                      className="
-                        head_70_regular pb-2 text-head block  lg:hidden  "
-                    >
+                    <h1 className="head_70_regular pb-2 text-head block lg:hidden">
                       <span className="whitespace-nowrap"> SUMMER SALE</span>
-                      <span className="  block   whitespace-nowrap">
-                        {" "}
+                      <span className="block whitespace-nowrap">
                         <span> STYLISH </span>
-                        <span className="head_70_bold  ">WOMENS</span>
+                        <span className="head_70_bold">WOMENS</span>
                       </span>
                     </h1>
 
-                    <Button
-                      className={"hover:after:w-24"}
-                      btnText={"DISCOVER MORE"}
-                    />
+                    <Button className={"hover:after:w-24"} btnText={"DISCOVER MORE"} />
 
-                    {/* Slider Dots */}
                     <div className="mt-6 sm:mt-10 lg:mt-16 flex gap-1">
                       {sliderData.map((_, index) => (
                         <div
@@ -149,28 +135,18 @@ const Banner = () => {
         </Swiper>
 
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
-          <div className="  flex flex-col gap-y-6.25 z-10">
+          <div className="flex flex-col gap-y-6.25 z-10">
+            <Link href="#"><FaFacebookF className="text-second" size={15} /></Link>
+            <Link href="#"><FaTwitter className="text-second" size={15} /></Link>
+            <Link href="#"><FaInstagram className="text-second" size={15} /></Link>
+            <Link href="#"><FaPinterest className="text-second" size={15} /></Link>
             <Link href="#">
-              <FaFacebookF className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaTwitter className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaInstagram className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaPinterest className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
-                FOLLOW US
-              </p>
+              <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">FOLLOW US</p>
             </Link>
           </div>
         </div>
         <div className="absolute bottom-5.75 right-0 xl:-right-20 -translate-y-[50%] hidden lg:block">
-          <div className=" flex space-x-2.5 items-center rotate-270 z-10">
+          <div className="flex space-x-2.5 items-center rotate-270 z-10">
             <div className="w-7.5 h-0.5 bg-head"></div>
             <p className="texts_14_medium text-head">SCROLL</p>
           </div>

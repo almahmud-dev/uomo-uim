@@ -1,4 +1,4 @@
-import DashboardAddress from "@/component/mainDashboard/dashborarAllComponent/DashboardAddress";
+import DashboardAddress from "@/component/mainDashboard/dashboardAllComponent/DashboardAddress";
 
 export const metadata = {
   title: "Addresses | Uomo",

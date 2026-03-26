@@ -1,7 +1,7 @@
 'use client';
 import Container from "@/component/common/Container";
 import React, { useState } from "react";
-import DashborardItems from "../dashborarAllComponent/DashborardItems";
+import DashborardItems from "../dashboardAllComponent/DashborardItems";
 
 const DashboardLayout = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);

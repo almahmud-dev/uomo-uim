@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-import useAllProduct from "@/coustomHook/useAllProduct";
+import useAllProduct from "@/customHook/useAllProduct";
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 const ChevronLeft = () => (

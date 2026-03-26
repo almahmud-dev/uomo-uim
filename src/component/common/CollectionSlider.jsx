@@ -5,7 +5,7 @@ import { GiCelebrationFire } from "react-icons/gi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Autoplay } from "swiper/modules";
 import Product from "./Product";
-import useAllProduct from "@/coustomHook/useAllProduct";
+import useAllProduct from "@/customHook/useAllProduct";
 
 const CollectionSlider = ({
   collectionHeading,
@@ -15,7 +15,7 @@ const CollectionSlider = ({
   skip = 0,
 }) => {
   const { chevron } = allIcons;
-  const { data, isLoading } = useAllProduct(10, skip);
+  const { data, isLoading, isError } = useAllProduct(10, skip);
   const products = data?.products || [];
 
   const swiperConfig = (prevClass, nextClass, slides) => ({
@@ -56,7 +56,7 @@ const CollectionSlider = ({
         />
       </SwiperSlide>
     ));
-
+  if (isError) return <div>Something went wrong.</div>;
   if (isLoading) {
     return (
       <div>

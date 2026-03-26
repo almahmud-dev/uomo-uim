@@ -5,8 +5,8 @@ import StepIndicator from "../stepIndicators/StepIndicator";
 
 const getTitleByPath = (pathname) => {
   if (pathname.includes("order-tracking")) return "ORDER TRACKING";
-  if (pathname.includes("order-recived")) return "ORDER RECEIVED";
-  if (pathname.includes("shoping-and-checkout")) return "SHIPPING AND CHECKOUT";
+  if (pathname.includes("order-received")) return "ORDER RECEIVED";
+  if (pathname.includes("shopping-and-checkout")) return "SHIPPING AND CHECKOUT";
   return "CART";
 };
 

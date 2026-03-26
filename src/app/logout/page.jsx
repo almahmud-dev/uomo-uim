@@ -1,4 +1,4 @@
-import LogOut from "@/component/mainDashboard/dashborarAllComponent/LogOut";
+import LogOut from "@/component/mainDashboard/dashboardAllComponent/LogOut";
 
 export const metadata = {
   title: "Logout | Uomo",

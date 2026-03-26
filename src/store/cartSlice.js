@@ -11,11 +11,13 @@ const useCartStore = create(
         if (existing) {
           return {
             cartItems: state.cartItems.map((i) =>
-              i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+              i.id === item.id
+                ? { ...i, quantity: i.quantity + item.quantity }
+                : i
             ),
           };
         }
-        return { cartItems: [...state.cartItems, { ...item, quantity: 1 }] };
+        return { cartItems: [...state.cartItems, item] };
       }),
 
       removeFromCart: (id) => set((state) => ({
@@ -36,7 +38,6 @@ const useCartStore = create(
 
       clearCart: () => set({ cartItems: [] }),
 
-      // ✅ Wishlist
       wishlistItems: [],
 
       addToWishlist: (item) => set((state) => {
@@ -48,7 +49,6 @@ const useCartStore = create(
       removeFromWishlist: (id) => set((state) => ({
         wishlistItems: state.wishlistItems.filter((item) => item.id !== id),
       })),
-
     }),
     {
       name: 'cart-storage',

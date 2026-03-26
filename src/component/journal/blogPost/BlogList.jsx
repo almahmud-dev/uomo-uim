@@ -3,7 +3,7 @@ import Blog from "@/component/common/Blog";
 import Container from "@/component/common/Container";
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/component/ui/progress";
 import Button from "../../common/Button";
 import { useBlogStore } from "@/store/blogStore"; // ← Zustand store
 

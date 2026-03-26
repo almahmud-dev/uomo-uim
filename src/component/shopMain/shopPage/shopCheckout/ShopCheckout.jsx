@@ -346,7 +346,7 @@ const ShopCheckout = () => {
 
         {/* Place Order Button */}
         <Link
-          href="/cart/order-recived"
+          href="/cart/order-received"
           className="mt-5 block text-center pt-5.25 pb-3.75 bg-head text-white text-sm font-medium leading-6 hover:bg-[#DB4444] transition-all"
         >
           PLACE ORDER

@@ -1,16 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 
 @import "tw-animate-css";
 
-@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
   body {
-    font-family: "Jost", sans-serif;
+    font-family: var(--font-jost), sans-serif;
     @apply bg-background text-foreground;
   }
   * {
@@ -117,7 +115,7 @@ input:focus-visible {
   padding: 21px 22px 15px 22px;
   border: 2px solid #e4e4e4;
   font-size: 14px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   color: #222222;
   outline: none;
   box-sizing: border-box;
@@ -132,7 +130,7 @@ input:focus-visible {
   pointer-events: none;
   background-color: white;
   padding: 0 4px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   transition-duration: 300ms;
   top: 50%;
   transform: translateY(-50%);
@@ -154,7 +152,7 @@ input:focus-visible {
   border: 2px solid #e4e4e4;
   padding: 18px 22px;
   font-size: 14px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   color: #222222;
   cursor: pointer;
   position: relative;
@@ -176,7 +174,7 @@ input:focus-visible {
   background-color: white;
   padding: 0 4px;
   font-size: 14px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   color: #767676;
   transition-duration: 300ms;
 }
@@ -194,7 +192,7 @@ input:focus-visible {
   padding: 21px 22px 15px 22px;
   border: 1px solid #e4e4e4;
   font-size: 14px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   color: #222222;
   outline: none;
   box-sizing: border-box;
@@ -211,7 +209,7 @@ input:focus-visible {
   pointer-events: none;
   background-color: white;
   padding: 0 4px;
-  font-family: "Jost", sans-serif;
+  font-family: var(--font-jost), sans-serif;
   transition-duration: 300ms;
   top: 21px;
   transform: translateY(0);

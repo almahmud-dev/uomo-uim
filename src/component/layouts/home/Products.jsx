@@ -1,19 +1,20 @@
-'use client';
+"use client";
 import Product from "@/component/common/Product";
 import React, { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import Button from "@/component/common/Button";
 import Container from "@/component/common/Container";
-import useAllProduct from "@/coustomHook/useAllProduct";
+import useAllProduct from "@/customHook/useAllProduct";
 
 const Products = () => {
   const [filter, setFilter] = useState("all");
-  const { data, isLoading } = useAllProduct(8);
+  const { data, isLoading, isError } = useAllProduct(8);
   const products = data?.products || [];
 
   const getFiltered = () => {
     if (filter === "all") return products;
-    if (filter === "newArrivals") return products.filter((p) => p.rating >= 4.5);
+    if (filter === "newArrivals")
+      return products.filter((p) => p.rating >= 4.5);
     if (filter === "bestSeller") return products.filter((p) => p.stock > 50);
     if (filter === "toprating") return products.filter((p) => p.rating >= 4.8);
     return products;
@@ -25,7 +26,7 @@ const Products = () => {
     { key: "bestSeller", label: "BEST SELLER" },
     { key: "toprating", label: "TOP RATING" },
   ];
-
+  if (isError) return <div>Something went wrong</div>;
   return (
     <>
       <section className="mt-9.5 md:mt-15 lg:mt-23.5">
@@ -57,7 +58,10 @@ const Products = () => {
           {isLoading ? (
             <div className="mt-5.5 grid lg:grid-cols-4 grid-cols-2 md:gap-7.5 gap-3.5">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-gray-200 h-80 w-full" />
+                <div
+                  key={i}
+                  className="animate-pulse bg-gray-200 h-80 w-full"
+                />
               ))}
             </div>
           ) : (
@@ -73,7 +77,10 @@ const Products = () => {
                   itemPrice={product.price}
                   discountPrice={
                     product.discountPercentage > 0
-                      ? (product.price - (product.price * product.discountPercentage) / 100).toFixed(2)
+                      ? (
+                          product.price -
+                          (product.price * product.discountPercentage) / 100
+                        ).toFixed(2)
                       : null
                   }
                 />
@@ -83,7 +90,10 @@ const Products = () => {
 
           <div className="mt-10.5 text-center">
             <Link href="/shop">
-              <Button className={"hover:after:w-24"} btnText={"SEE ALL PRODUCT"} />
+              <Button
+                className={"hover:after:w-24"}
+                btnText={"SEE ALL PRODUCT"}
+              />
             </Link>
           </div>
         </Container>

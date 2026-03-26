@@ -9,33 +9,35 @@ import allIcons from "@/helper/iconProvider";
 const NavDownImg = "/assets/images/nav-dropImage.png";
 import Button from "../Button";
 import Login from "../../auth/Login";
+import Register from "../../auth/Register";
 import AddToCart from "../../shopMain/addToCart/AddToCart";
 import NavTabs from "../../navtabs/NavTabs";
 import useCartStore from "@/store/cartSlice";
-import { FaHeart } from "react-icons/fa6"; // jokhne wiahliat hobe jokhn ai iocn dekahbe
+import { FaHeart } from "react-icons/fa6";
 
 const NavbarLg = () => {
-  // for icon and images
+  // Icons and images
   const { navLogo } = allImages;
   const { navIconItems, close } = allIcons;
 
-  // add to cart korle aita diye data dhorbe
-  const { cartItems, wishlistItems } = useCartStore(); // wishlistItems koita add kora hoyeceh
+  // Cart and wishlist counts from store
+  const { cartItems, wishlistItems } = useCartStore();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const wishlistCount = wishlistItems.length; // NEW wishlist count koita hoyeche
+  const wishlistCount = wishlistItems.length;
 
-  // for manage state
+  // UI state
   const [hoverItems, setHoverITems] = useState(null);
   const [open, setIsOpen] = useState(null);
+  const [authTab, setAuthTab] = useState("login"); // "login" | "register"
 
-  //  for handle evetnt
+  // Toggle panel open/close
   const handleclicked = (id) => {
     setIsOpen((prev) => (prev === id ? null : id));
   };
 
+  // Close panel handler
   const handleUnMount = (value) => {
     setIsOpen(value);
-    console.log(value);
   };
 
   return (
@@ -67,7 +69,7 @@ const NavbarLg = () => {
                       {items.label}
                     </Link>
 
-                    {/* for shop */}
+                    {/* Shop mega menu */}
                     {items.hasMegaMenu &&
                       hoverItems === items.label &&
                       hoverItems === "SHOP" && (
@@ -210,7 +212,7 @@ const NavbarLg = () => {
                         </div>
                       )}
 
-                    {/* for journal */}
+                    {/* Journal mega menu */}
                     {items.hasMegaMenu &&
                       hoverItems === items.label &&
                       hoverItems === "JOURNAL" && (
@@ -285,7 +287,7 @@ const NavbarLg = () => {
                         </div>
                       )}
 
-                    {/* for pages */}
+                    {/* Pages dropdown */}
                     {items.dropdownData &&
                       items.label === "PAGES" &&
                       hoverItems === "PAGES" && (
@@ -328,7 +330,7 @@ const NavbarLg = () => {
                       {items.icon}
                     </Link>
 
-                    {/* for cart */}
+                    {/* Cart sidebar */}
                     {isActive && items.name === "Cart" && (
                       <div
                         className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
@@ -340,19 +342,19 @@ const NavbarLg = () => {
                       </div>
                     )}
                   </li>
-                ) : items.name === "Wishlist" ? ( // New Wishlist block added
+                ) : items.name === "Wishlist" ? (
                   <li key={items.id}>
                     <Link
                       href={items.link}
                       className="relative text-[22px] text-head"
                     >
-                      {/* Badge — item থাকলেই দেখাবে */}
+                      {/* Show badge only when wishlist has items */}
                       {wishlistCount > 0 && (
                         <span className="absolute bg-third w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white rounded-full bottom-[-10px] !right-[-8px]">
                           {wishlistCount}
                         </span>
                       )}
-                      {/* Icon switch — item থাকলে filled red, না থাকলে outline */}
+                      {/* Filled heart when items exist, outline when empty */}
                       {wishlistCount > 0 ? (
                         <FaHeart className="text-red-500" />
                       ) : (
@@ -370,7 +372,7 @@ const NavbarLg = () => {
                       )}
                     </Link>
 
-                    {/* for searching part */}
+                    {/* Search panel */}
                     {isActive && items.name === "Search" && (
                       <div
                         className=" pt-[62px] pb-[73px] absolute bg-white left-0 w-full shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] top-[100%] "
@@ -415,19 +417,46 @@ const NavbarLg = () => {
                       </div>
                     )}
 
-                    {/* for login part */}
+                    {/* Account login/register sidebar */}
                     {isActive && items.name === "Account" && (
                       <div
                         className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <div className="h-full absolute  right-0">
-                          <Login unMount={handleUnMount} />
+                        <div className="h-full absolute right-0 flex flex-col">
+                          {/* Tab switcher */}
+                          <div className="flex bg-white border-b border-footer">
+                            <button
+                              onClick={() => setAuthTab("login")}
+                              className={`flex-1 py-4 texts_14_medium tracking-widest transition-colors ${
+                                authTab === "login"
+                                  ? "text-head border-b-2 border-head"
+                                  : "text-second"
+                              }`}
+                            >
+                              LOGIN
+                            </button>
+                            <button
+                              onClick={() => setAuthTab("register")}
+                              className={`flex-1 py-4 texts_14_medium tracking-widest transition-colors ${
+                                authTab === "register"
+                                  ? "text-head border-b-2 border-head"
+                                  : "text-second"
+                              }`}
+                            >
+                              REGISTER
+                            </button>
+                          </div>
+                          {authTab === "login" ? (
+                            <Login unMount={handleUnMount} />
+                          ) : (
+                            <Register unMount={handleUnMount} />
+                          )}
                         </div>
                       </div>
                     )}
 
-                    {/* for nav tabs part */}
+                    {/* Mobile menu sidebar */}
                     {isActive && items.name === "Mobile Menu" && (
                       <div
                         className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"

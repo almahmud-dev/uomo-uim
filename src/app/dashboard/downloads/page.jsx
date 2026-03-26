@@ -1,4 +1,4 @@
-import DashboardDownload from "@/component/mainDashboard/dashborarAllComponent/DashboardDownload";
+import DashboardDownload from "@/component/mainDashboard/dashboardAllComponent/DashboardDownload";
 
 export const metadata = {
   title: "Downloads | Uomo",

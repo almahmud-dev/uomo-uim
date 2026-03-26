@@ -1,4 +1,4 @@
-import DashboardOrder from "@/component/mainDashboard/dashborarAllComponent/DashboardOrder";
+import DashboardOrder from "@/component/mainDashboard/dashboardAllComponent/DashboardOrder";
 
 export const metadata = {
   title: "Orders | Uomo",

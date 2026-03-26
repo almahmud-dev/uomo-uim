@@ -13,19 +13,19 @@ const steps = [
     num: "02",
     label: "SHIPPING AND CHECKOUT",
     sub: "Checkout Your Items List",
-    path: "/cart/shoping-and-checkout",
+    path: "/cart/shopping-and-checkout",
   },
   {
     num: "03",
     label: "CONFIRMATION",
     sub: "Review And Submit Your Order",
-    path: "/cart/order-recived",
+    path: "/cart/order-received",
   },
 ];
 
 const getStepIndex = (pathname) => {
-  if (pathname.includes("order-recived") || pathname.includes("order-tracking")) return 2;
-  if (pathname.includes("shoping-and-checkout")) return 1;
+  if (pathname.includes("order-received") || pathname.includes("order-tracking")) return 2;
+  if (pathname.includes("shopping-and-checkout")) return 1;
   return 0;
 };
 

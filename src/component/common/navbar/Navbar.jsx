@@ -13,7 +13,7 @@ const Navbar = () => {
   const { notFoundPage } = allImages;
 
   return (
-    <div className="fixed top-0 left-0 w-full z-[999] ">
+    <div className="fixed top-0 left-0 w-full z-999 ">
       <div
         className={`hidden lg:block ${
           pathname === "/404" || pathname === "/coming-soon"

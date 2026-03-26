@@ -10,7 +10,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import { useState } from "react";
-import useSingleProduct from "@/coustomHook/useSingleProduct";
+import useSingleProduct from "@/customHook/useSingleProduct";
 import useCartStore from "@/store/cartSlice";
 
 const Top = ({ id }) => {
@@ -18,7 +18,7 @@ const Top = ({ id }) => {
   const [activeImg, setActiveImg] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const { data: product, isLoading } = useSingleProduct(id);
+  const { data: product, isLoading, isError } = useSingleProduct(id);
   const { addToCart } = useCartStore();
 
   const handleMinus = () => {
@@ -68,7 +68,7 @@ const Top = ({ id }) => {
       </div>
     );
   }
-
+  if (isError) return <div>Something went wrong.</div>;
   const images = product?.images || [product?.thumbnail];
 
   return (
@@ -156,12 +156,12 @@ const Top = ({ id }) => {
                     ${product?.price}
                   </span>
                   <span className="text-[22px] font-medium text-head">
-                    ${(discountedPrice * count).toFixed(2)}
+                    ${totalPrice}
                   </span>
                 </div>
               ) : (
                 <span className="text-[22px] font-medium text-head">
-                  ${(product?.price * count).toFixed(2)}
+                  ${totalPrice}
                 </span>
               )}
             </div>

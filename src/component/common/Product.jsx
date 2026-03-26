@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React from "react";
 import Images from "./Images";
 import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
@@ -15,12 +15,12 @@ const Product = ({
   discountPrice,
 }) => {
   const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } = useCartStore();
-const isLiked = wishlistItems.some((item) => item.id === id);
+  const isLiked = wishlistItems.some((item) => item.id === id);
   const router = useRouter();
 
+  // Add product to cart
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    console.log("Adding to cart:", id);
     addToCart({
       id,
       name: itemName,
@@ -30,20 +30,22 @@ const isLiked = wishlistItems.some((item) => item.id === id);
       quantity: 1,
     });
   };
+
+  // Toggle wishlist item
   const handleWishlist = (e) => {
-  e.stopPropagation();
-  if (isLiked) {
-    removeFromWishlist(id);
-  } else {
-    addToWishlist({
-      id,
-      name: itemName,
-      price: discountPrice ? Number(discountPrice) : Number(itemPrice),
-      image: imgSrc,
-      category: catagory,
-    });
-  }
-};
+    e.stopPropagation();
+    if (isLiked) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist({
+        id,
+        name: itemName,
+        price: discountPrice ? Number(discountPrice) : Number(itemPrice),
+        image: imgSrc,
+        category: catagory,
+      });
+    }
+  };
 
   return (
     <>
@@ -51,29 +53,24 @@ const isLiked = wishlistItems.some((item) => item.id === id);
         className="lg:w-82.5 w-full relative group cursor-pointer border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 p-3 rounded-sm"
         onClick={() => router.push(`/shop/${id}`)}
       >
-        <div className="relative overflow-hidden">
-          <Images className={"w-full object-cover"} imgSrc={imgSrc} imgAlt={imgAlt} />
-          {/* Badge Start */}
+        <div className="relative overflow-hidden aspect-square">
+          <Images className={"w-full h-full object-contain"} imgSrc={imgSrc} imgAlt={imgAlt} />
 
-          {/* Add To Cart Start */}
+          {/* Add to cart button — visible on hover */}
           <button
             onClick={handleAddToCart}
             className="texts_14_medium text-white bg-black w-full pt-4 pb-2.5 text-center absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer tracking-widest"
           >
             ADD TO CART
           </button>
-          {/* Add To Cart End*/}
         </div>
 
-        {/* Product Description Start */}
+        {/* Product details */}
         <div className="mt-3.5">
           <div className="flex justify-between items-center">
             <p className="texts_14_regular text-second">{catagory}</p>
 
-            <div
-              onClick={handleWishlist}
-              className="cursor-pointer"
-            >
+            <div onClick={handleWishlist} className="cursor-pointer">
               {isLiked ? (
                 <FaHeart className="text-red cursor-pointer" size={20} />
               ) : (
@@ -99,7 +96,6 @@ const isLiked = wishlistItems.some((item) => item.id === id);
             )}
           </div>
         </div>
-        {/* Product Description End */}
       </div>
     </>
   );

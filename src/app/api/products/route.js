@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const BASE_URL = "https://dummyjson.com/products";
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -10,17 +12,21 @@ export async function GET(request) {
 
     let url;
     if (search) {
-      url = `https://dummyjson.com/products/search?q=${search}&limit=${limit}&skip=${skip}`;
+      url = `${BASE_URL}/search?q=${search}&limit=${limit}&skip=${skip}`;
     } else if (category) {
-      url = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`;
+      url = `${BASE_URL}/category/${category}?limit=${limit}&skip=${skip}`;
     } else {
-      url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
+      url = `${BASE_URL}?limit=${limit}&skip=${skip}`;
     }
 
     const response = await axios.get(url);
-    // products na shudhu aikahne puru data pabe
+    // Returns full product data including pagination info
     return Response.json(response.data);
   } catch (error) {
-    return Response.json({ error: "Failed to fetch" }, { status: 500 });
+    console.error("[API] Failed to fetch products:", error?.message);
+    return Response.json(
+      { error: "Failed to fetch products. Please try again." },
+      { status: 500 }
+    );
   }
 }

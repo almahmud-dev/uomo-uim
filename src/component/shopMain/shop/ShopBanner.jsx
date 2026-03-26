@@ -5,10 +5,10 @@ import Container from "@/component/common/Container";
 import { shopList1 } from "@/helper/projectArrayObj";
 import allIcons from "@/helper/iconProvider";
 import Product from "@/component/common/Product";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/component/ui/progress";
 import Button from "@/component/common/Button";
 import ShopFilter from "./ShopFilter";
-import useAllProduct from "@/coustomHook/useAllProduct";
+import useAllProduct from "@/customHook/useAllProduct";
 
 const ShopBanner = () => {
   const [skip, setSkip] = useState(0);
@@ -17,7 +17,7 @@ const ShopBanner = () => {
   const [sortBy, setSortBy] = useState("default");
   const limit = 16;
 
-  const { data, isLoading } = useAllProduct(limit, skip);
+  const { data, isLoading, isError } = useAllProduct(limit, skip);
   const rawProducts = data?.products || [];
   const products = [...rawProducts].sort((a, b) => {
     if (sortBy === "price-low") return a.price - b.price;
@@ -33,15 +33,15 @@ const ShopBanner = () => {
   const handleLoadMore = () => {
     setSkip((prev) => prev + limit);
   };
-
+  if (isError) return <div>Something went wrong.</div>;
   // Responsive cols — screen size onujayi max cols limit
   const getGridCols = () => {
     if (typeof window === "undefined") return cols;
     const width = window.innerWidth;
-    if (width < 640) return 1;           // sm er jonno max 1
-    if (width < 768) return Math.min(cols, 2);  // md er jonno max 2
+    if (width < 640) return 1; // sm er jonno max 1
+    if (width < 768) return Math.min(cols, 2); // md er jonno max 2
     if (width < 1024) return Math.min(cols, 3); // lg er max 3
-    return cols;                          // xl pluse ja ja che user chosen
+    return cols; // xl pluse ja ja che user chosen
   };
 
   const { filter } = allIcons;
@@ -83,12 +83,30 @@ const ShopBanner = () => {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="border-b-2 border-head cursor-pointer bg-transparent outline-none texts_14_medium text-head px-2 appearance-none pr-6"
               >
-                <option className="text-head texts_14_medium" value="default">Default Sorting</option>
-                <option className="text-head texts_14_medium" value="popularity">Popularity</option>
-                <option className="text-head texts_14_medium" value="rating">Average Rating</option>
-                <option className="text-head texts_14_medium" value="latest">Latest</option>
-                <option className="text-head texts_14_medium" value="price-low">Price: Low to High</option>
-                <option className="text-head texts_14_medium" value="price-high">Price: High to Low</option>
+                <option className="text-head texts_14_medium" value="default">
+                  Default Sorting
+                </option>
+                <option
+                  className="text-head texts_14_medium"
+                  value="popularity"
+                >
+                  Popularity
+                </option>
+                <option className="text-head texts_14_medium" value="rating">
+                  Average Rating
+                </option>
+                <option className="text-head texts_14_medium" value="latest">
+                  Latest
+                </option>
+                <option className="text-head texts_14_medium" value="price-low">
+                  Price: Low to High
+                </option>
+                <option
+                  className="text-head texts_14_medium"
+                  value="price-high"
+                >
+                  Price: High to Low
+                </option>
               </select>
 
               <div className="h-6 w-0.5 bg-gray-300 hidden sm:block"></div>
@@ -96,10 +114,30 @@ const ShopBanner = () => {
               {/* View cols — sm তে শুধু 1,2 দেখাবে, md তে 1,2,3, lg+ তে সব */}
               <div className="flex justify-between items-center gap-x-3 cursor-pointer">
                 <button className="texts_14_medium text-head">VIEW</button>
-                <button onClick={() => setCols(1)} className="texts_14_medium text-head">1</button>
-                <button onClick={() => setCols(2)} className="texts_14_medium text-head">2</button>
-                <button onClick={() => setCols(3)} className="texts_14_medium text-head hidden md:block">3</button>
-                <button onClick={() => setCols(4)} className="texts_14_medium text-head hidden lg:block">4</button>
+                <button
+                  onClick={() => setCols(1)}
+                  className="texts_14_medium text-head"
+                >
+                  1
+                </button>
+                <button
+                  onClick={() => setCols(2)}
+                  className="texts_14_medium text-head"
+                >
+                  2
+                </button>
+                <button
+                  onClick={() => setCols(3)}
+                  className="texts_14_medium text-head hidden md:block"
+                >
+                  3
+                </button>
+                <button
+                  onClick={() => setCols(4)}
+                  className="texts_14_medium text-head hidden lg:block"
+                >
+                  4
+                </button>
               </div>
 
               {/* Filter */}
@@ -124,7 +162,10 @@ const ShopBanner = () => {
                 `}
               >
                 {[...Array(16)].map((_, i) => (
-                  <div key={i} className="animate-pulse bg-gray-200 h-80 w-full" />
+                  <div
+                    key={i}
+                    className="animate-pulse bg-gray-200 h-80 w-full"
+                  />
                 ))}
               </div>
             ) : (
@@ -170,7 +211,9 @@ const ShopBanner = () => {
               {visibleCount < total && (
                 <button onClick={handleLoadMore}>
                   <Button
-                    className={"texts_14_medium text-black hover:after:w-15 pt-4.25"}
+                    className={
+                      "texts_14_medium text-black hover:after:w-15 pt-4.25"
+                    }
                     btnText={"SHOW MORE"}
                   />
                 </button>

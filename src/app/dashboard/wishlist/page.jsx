@@ -1,4 +1,4 @@
-import DashboardWishlist from "@/component/mainDashboard/dashborarAllComponent/DashboardWishlist";
+import DashboardWishlist from "@/component/mainDashboard/dashboardAllComponent/DashboardWishlist";
 
 export const metadata = {
   title: "Wishlist | Uomo",

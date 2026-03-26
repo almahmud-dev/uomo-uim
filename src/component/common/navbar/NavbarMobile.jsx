@@ -40,7 +40,7 @@ const socialIcons = [
 
 const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
   <div className="flex items-center justify-between px-5 py-4 border-b border-footer">
-    <button onClick={onClose} className="text-[22px] text-head cursor-pointer">
+    <button onClick={onClose} aria-label="Close menu" className="text-[22px] text-head cursor-pointer">
       <IoMdClose />
     </button>
     <Images
@@ -48,7 +48,7 @@ const DrawerHeader = ({ onClose, navLogo, cartBadge, onCartClick }) => (
       imgSrc={navLogo}
       className="w-27.75 h-6.75"
     />
-    <button onClick={onCartClick} className="relative cursor-pointer pr-2.5">
+    <button onClick={onCartClick} aria-label="Open cart" className="relative cursor-pointer pr-2.5">
       <span className="text-[23px] text-head">
         <HiOutlineShoppingBag />
       </span>

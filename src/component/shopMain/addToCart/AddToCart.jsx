@@ -103,7 +103,7 @@ const AddToCart = ({ unMount }) => {
           VIEW CART
         </Link>
         <Link
-          href="/cart/shoping-and-checkout"
+          href="/cart/shopping-and-checkout"
           className="w-full bg-head text-white py-3.5 lg:pt-5.5 lg:pb-3.5 hover:bg-[#DB4444] transition-all mt-1 leading-6 text-center texts_14_medium cursor-pointer"
         >
           CHECKOUT

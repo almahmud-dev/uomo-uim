@@ -244,7 +244,7 @@ const Cart = () => {
 
             {/* Checkout Button */}
             <Link
-              href="/cart/shoping-and-checkout"
+              href="/cart/shopping-and-checkout"
               className="mt-5 block text-center pt-5.25 pb-3.75 bg-head text-white text-sm font-medium leading-6 hover:bg-[#DB4444] transition-all"
             >
               PROCEED TO CHECKOUT

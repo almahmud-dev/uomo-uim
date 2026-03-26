@@ -1,4 +1,4 @@
-import DashboardAccDetails from "@/component/mainDashboard/dashborarAllComponent/DashboardAccDetails";
+import DashboardAccDetails from "@/component/mainDashboard/dashboardAllComponent/DashboardAccDetails";
 
 export const metadata = {
   title: "Account Details | Uomo",

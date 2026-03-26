@@ -1,13 +1,13 @@
-'use client';
+"use client";
 import Container from "@/component/common/Container";
 import FeaturedProducts from "@/component/common/FeaturedProducts";
 import React from "react";
 import Images from "@/component/common/Images";
 import Button from "@/component/common/Button";
-import useAllProduct from "@/coustomHook/useAllProduct";
+import useAllProduct from "@/customHook/useAllProduct";
 
 const LookBook = () => {
-  const { data, isLoading } = useAllProduct(6, 60);
+  const { data, isLoading, isError } = useAllProduct(6, 60);
   const products = data?.products || [];
 
   if (isLoading) {
@@ -24,7 +24,7 @@ const LookBook = () => {
       </section>
     );
   }
-
+  if (isError) return <div>Something went wrong.</div>;
   const [p1, p2, p3, p4, p5, p6] = products;
 
   return (
@@ -49,7 +49,10 @@ const LookBook = () => {
             />
           </div>
           <div className="relative group w-full overflow-hidden hover:bg-red h-75 lg:h-178.75">
-            <Images imgSrc={p3?.thumbnail} className="w-full h-full object-cover" />
+            <Images
+              imgSrc={p3?.thumbnail}
+              className="w-full h-full object-cover"
+            />
             <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-in-out"></div>
             <div className="absolute bottom-10 left-10">
               <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
@@ -65,7 +68,10 @@ const LookBook = () => {
         {/* Bottom */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7.5 mt-7.5">
           <div className="relative group overflow-hidden w-full hover:bg-red h-75 lg:h-178.75">
-            <Images imgSrc={p4?.thumbnail} className="w-full h-full object-cover" />
+            <Images
+              imgSrc={p4?.thumbnail}
+              className="w-full h-full object-cover"
+            />
             <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-in-out"></div>
             <div className="absolute bottom-10 left-10">
               <p className="texts_14_regular text-head group-hover:text-white transition-colors duration-700">
