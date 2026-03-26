@@ -121,7 +121,7 @@ const Top = ({ id }) => {
                     className="relative flex justify-center items-center bg-[#F5F5F5]"
                   >
                     <Images
-                      imgSrc={img}
+                      imgSrc={images[activeImg]}
                       className="w-full h-auto object-contain"
                     />
                   </SwiperSlide>
