@@ -10,7 +10,7 @@ const Tabs_desc = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-x-10 xl:gap-x-19 gap-y-6 sm:gap-y-0 texts_16_medium text-[#767676]">
+      <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-x-10 xl:gap-x-19 gap-y-6 sm:gap-y-0 texts_16_medium text-second">
         {/* DESCRIPTION Button */}
         <button
           onClick={() => setActiveTab("description")}
@@ -130,7 +130,7 @@ const Tabs_desc = () => {
           {/* ADDITIONAL INFORMATION CONTENT */}
           {activeTab === "additional" && (
             <div className="flex flex-row gap-x-10 md:gap-x-16 lg:gap-x-22.5 my-8 lg:my-12.5 animate-fadeIn">
-              <div className="w-[100px] lg:w-[82px] space-y-[20px] lg:space-y-[31px]">
+              <div className="w-25 lg:w-20.5 space-y-5 lg:space-y-7.75">
                 <h4 className="texts_16_medium text-head whitespace-nowrap">
                   Weight
                 </h4>
@@ -147,7 +147,7 @@ const Tabs_desc = () => {
                   Storage
                 </h4>
               </div>
-              <div className="space-y-[20px] lg:space-y-[31px]">
+              <div className="space-y-5 lg:space-y-7.25">
                 <h5 className="texts_14_regular text-head">1.25 kg</h5>
                 <h5 className="texts_14_regular text-head">90 x 60 x 90 cm</h5>
                 <h5 className="texts_14_regular text-head">XS, S, M, L, XL</h5>
@@ -168,7 +168,7 @@ const Tabs_desc = () => {
               <div className="border-b border-footer pb-5.75">
                 <h4 className="texts_16_medium text-head">Reviews</h4>
                 <div className="flex gap-x-4 md:gap-x-7.5 items-start md:items-center mt-6.5">
-                  <div className="flex-shrink-0 w-12 md:w-auto">
+                  <div className="shrink-0 w-12 md:w-auto">
                     <Images imgSrc={reviewOne} />
                   </div>
                   <div className="w-full">
@@ -182,12 +182,12 @@ const Tabs_desc = () => {
                         ))}
                       </div>
                     </div>
-                    <span className="texts_14_regular text-[#767676] block mt-1">
+                    <span className="texts_14_regular text-second block mt-1">
                       April 06, 2020
                     </span>
                   </div>
                 </div>
-                <p className="pt-5 md:pl-21 texts_14_regular text-[#767676] w-full lg:w-210 leading-6">
+                <p className="pt-5 md:pl-21 texts_14_regular text-second w-full lg:w-210 leading-6">
                   Nam libero tempore, cum soluta nobis est eligendi optio cumque
                   nihil impedit quo minus id quod maxime placeat facere
                   possimus, omnis voluptas assumenda est…
@@ -197,7 +197,7 @@ const Tabs_desc = () => {
               {/* Review 2 */}
               <div className="my-7.5">
                 <div className="flex gap-x-4 md:gap-x-7.5 items-start md:items-center">
-                  <div className="flex-shrink-0 w-12 md:w-auto">
+                  <div className="shrink-0 w-12 md:w-auto">
                     <Images imgSrc={reviewOne} />
                   </div>
                   <div className="w-full">
@@ -211,12 +211,12 @@ const Tabs_desc = () => {
                         ))}
                       </div>
                     </div>
-                    <span className="texts_14_regular text-[#767676] block mt-1">
+                    <span className="texts_14_regular text-second block mt-1">
                       April 06, 2020
                     </span>
                   </div>
                 </div>
-                <p className="pt-5 md:pl-21 texts_14_regular text-[#767676] w-full lg:w-210 leading-6">
+                <p className="pt-5 md:pl-21 texts_14_regular text-second w-full lg:w-210 leading-6">
                   Nam libero tempore, cum soluta nobis est eligendi optio cumque
                   nihil impedit quo minus id quod maxime placeat facere
                   possimus, omnis voluptas assumenda est…
