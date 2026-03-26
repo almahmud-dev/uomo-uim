@@ -12,8 +12,9 @@ import "swiper/css/navigation";
 import { useState } from "react";
 import useSingleProduct from "@/customHook/useSingleProduct";
 import useCartStore from "@/store/cartSlice";
-
+import Trend_product from "@/component/shopMain/shopSingle/Trend_product";
 const Top = ({ id }) => {
+  console.log("TOP RENDERED", id);
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -51,7 +52,6 @@ const Top = ({ id }) => {
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2500);
   };
-
   if (isLoading) {
     return (
       <div className="mt-12.5 mb-25">
@@ -232,6 +232,9 @@ const Top = ({ id }) => {
           </div>
         </div>
       </Container>
+      {product?.category && (
+        <Trend_product category={product.category} currentId={product.id} />
+      )}
     </div>
   );
 };

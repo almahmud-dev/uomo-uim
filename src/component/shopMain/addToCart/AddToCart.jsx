@@ -1,17 +1,22 @@
-'use client';
+"use client";
 import allIcons from "@/helper/iconProvider";
 import React, { useEffect, useRef } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import Images from "@/component/common/Images";
 import useCartStore from "@/store/cartSlice";
+import { IoMdClose } from "react-icons/io";
+import { FiPlus } from "react-icons/fi";
+import { HiMiniMinusSmall } from "react-icons/hi2";
 
 const AddToCart = ({ unMount }) => {
   const { close } = allIcons;
-  const { cartItems, removeFromCart, increaseQty, decreaseQty } = useCartStore();
+  const { cartItems, removeFromCart, increaseQty, decreaseQty } =
+    useCartStore();
   const navtabRef = useRef(null);
 
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity, 0
+    (acc, item) => acc + item.price * item.quantity,
+    0,
   );
 
   useEffect(() => {
@@ -25,7 +30,10 @@ const AddToCart = ({ unMount }) => {
   }, [unMount]);
 
   return (
-    <div ref={navtabRef} className="w-full lg:w-105 h-full bg-white flex flex-col">
+    <div
+      ref={navtabRef}
+      className="w-full lg:w-105 h-full bg-white flex flex-col"
+    >
       {/* Header */}
       <div className="flex justify-between items-center px-6 py-5 border-b border-footer">
         <p className="texts_16_medium text-head tracking-wider">
@@ -44,19 +52,26 @@ const AddToCart = ({ unMount }) => {
           </p>
         ) : (
           cartItems.map((item) => (
-            <div key={item.id} className="relative flex gap-x-4 pb-4 border-b border-footer">
+            <div
+              key={item.id}
+              className="relative flex gap-x-4 pb-4 border-b border-footer"
+            >
               {/* Remove */}
               <span
                 className="absolute top-0 right-0 text-sm cursor-pointer text-head"
                 onClick={() => removeFromCart(item.id)}
               >
-                ×
+                <IoMdClose />
               </span>
 
               {/* Image */}
               <div className="w-25 h-25 bg-secondbg shrink-0">
                 {item.image ? (
-                  <Images imgSrc={item.image} imgAlt={item.name} className="w-full h-full object-cover" />
+                  <Images
+                    imgSrc={item.image}
+                    imgAlt={item.name}
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   <div className="w-full h-full bg-secondbg" />
                 )}
@@ -73,12 +88,18 @@ const AddToCart = ({ unMount }) => {
                     <button
                       onClick={() => decreaseQty(item.id)}
                       className="text-head texts_14_regular cursor-pointer"
-                    >-</button>
-                    <span className="texts_14_regular text-head">{item.quantity}</span>
+                    >
+                      <HiMiniMinusSmall />
+                    </button>
+                    <span className="texts_14_regular text-head">
+                      {item.quantity}
+                    </span>
                     <button
                       onClick={() => increaseQty(item.id)}
                       className="text-head texts_14_regular cursor-pointer"
-                    >+</button>
+                    >
+                      <FiPlus />
+                    </button>
                   </div>
                   <p className="texts_14_regular text-head">
                     ${(item.price * item.quantity).toFixed(2)}

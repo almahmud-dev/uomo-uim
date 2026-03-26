@@ -10,7 +10,6 @@ const Products = () => {
   const [filter, setFilter] = useState("all");
   const { data, isLoading, isError } = useAllProduct(8);
   const products = data?.products || [];
-
   const getFiltered = () => {
     if (filter === "all") return products;
     if (filter === "newArrivals")
