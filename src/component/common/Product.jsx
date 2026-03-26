@@ -50,11 +50,11 @@ const Product = ({
   return (
     <>
       <div
-        className="lg:w-82.5 w-full relative group cursor-pointer border border-gray-200 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 p-3 rounded-sm"
+        className="lg:w-82.5 w-full relative group cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 p-3 rounded-sm"
         onClick={() => router.push(`/shop/${id}`)}
       >
         <div className="relative overflow-hidden aspect-square">
-          <Images className={"w-full h-full object-contain"} imgSrc={imgSrc} imgAlt={imgAlt} />
+          <Images className={"w-full h-full object-contain bg-[#F5F5F5]"} imgSrc={imgSrc} imgAlt={imgAlt} />
 
           {/* Add to cart button — visible on hover */}
           <button
