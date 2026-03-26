@@ -4,7 +4,7 @@ import React from "react";
 
 const Add_review = () => {
   return (
-    <div className=" mt-7 lg:mt-[54px]">
+    <div className=" mt-7 lg:mt-13.5">
       <Container>
         <div className="">
           <h3 className="texts_18_medium text-head">
@@ -15,7 +15,7 @@ const Add_review = () => {
             *
           </h4>
 
-          <div className="flex flex-col lg:flex-row lg:items-center gap-x-2 lg:mb-[26px]">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-x-2 lg:mb-6.5">
             <span className="texts_14_regular text-head">Your rating *</span>
             <div className="flex  text-yellow-400">
               {[...Array(5)].map((_, i) => (
@@ -53,7 +53,7 @@ const Add_review = () => {
             <div className="flex items-start gap-3">
               <input type="checkbox" id="save-info" className="mt-1 w-4 h-4" />
               <label
-                className="texts_14_regular text-[#767676]"
+                className="texts_14_regular text-second"
               >
                 Save my name, email, and website in this browser for the next
                 time I comment.
@@ -63,7 +63,7 @@ const Add_review = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-head text-white px-10 lg:px-0 texts_14_medium h-12 lg:w-[280px] lg:h-[60px] cursor-pointer"
+              className="bg-head text-white px-10 lg:px-0 texts_14_medium h-12 lg:w-70 lg:h-15 cursor-pointer"
             >
               SUBMIT
             </button>
