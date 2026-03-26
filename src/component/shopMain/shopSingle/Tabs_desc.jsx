@@ -4,7 +4,7 @@ import Container from "@/component/common/Container";
 import Images from "@/component/common/Images";
 const reviewOne = "/assets/images/clientReviewsOne.png";
 import Add_review from "./Add_review";
-
+import { IoMdStar } from "react-icons/io";
 const Tabs_desc = () => {
   const [activeTab, setActiveTab] = useState("description");
 
@@ -14,7 +14,7 @@ const Tabs_desc = () => {
         {/* DESCRIPTION Button */}
         <button
           onClick={() => setActiveTab("description")}
-          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 ${
+          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 cursor-pointer ${
             activeTab === "description"
               ? "text-head after:w-full after:bg-head"
               : "after:w-0 hover:after:w-full after:bg-head"
@@ -26,7 +26,7 @@ const Tabs_desc = () => {
         {/* ADDITIONAL INFORMATION Button */}
         <button
           onClick={() => setActiveTab("additional")}
-          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 ${
+          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 cursor-pointer ${
             activeTab === "additional"
               ? "text-head after:w-full after:bg-head"
               : "after:w-0 hover:after:w-full after:bg-head"
@@ -38,7 +38,7 @@ const Tabs_desc = () => {
         {/* REVIEWS Button */}
         <button
           onClick={() => setActiveTab("reviews")}
-          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 ${
+          className={`relative hover:text-head after:content-[''] after:block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:transition-all after:duration-300 cursor-pointer ${
             activeTab === "reviews"
               ? "text-head after:w-full after:bg-head"
               : "after:w-0 hover:after:w-full after:bg-head"
@@ -178,7 +178,9 @@ const Tabs_desc = () => {
                       </h5>
                       <div className="flex text-yellow-400 mt-1 md:mt-0">
                         {[...Array(5)].map((_, i) => (
-                          <span key={i}>★</span>
+                          <span key={i}>
+                            <IoMdStar/>
+                          </span>
                         ))}
                       </div>
                     </div>

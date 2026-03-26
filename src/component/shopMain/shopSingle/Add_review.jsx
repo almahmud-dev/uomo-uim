@@ -1,6 +1,7 @@
 'use client';
 import Container from "@/component/common/Container";
 import React from "react";
+import { IoMdStarOutline } from "react-icons/io";
 
 const Add_review = () => {
   return (
@@ -19,7 +20,9 @@ const Add_review = () => {
             <span className="texts_14_regular text-head">Your rating *</span>
             <div className="flex  text-yellow-400">
               {[...Array(5)].map((_, i) => (
-                <span key={i}>★</span>
+                <span key={i}>
+                  <IoMdStarOutline/>
+                </span>
               ))}
             </div>
           </div>
