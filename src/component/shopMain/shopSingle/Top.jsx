@@ -13,7 +13,7 @@ import { useState, useRef } from "react";
 import useSingleProduct from "@/customHook/useSingleProduct";
 import useCartStore from "@/store/cartSlice";
 import Trend_product from "@/component/shopMain/shopSingle/Trend_product";
-import useAuthStore from "@/store/authSlice";
+import useAuthStore, { useLoginModalStore } from "@/store/authSlice";
 const Top = ({ id }) => {
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
@@ -22,7 +22,8 @@ const Top = ({ id }) => {
   const swiperRef = useRef(null);
   const { data: product, isLoading, isError } = useSingleProduct(id);
   const { addToCart } = useCartStore();
-  const { user, openLoginModal } = useAuthStore();
+  const { user } = useAuthStore();
+  const { openLoginModal } = useLoginModalStore();
   const handleMinus = () => {
     if (count > 1) setCount(count - 1);
   };
