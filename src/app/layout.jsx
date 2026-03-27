@@ -4,6 +4,7 @@ import Navbar from "@/component/common/navbar/Navbar";
 import Footer from "@/component/common/Footer";
 import Providers from "./providers";
 import ErrorBoundary from "@/component/common/ErrorBoundary";
+import RegiLog from "@/component/auth/regiLog/RegiLog";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
             <main>{children}</main>
           </ErrorBoundary>
           <Footer />
+          <RegiLog/>
         </Providers>
       </body>
     </html>
