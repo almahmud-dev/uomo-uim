@@ -20,7 +20,7 @@ export default function NewsletterPopup() {
     if (user) {
       setIsOpen(false);
     } else {
-      setIsOpen(true); // logout হলে popup দেখাবে
+      setIsOpen(true); // logout hole popup show korbe
     }
     setChecking(false);
   });
@@ -43,7 +43,7 @@ export default function NewsletterPopup() {
     }
   };
 
-  // সব hooks এর পরে early return
+  // all hooks er pore early return korbe
   if (checking) return null;
   if (!isOpen) return null;
 

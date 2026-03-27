@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuthStore, { useLoginModalStore } from "../../../store/authSlice";
-
+import { IoMdClose } from "react-icons/io";
 const RegiLog = () => {
   const router = useRouter();
   const { setUser, user, clearUser } = useAuthStore();
@@ -427,7 +427,7 @@ const RegiLog = () => {
             onClick={closeLoginModal}
             className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl z-10 cursor-pointer"
           >
-            ✕
+            <IoMdClose/>
           </button>
           {formContent}
         </div>
