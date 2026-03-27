@@ -4,6 +4,7 @@ import Images from "./Images";
 import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import useCartStore from "@/store/cartSlice";
+import useAuthStore, { useLoginModalStore } from "@/store/authSlice";
 
 const Product = ({
   id,
@@ -15,12 +16,15 @@ const Product = ({
   discountPrice,
 }) => {
   const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } = useCartStore();
+  const { user } = useAuthStore();
+const { openLoginModal } = useLoginModalStore();
   const isLiked = wishlistItems.some((item) => item.id === id);
   const router = useRouter();
 
   // Add product to cart
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    if (!user) { openLoginModal(); return; } //aita jpokhn login thakbe na
     addToCart({
       id,
       name: itemName,
@@ -34,6 +38,7 @@ const Product = ({
   // Toggle wishlist item
   const handleWishlist = (e) => {
     e.stopPropagation();
+    if (!user) { openLoginModal(); return; } //login jokhn thakbe na
     if (isLiked) {
       removeFromWishlist(id);
     } else {

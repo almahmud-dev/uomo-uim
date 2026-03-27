@@ -13,7 +13,7 @@ import { useState, useRef } from "react";
 import useSingleProduct from "@/customHook/useSingleProduct";
 import useCartStore from "@/store/cartSlice";
 import Trend_product from "@/component/shopMain/shopSingle/Trend_product";
-
+import useAuthStore from "@/store/authSlice";
 const Top = ({ id }) => {
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
@@ -22,7 +22,7 @@ const Top = ({ id }) => {
   const swiperRef = useRef(null);
   const { data: product, isLoading, isError } = useSingleProduct(id);
   const { addToCart } = useCartStore();
-
+  const { user, openLoginModal } = useAuthStore();
   const handleMinus = () => {
     if (count > 1) setCount(count - 1);
   };
@@ -39,6 +39,10 @@ const Top = ({ id }) => {
 
   const handleAddToCart = () => {
     if (!product) return;
+    if (!user) {
+      openLoginModal();
+      return;
+    }
     addToCart({
       id: product.id,
       name: product.title,
@@ -209,7 +213,13 @@ const Top = ({ id }) => {
 
             <div className="flex gap-x-8 lg:pb-8">
               <button
-                onClick={() => setIsWishlisted(!isWishlisted)}
+                onClick={() => {
+                  if (!user) {
+                    openLoginModal();
+                    return;
+                  }
+                  setIsWishlisted(!isWishlisted);
+                }}
                 className="text-head text-[13px] font-medium flex items-center gap-x-2 uppercase relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-[80%] after:border-b-2 after:border-head"
               >
                 {isWishlisted ? (
