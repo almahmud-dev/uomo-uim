@@ -5,6 +5,7 @@ import Images from "./Images";
 import { auth, db } from "@/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
+import { IoMdClose } from "react-icons/io";
 
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function NewsletterPopup() {
     }
   };
 
-  // ✅ সব hooks এর পরে early return
+  // সব hooks এর পরে early return
   if (checking) return null;
   if (!isOpen) return null;
 
@@ -64,13 +65,10 @@ export default function NewsletterPopup() {
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-head hover:opacity-50 transition-opacity"
+              className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-head hover:opacity-50 transition-opacity cursor-pointer"
               aria-label="Close"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <IoMdClose />
             </button>
 
             <h2 className="head_26_medium text-head">
