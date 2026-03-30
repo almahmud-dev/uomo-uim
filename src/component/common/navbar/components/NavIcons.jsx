@@ -84,7 +84,7 @@ const NavIcons = () => {
             <li key={item.id}>
               <Link href={item.link} className="relative text-[22px] text-head">
                 {wishlistCount > 0 && (
-                  <span className="absolute bg-third w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white rounded-full bottom-[-10px] !right-[-8px]">
+                  <span className="absolute bg-third w-4.75 h-4.75 flex items-center justify-center text-xs font-medium text-white rounded-full -bottom-2.5 -right-2!">
                     {wishlistCount}
                   </span>
                 )}
@@ -110,24 +110,24 @@ const NavIcons = () => {
             {/* Search panel */}
             {isActive && item.name === "Search" && (
               <div
-                className="pt-[62px] pb-[73px] absolute bg-white left-0 w-full shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] top-[100%]"
+                className="pt-15.5 pb-18.25 absolute bg-white left-0 w-full shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] top-full"
                 onClick={stopProp}
               >
                 <Container>
-                  <p className="texts_14_medium text-second mb-[29px]">
+                  <p className="texts_14_medium text-second mb-7.25">
                     WHAT ARE YOU LOOKING FOR?
                   </p>
                   <div className="relative">
                     <input
                       type="text"
-                      className="w-full py-[10px] border-b-2 border-second text-head"
+                      className="w-full py-2.5 border-b-2 border-second text-head"
                       placeholder="SEARCH PRODUCTS"
                     />
                     <span className="absolute top-1/2 translate-y-[-65%] text-[22px] right-0 cursor-pointer">
                       {item.icon}
                     </span>
                   </div>
-                  <div className="pt-[27px]">
+                  <div className="pt-6.75">
                     <p className="texts_14_medium text-second">
                       {quickLinks.title}
                     </p>
@@ -135,7 +135,7 @@ const NavIcons = () => {
                       {quickLinks.links.map((link) => (
                         <li
                           key={link.id}
-                          className="texts_14_regular text-head w-fit !leading-[35px] relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out"
+                          className="texts_14_regular text-head w-fit leading-8.75! relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out"
                         >
                           <Link href={link.link}>{link.name}</Link>
                         </li>
@@ -145,10 +145,10 @@ const NavIcons = () => {
                 </Container>
               </div>
             )}
-            {/* Account Login/Register sidebar — শুধু logged out হলে দেখাবে */}
+            {/* Account Login/Register sidebar — show only when logged out */}
             {isActive && item.name === "Account" && (
               <div
-                className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
+                className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"
                 onClick={stopProp}
               >
                 <div className="h-full absolute right-0 flex flex-col">
@@ -177,7 +177,7 @@ const NavIcons = () => {
             {/* Mobile menu sidebar */}z
             {isActive && item.name === "Mobile Menu" && (
               <div
-                className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
+                className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"
                 onClick={stopProp}
               >
                 <div className="h-full absolute right-0">
