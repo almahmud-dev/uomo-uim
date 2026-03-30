@@ -174,7 +174,7 @@ const NavIcons = () => {
                 </div>
               </div>
             )}
-            {/* Mobile menu sidebar */}z
+            {/* Mobile menu sidebar */}
             {isActive && item.name === "Mobile Menu" && (
               <div
                 className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"

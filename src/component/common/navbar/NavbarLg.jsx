@@ -1,11 +1,11 @@
 // ============================================================
 // NavbarLg.jsx
-// Desktop (lg+) Navbar এর layout।
-// বাম পাশে Logo + Nav links, ডান পাশে Icons।
-// সব logic আলাদা components এ:
+// Desktop (lg+) Navbar er layout।
+// On the left side Logo + Nav links, on the right side Icons।
+// All logic in separate components:
 //   ShopMegaMenu   → SHOP hover menu
-//   PagesDropdown  → PAGES hover dropdown (login hide সহ)
-//   NavIcons       → Account/Cart/Search icons (auth logic সহ)
+//   PagesDropdown  → PAGES hover dropdown (login hide including)
+//   NavIcons       → Account/Cart/Search icons (auth logic including)
 // ============================================================
 
 "use client";
