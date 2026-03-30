@@ -4,11 +4,11 @@
 // Search, Account, Wishlist, Cart, Mobile Menu।
 //
 // Account icon er Auth Rule:
-//   - Logged IN  → click করলে সরাসরি /dashboard এ যাবে
-//   - Logged OUT → click করলে Login/Register sidebar খুলবে
+//   - Logged IN  → click go to the /dashboard
+//   - Logged OUT → click to open Login/Register sidebar
 //
-// Wishlist: item থাকলে filled red heart + badge
-// Cart: click করলে cart sidebar বের হয়
+// Wishlist: Filled red if there is an item heart + badge
+// Cart: click go to open the cart sidebar
 // ============================================================
 
 "use client";
@@ -39,7 +39,7 @@ const NavIcons = () => {
   const [authTab, setAuthTab] = useState("login");
 
   const handleClick = (item) => {
-    // Account: logged in হলে dashboard এ পাঠাও
+    // Account: if logged in, redirect to dashboard
     if (item.name === "Account" && user) {
       router.push("/dashboard");
       return;
@@ -51,7 +51,7 @@ const NavIcons = () => {
   const stopProp = (e) => e.stopPropagation();
 
   return (
-    <ul className="flex gap-x-[30px]">
+    <ul className="flex gap-x-7.5">
       {navIconItems.map((item) => {
         const isActive = item.id === open;
 
@@ -60,14 +60,14 @@ const NavIcons = () => {
           return (
             <li key={item.id} onClick={() => handleClick(item)}>
               <Link href={item.link} className="relative text-[22px] text-head">
-                <span className="absolute bg-third w-[19px] h-[19px] flex items-center justify-center text-xs font-medium text-white rounded-full bottom-[-10px] !right-[-8px]">
+                <span className="absolute bg-third w-4.75 h-4.75 flex items-center justify-center text-xs font-medium text-white rounded-full -bottom-2.5 -right-2!">
                   {cartCount}
                 </span>
                 {item.icon}
               </Link>
               {isActive && (
                 <div
-                  className="absolute z-[999] bg-[#22222258] h-screen w-full top-0 left-0"
+                  className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"
                   onClick={stopProp}
                 >
                   <div className="h-full absolute right-0">
