@@ -5,6 +5,7 @@ import Footer from "@/component/common/Footer";
 import Providers from "./providers";
 import ErrorBoundary from "@/component/common/ErrorBoundary";
 import ModalWrapper from "@/component/common/ModalWrapper";
+import SmoothScroll from "@/component/common/SmoothScroll";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -40,12 +41,14 @@ export default function RootLayout({ children }) {
     <html lang="en" className={jost.variable}>
       <body>
         <Providers>
+          <SmoothScroll>
           <Navbar />
           <ErrorBoundary>
             <main>{children}</main>
           </ErrorBoundary>
           <Footer />
           <ModalWrapper />
+          </SmoothScroll>
         </Providers>
       </body>
     </html>
