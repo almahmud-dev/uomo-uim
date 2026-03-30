@@ -2,38 +2,38 @@
  * SmoothScroll
  *
  * Zero dependency smooth scroll component.
- * নিচের সব case handle করে automatic ভাবে:
+ * nicer case handle kore automatic vabe:
  *
  * [1] Desktop browser (normal mode)
  *     → wheel intercept + lerp smooth scroll
  *
  * [2] Mobile browser (normal mode)
- *     → native scroll, কিছু override করে না
+ *     → native scroll, kichu override kore na
  *
  * [3] Mobile browser → Desktop mode (UA spoof)
- *     → pointer: coarse চেক করে real touch device ধরে
- *     → native scroll দেয়, desktop lerp চালু হয় না
+ *     → pointer: coarse cheack kore real touch device dhore
+ *     → native scroll dey, desktop lerp calu hoy na
  *
  * [4] Battery Saver / Low Power Mode (mobile & desktop)
- *     → requestAnimationFrame throttle হয়ে যায় (fps কমে)
- *     → live fps monitor করে lerp auto-adjust হয়
- *     → fps < 40 হলে smooth বন্ধ করে native scroll দেয়
+ *     → requestAnimationFrame throttle hoye jai (fps kome)
+ *     → live fps monitor kore lerp auto-adjust hoy
+ *     → fps < 40 hole smooth off kore native scroll dey
  *
  * [5] High refresh rate display (90hz / 120hz / 144hz)
- *     → live fps থেকে lerp factor বের করে
- *     → বেশি hz = বেশি smooth (ছোট lerp)
- *     → কম hz = কম smooth (বড় lerp, snappy feel)
+ *     → live fps theke lerp factor ber kore
+ *     → beshi hz = beshu smooth (small lerp)
+ *     → kom hz = kom smooth ( big lerp, snappy feel)
  *
- * [6] Battery saver OFF → ON বা display hz পরিবর্তন
- *     → visibilitychange + focus event এ re-detect করে
- *     → page ছেড়ে ফিরে আসলে নতুন করে calibrate হয়
+ * [6] Battery saver OFF → ON or display hz chnage
+ *     → visibilitychange + focus event এ re-detect kore
+ *     → page chere fire asbe new kore calibrate hobe
  *
- * [7] Window resize (landscape ↔ portrait, বা desktop mode toggle)
- *     → resize এ device type re-check হয়
- *     → mobile হলে smooth বন্ধ, desktop হলে চালু
+ * [7] Window resize (landscape ↔ portrait, or desktop mode toggle)
+ *     → resize e device type re-check হয়
+ *     → mobile hole smooth off, desktop hole on
  *
- * Usage  : layout.jsx এ <SmoothScroll> দিয়ে সব কিছু wrap করো
- * Install: কোনো npm package লাগবে না
+ * Usage  : layout.jsx e <SmoothScroll> diye all wrap kore
+ * Install: not npm package
  */
 
 "use client";
@@ -41,16 +41,16 @@
 import { useEffect, useRef } from "react";
 
 export default function SmoothScroll({ children }) {
-  const currentY   = useRef(0);
-  const targetY    = useRef(0);
-  const rafRef     = useRef(null);
-  const lerpRef    = useRef(0.1);
-  const activeRef  = useRef(false);   // smooth চালু আছে কিনা
-  const cleanupRef = useRef(null);    // wheel listener cleanup
+  const currentY = useRef(0);
+  const targetY = useRef(0);
+  const rafRef = useRef(null);
+  const lerpRef = useRef(0.1);
+  const activeRef = useRef(false);
+  const cleanupRef = useRef(null);
 
   useEffect(() => {
-    // ─── Utility: real touch device কিনা চেক করো ───────────────────────
-    // Mobile browser → Desktop mode করলেও pointer: coarse থাকে
+    // Utility: real touch device kina cheak
+    // Mobile browser → Desktop mode korleo pointer: coarse hobe
     function isTouchDevice() {
       return (
         window.matchMedia("(pointer: coarse)").matches ||
@@ -58,11 +58,11 @@ export default function SmoothScroll({ children }) {
       );
     }
 
-    // ─── Utility: live fps measure করো (~300ms sample) ──────────────────
+    // Utility: live fps measure kora (~300ms sample)
     function measureFps() {
       return new Promise((resolve) => {
         let frames = 0;
-        let start  = null;
+        let start = null;
         function count(ts) {
           if (!start) start = ts;
           frames++;
@@ -76,23 +76,20 @@ export default function SmoothScroll({ children }) {
       });
     }
 
-    // ─── fps থেকে lerp factor বের করো ───────────────────────────────────
-    // fps বেশি = ছোট lerp (বেশি smooth)
-    // fps কম  = বড় lerp (snappy, lag feel কমায়)
     function lerpFromFps(fps) {
-      if (fps >= 110) return 0.06;   // 120hz display
-      if (fps >= 80)  return 0.08;   // 90hz display
-      if (fps >= 50)  return 0.10;   // 60hz display
-      return null;                   // fps < 40 → battery saver, smooth বন্ধ
+      if (fps >= 110) return 0.06; // 120hz
+      if (fps >= 80) return 0.08; // 90hz
+      if (fps >= 50) return 0.1; // 60hz
+      return null; // fps < 40 → battery saver, smooth kore
     }
 
-    // ─── Smooth scroll চালু করো ──────────────────────────────────────────
+    // Smooth scroll on kora
     function startSmooth(lerp) {
-      if (activeRef.current) return; // already running
-      activeRef.current   = true;
-      currentY.current    = window.scrollY;
-      targetY.current     = window.scrollY;
-      lerpRef.current     = lerp;
+      if (activeRef.current) return;
+      activeRef.current = true;
+      currentY.current = window.scrollY;
+      targetY.current = window.scrollY;
+      lerpRef.current = lerp;
 
       function onWheel(e) {
         e.preventDefault();
@@ -104,7 +101,8 @@ export default function SmoothScroll({ children }) {
       window.addEventListener("wheel", onWheel, { passive: false });
 
       function animate() {
-        currentY.current += (targetY.current - currentY.current) * lerpRef.current;
+        currentY.current +=
+          (targetY.current - currentY.current) * lerpRef.current;
         if (Math.abs(currentY.current - targetY.current) < 0.5) {
           currentY.current = targetY.current;
         }
@@ -113,7 +111,7 @@ export default function SmoothScroll({ children }) {
       }
       rafRef.current = requestAnimationFrame(animate);
 
-      // cleanup function save করো
+      // cleanup function save
       cleanupRef.current = () => {
         window.removeEventListener("wheel", onWheel);
         cancelAnimationFrame(rafRef.current);
@@ -121,7 +119,7 @@ export default function SmoothScroll({ children }) {
       };
     }
 
-    // ─── Smooth scroll বন্ধ করো ──────────────────────────────────────────
+    //  Smooth scroll off
     function stopSmooth() {
       if (cleanupRef.current) {
         cleanupRef.current();
@@ -129,47 +127,48 @@ export default function SmoothScroll({ children }) {
       }
     }
 
-    // ─── Main calibration: সব case এখানে decide হয় ──────────────────────
+    // Main calibration: All case eikahne decide hoy
     async function calibrate() {
-      stopSmooth(); // আগেরটা বন্ধ করো, নতুন করে measure করো
+      stopSmooth();
 
-      // Case [2] [3]: touch device হলে native scroll
+      // Case [2] [3]: touch device hole native scroll
       if (isTouchDevice()) return;
 
-      // Case [4] [5]: fps measure করো
-      const fps  = await measureFps();
+      // Case [4] [5]: fps measure kore
+      const fps = await measureFps();
       const lerp = lerpFromFps(fps);
 
-      // Case [4]: battery saver বা খুব কম fps → smooth বন্ধ
+      // Case [4]: battery saver or very lettle fps → smooth off
       if (!lerp) return;
 
-      // Case [1] [5]: desktop, ভালো fps → smooth চালু
+      // Case [1] [5]: desktop, good fps → smooth on
       startSmooth(lerp);
     }
-
-    // ─── Page ফিরে আসলে re-calibrate ────────────────────────────────────
     // Case [6]: battery saver toggle, display hz change
     function onVisibilityChange() {
       if (document.visibilityState === "visible") calibrate();
     }
-    function onFocus() { calibrate(); }
+    function onFocus() {
+      calibrate();
+    }
 
-    // ─── Resize এ re-check 
+    // ─── Resize এ re-check
     // Case [7]: desktop mode toggle, orientation change
-    function onResize() { calibrate(); }
+    function onResize() {
+      calibrate();
+    }
 
-    // ─── Events register করো ─────────────────────────────────────────────
+    // Events registr
     document.addEventListener("visibilitychange", onVisibilityChange);
-    window.addEventListener("focus",  onFocus);
+    window.addEventListener("focus", onFocus);
     window.addEventListener("resize", onResize);
 
-    // প্রথমবার চালু করো
     calibrate();
 
     return () => {
       stopSmooth();
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      window.removeEventListener("focus",  onFocus);
+      window.removeEventListener("focus", onFocus);
       window.removeEventListener("resize", onResize);
     };
   }, []);
