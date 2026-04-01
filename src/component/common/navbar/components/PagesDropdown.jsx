@@ -1,10 +1,10 @@
 // ============================================================
 // PagesDropdown.jsx
-// Desktop Navbar এ "PAGES" hover করলে যে dropdown দেখায়।
+// Desktop Navbar e "PAGES" hover korle je dropdown dekhai
 //
 // Auth Rule:
-//   - Logged IN  → "Login / Register" লিংক লুকানো থাকে
-//   - Logged OUT → সব লিংক দেখায়
+//   - Logged IN  → "Login / Register" link hide thakeল
+//   - Logged OUT → All link show here
 // ============================================================
 
 import Link from "next/link";
@@ -17,10 +17,10 @@ const PagesDropdown = ({ dropdownData }) => {
   const { user } = useAuthStore();
 
   return (
-    <div className="shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] bg-white absolute top-[102%] w-[260px] left-1/2 translate-x-[-28%] pt-[23px] pb-[17px] px-[30px]">
+    <div className="shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] bg-white absolute top-[102%] w-65 left-1/2 translate-x-[-28%] pt-5.75 pb-4.25 px-7.5">
       <ul>
         {dropdownData?.map((item, index) => {
-          // Logged in থাকলে "Login / Register" লিংক দেখাবে না
+          // Logged in thakle "Login / Register" link show hobe na
           if (user && item.link === "/login-register") return null;
 
           return (
