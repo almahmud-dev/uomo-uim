@@ -39,7 +39,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={jost.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>
           <SmoothScroll>
           <Navbar />
