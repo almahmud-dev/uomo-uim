@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import Images from "./Images";
 import { FaHeart } from "react-icons/fa6";
@@ -15,16 +15,20 @@ const Product = ({
   itemPrice,
   discountPrice,
 }) => {
-  const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } = useCartStore();
+  const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } =
+    useCartStore();
   const { user } = useAuthStore();
-const { openLoginModal } = useLoginModalStore();
+  const { openLoginModal } = useLoginModalStore();
   const isLiked = wishlistItems.some((item) => item.id === id);
   const router = useRouter();
 
   // Add product to cart
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    if (!user) { openLoginModal(); return; } //aita jpokhn login thakbe na
+    if (!user) {
+      openLoginModal();
+      return;
+    } //aita jokhn login thakbe na
     addToCart({
       id,
       name: itemName,
@@ -38,7 +42,10 @@ const { openLoginModal } = useLoginModalStore();
   // Toggle wishlist item
   const handleWishlist = (e) => {
     e.stopPropagation();
-    if (!user) { openLoginModal(); return; } //login jokhn thakbe na
+    if (!user) {
+      openLoginModal();
+      return;
+    } //login jokhn thakbe na
     if (isLiked) {
       removeFromWishlist(id);
     } else {
@@ -55,11 +62,15 @@ const { openLoginModal } = useLoginModalStore();
   return (
     <>
       <div
-        className="lg:w-82.5 w-full relative group cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 p-3 rounded-sm"
+        className="lg:w-82.5 w-full relative group cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 rounded-sm"
         onClick={() => router.push(`/shop/${id}`)}
       >
-        <div className="relative overflow-hidden aspect-square">
-          <Images className={"w-full h-full object-contain bg-[#F5F5F5]"} imgSrc={imgSrc} imgAlt={imgAlt} />
+        <div className="relative overflow-hidden aspect-square bg-[#F5F5F5]">
+          <Images
+            className={"w-full h-full object-contain"}
+            imgSrc={imgSrc}
+            imgAlt={imgAlt}
+          />
 
           {/* Add to cart button — visible on hover */}
           <button
@@ -71,7 +82,7 @@ const { openLoginModal } = useLoginModalStore();
         </div>
 
         {/* Product details */}
-        <div className="mt-3.5">
+        <div className="mt-3.5 p-3">
           <div className="flex justify-between items-center">
             <p className="texts_14_regular text-second">{catagory}</p>
 
