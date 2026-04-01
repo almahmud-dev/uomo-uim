@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Container from "@/component/common/Container";
 import { shopList1 } from "@/helper/projectArrayObj";
 import allIcons from "@/helper/iconProvider";
@@ -10,15 +10,31 @@ import Button from "@/component/common/Button";
 import ShopFilter from "./ShopFilter";
 import useAllProduct from "@/customHook/useAllProduct";
 
-const ShopBanner = () => {
+// Category display name map
+const CATEGORY_LABEL = {
+  "womens-dresses": "WOMEN",
+  "mens-shirts": "MEN",
+  tops: "KIDS",
+};
+
+const ShopBannerInner = () => {
+  const searchParams = useSearchParams();
+  const urlCategory = searchParams.get("category") || "";
+
   const [skip, setSkip] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
   const [cols, setCols] = useState(4);
   const [sortBy, setSortBy] = useState("default");
   const limit = 16;
 
-  const { data, isLoading, isError } = useAllProduct(limit, skip);
+  // URL category বদলালে skip reset করো
+  useEffect(() => {
+    setSkip(0);
+  }, [urlCategory]);
+
+  const { data, isLoading, isError } = useAllProduct(limit, skip, "", urlCategory);
   const rawProducts = data?.products || [];
+
   const products = [...rawProducts].sort((a, b) => {
     if (sortBy === "price-low") return a.price - b.price;
     if (sortBy === "price-high") return b.price - a.price;
@@ -26,25 +42,18 @@ const ShopBanner = () => {
     if (sortBy === "latest") return b.id - a.id;
     return 0;
   });
+
   const total = data?.total || 0;
   const visibleCount = skip + products.length;
   const percentage = total > 0 ? (visibleCount / total) * 100 : 0;
 
-  const handleLoadMore = () => {
-    setSkip((prev) => prev + limit);
-  };
+  const handleLoadMore = () => setSkip((prev) => prev + limit);
+
   if (isError) return <div>Something went wrong.</div>;
-  // Responsive cols — screen size onujayi max cols limit
-  const getGridCols = () => {
-    if (typeof window === "undefined") return cols;
-    const width = window.innerWidth;
-    if (width < 640) return 1; // sm er jonno max 1
-    if (width < 768) return Math.min(cols, 2); // md er jonno max 2
-    if (width < 1024) return Math.min(cols, 3); // lg er max 3
-    return cols; // xl pluse ja ja che user chosen
-  };
 
   const { filter } = allIcons;
+
+  const categoryLabel = CATEGORY_LABEL[urlCategory];
 
   return (
     <section>
@@ -53,7 +62,7 @@ const ShopBanner = () => {
         <Container>
           <div>
             <h3 className="font-bold text-[40px] sm:text-[60px] md:text-[75px] lg:text-[90px] uppercase tracking-wide text-[#efefef] bg-transparent">
-              Jackets & Coats
+              {categoryLabel ? `${categoryLabel} COLLECTION` : "Jackets & Coats"}
             </h3>
           </div>
           <div className="pt-3.5 overflow-x-auto">
@@ -75,7 +84,9 @@ const ShopBanner = () => {
         <Container>
           {/* Top Bar */}
           <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
-            <p className="text-head texts_14_medium">HOME / THE SHOP</p>
+            <p className="text-head texts_14_medium">
+              HOME / THE SHOP{categoryLabel ? ` / ${categoryLabel}` : ""}
+            </p>
 
             <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-7.5 gap-y-2">
               {/* Sort */}
@@ -83,61 +94,23 @@ const ShopBanner = () => {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="border-b-2 border-head cursor-pointer bg-transparent outline-none texts_14_medium text-head px-2 appearance-none pr-6"
               >
-                <option className="text-head texts_14_medium" value="default">
-                  Default Sorting
-                </option>
-                <option
-                  className="text-head texts_14_medium"
-                  value="popularity"
-                >
-                  Popularity
-                </option>
-                <option className="text-head texts_14_medium" value="rating">
-                  Average Rating
-                </option>
-                <option className="text-head texts_14_medium" value="latest">
-                  Latest
-                </option>
-                <option className="text-head texts_14_medium" value="price-low">
-                  Price: Low to High
-                </option>
-                <option
-                  className="text-head texts_14_medium"
-                  value="price-high"
-                >
-                  Price: High to Low
-                </option>
+                <option value="default">Default Sorting</option>
+                <option value="popularity">Popularity</option>
+                <option value="rating">Average Rating</option>
+                <option value="latest">Latest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
               </select>
 
               <div className="h-6 w-0.5 bg-gray-300 hidden sm:block"></div>
 
-              {/* View cols — sm তে শুধু 1,2 দেখাবে, md তে 1,2,3, lg+ তে সব */}
+              {/* View cols */}
               <div className="flex justify-between items-center gap-x-3 cursor-pointer">
                 <button className="texts_14_medium text-head">VIEW</button>
-                <button
-                  onClick={() => setCols(1)}
-                  className="texts_14_medium text-head"
-                >
-                  1
-                </button>
-                <button
-                  onClick={() => setCols(2)}
-                  className="texts_14_medium text-head"
-                >
-                  2
-                </button>
-                <button
-                  onClick={() => setCols(3)}
-                  className="texts_14_medium text-head hidden md:block"
-                >
-                  3
-                </button>
-                <button
-                  onClick={() => setCols(4)}
-                  className="texts_14_medium text-head hidden lg:block"
-                >
-                  4
-                </button>
+                <button onClick={() => setCols(1)} className="texts_14_medium text-head">1</button>
+                <button onClick={() => setCols(2)} className="texts_14_medium text-head">2</button>
+                <button onClick={() => setCols(3)} className="texts_14_medium text-head hidden md:block">3</button>
+                <button onClick={() => setCols(4)} className="texts_14_medium text-head hidden lg:block">4</button>
               </div>
 
               {/* Filter */}
@@ -162,10 +135,7 @@ const ShopBanner = () => {
                 `}
               >
                 {[...Array(16)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="animate-pulse bg-gray-200 h-80 w-full"
-                  />
+                  <div key={i} className="animate-pulse bg-gray-200 h-80 w-full" />
                 ))}
               </div>
             ) : (
@@ -188,10 +158,7 @@ const ShopBanner = () => {
                     itemPrice={product.price}
                     discountPrice={
                       product.discountPercentage > 0
-                        ? (
-                            product.price -
-                            (product.price * product.discountPercentage) / 100
-                          ).toFixed(2)
+                        ? (product.price - (product.price * product.discountPercentage) / 100).toFixed(2)
                         : null
                     }
                   />
@@ -211,9 +178,7 @@ const ShopBanner = () => {
               {visibleCount < total && (
                 <button onClick={handleLoadMore}>
                   <Button
-                    className={
-                      "texts_14_medium text-black hover:after:w-15 pt-4.25"
-                    }
+                    className={"texts_14_medium text-black hover:after:w-15 pt-4.25"}
                     btnText={"SHOW MORE"}
                   />
                 </button>
@@ -227,5 +192,12 @@ const ShopBanner = () => {
     </section>
   );
 };
+
+// useSearchParams এর জন্য Suspense wrapper দরকার Next.js এ
+const ShopBanner = () => (
+  <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+    <ShopBannerInner />
+  </Suspense>
+);
 
 export default ShopBanner;
