@@ -148,7 +148,7 @@ const NavIcons = () => {
             {/* Account Login/Register sidebar — show only when logged out */}
             {isActive && item.name === "Account" && (
               <div
-                className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"
+                className="absolute z-999 bg-head h-screen w-full top-0 left-0"
                 onClick={stopProp}
               >
                 <div className="h-full absolute right-0 flex flex-col">
