@@ -28,11 +28,14 @@ const NavbarLg = () => {
     <nav className="pt-7.25 pb-4.75 relative z-999!">
       <Container>
         <div className="flex justify-between items-center">
-
           {/* ---- Left: Logo + Nav links ---- */}
           <div className="flex items-center gap-x-14">
             <Link href="/">
-              <Images imgSrc={navLogo} imgAlt="uomo-logo" className="w-27.75 h-6.75" />
+              <Images
+                imgSrc={navLogo}
+                imgAlt="uomo-logo"
+                className="w-27.75 h-6.75"
+              />
             </Link>
 
             <ul className="flex gap-x-9.25">
@@ -50,34 +53,54 @@ const NavbarLg = () => {
                   </Link>
 
                   {/* SHOP mega menu */}
-                  {item.label === "SHOP" && item.hasMegaMenu && hoverItem === "SHOP" && (
-                    <ShopMegaMenu megaMenuData={item.megaMenuData} />
-                  )}
+                  {item.label === "SHOP" &&
+                    item.hasMegaMenu &&
+                    hoverItem === "SHOP" && (
+                      <ShopMegaMenu megaMenuData={item.megaMenuData} />
+                    )}
 
-                  {/* JOURNAL mega menu — inline (ছোট, reuse নেই) */}
-                  {item.label === "JOURNAL" && item.hasMegaMenu && hoverItem === "JOURNAL" && (
-                    <div className="shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] bg-white absolute top-[102%] w-[795px] left-1/2 translate-x-[-36%] pt-[40px] pb-[32px] px-[59px] grid grid-cols-3">
-                      {item.megaMenuData?.map((group, gIdx) => (
-                        <div key={gIdx} className={gIdx === 1 ? "flex justify-center" : gIdx === 2 ? "flex justify-end" : ""}>
-                          <div>
-                            <p className="texts_14_medium text-second pb-3">{group.title}</p>
-                            <ul>
-                              {group.links.map((link, lIdx) => (
-                                <li key={lIdx} className="texts_14_regular text-head !leading-[35px] w-fit relative after:absolute after:content-[''] after:w-[0%] after:h-[2px] after:bg-head after:bottom-[5px] after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out">
-                                  <Link href={link.link}>{link.name}</Link>
-                                </li>
-                              ))}
-                            </ul>
+                  {/* JOURNAL mega menu — inline (small, reuse nai) */}
+                  {item.label === "JOURNAL" &&
+                    item.hasMegaMenu &&
+                    hoverItem === "JOURNAL" && (
+                      <div className="shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] bg-white absolute top-[102%] w-198.75 left-1/2 translate-x-[-36%] pt-10 pb-8 px-14.75 grid grid-cols-3">
+                        {item.megaMenuData?.map((group, gIdx) => (
+                          <div
+                            key={gIdx}
+                            className={
+                              gIdx === 1
+                                ? "flex justify-center"
+                                : gIdx === 2
+                                  ? "flex justify-end"
+                                  : ""
+                            }
+                          >
+                            <div>
+                              <p className="texts_14_medium text-second pb-3">
+                                {group.title}
+                              </p>
+                              <ul>
+                                {group.links.map((link, lIdx) => (
+                                  <li
+                                    key={lIdx}
+                                    className="texts_14_regular text-head leading-8.75! w-fit relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out"
+                                  >
+                                    <Link href={link.link}>{link.name}</Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                        ))}
+                      </div>
+                    )}
 
                   {/* PAGES dropdown */}
-                  {item.label === "PAGES" && item.dropdownData && hoverItem === "PAGES" && (
-                    <PagesDropdown dropdownData={item.dropdownData} />
-                  )}
+                  {item.label === "PAGES" &&
+                    item.dropdownData &&
+                    hoverItem === "PAGES" && (
+                      <PagesDropdown dropdownData={item.dropdownData} />
+                    )}
                 </li>
               ))}
             </ul>
@@ -85,7 +108,6 @@ const NavbarLg = () => {
 
           {/* ---- Right: Icons (Search, Account, Wishlist, Cart) ---- */}
           <NavIcons />
-
         </div>
       </Container>
     </nav>
