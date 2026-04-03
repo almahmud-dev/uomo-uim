@@ -1,51 +1,38 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-
-const about = "/assets/images/about/about.png";
-const about2 = "/assets/images/about/about2.png";
-const brand1 = "/assets/images/about/mango.png";
-const brand2 = "/assets/images/about/zara.png";
-const brand3 = "/assets/images/about/reebok.png";
-const brand4 = "/assets/images/about/asos.png";
-const brand5 = "/assets/images/about/stradi.png";
-const brand6 = "/assets/images/about/adi.png";
-const brand7 = "/assets/images/about/bershka.png";
-const delivery = "/assets/images/about/delivery.png";
-const shield = "/assets/images/about/shield.png";
-const support = "/assets/images/about/support.png";
+import { CldImage } from "next-cloudinary";
 
 const features = [
   {
-    icon: delivery,
+    icon: "delivery_dm6pdq",
     title: "FAST AND FREE DELIVERY",
     desc: "Free delivery for all orders over $140",
   },
   {
-    icon: shield,
+    icon: "shield_fjfoco",
     title: "24/7 CUSTOMER SUPPORT",
     desc: "Friendly 24/7 customer support",
   },
   {
-    icon: support,
+    icon: "support_sjgchb",
     title: "MONEY BACK GUARANTEE",
     desc: "We return money within 30 days",
   },
 ];
 
 const brands = [
-  { src: brand1, alt: "Mango" },
-  { src: brand2, alt: "Zara" },
-  { src: brand3, alt: "Reebok" },
-  { src: brand4, alt: "ASOS" },
-  { src: brand5, alt: "Stradivarius" },
-  { src: brand6, alt: "Adidas" },
-  { src: brand7, alt: "Bershka" },
+  { src: "mango_dqndgm", alt: "Mango" },
+  { src: "zara_quczmy", alt: "Zara" },
+  { src: "reebok_xn5avh", alt: "Reebok" },
+  { src: "asos_fe4gia", alt: "ASOS" },
+  { src: "stradi_ksbemh", alt: "Stradivarius" },
+  { src: "adi_ipsxxm", alt: "Adidas" },
+  { src: "bershka_lg31ie", alt: "Bershka" },
 ];
 
 const About = () => {
   return (
-    <section className=" mt-21.25 lg:mt-38">
+    <section className="mt-21.25 lg:mt-38">
       <div className="max-w-352.5 mx-auto">
         <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-16 xl:mt-22.5 mb-10 sm:mb-12 lg:mb-16 xl:mb-19.25">
           {/* Page Title */}
@@ -57,9 +44,13 @@ const About = () => {
 
           {/* Hero Image */}
           <div className="w-full bg-[#d0d0d0] overflow-hidden">
-            <img
-              src={about}
+            <CldImage
+              src="about_skh2fp"
               alt="About hero"
+              width={1400}
+              height={600}
+              quality="auto"
+              format="auto"
               className="w-full h-45 sm:h-65 md:h-85 lg:h-105 xl:h-auto object-cover"
             />
           </div>
@@ -114,9 +105,13 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-11.25 items-center mt-6 sm:mt-8 lg:mt-10 xl:mt-0 mb-8 sm:mb-10 lg:mb-16 xl:mb-25">
               {/* Mid Image */}
               <div className="w-full bg-[#d0d0d0] overflow-hidden relative rounded-sm">
-                <img
-                  src={about2}
+                <CldImage
+                  src="about2_zpajna"
                   alt="Fashion"
+                  width={600}
+                  height={700}
+                  quality="auto"
+                  format="auto"
                   className="w-full h-55 sm:h-75 md:h-95 lg:h-110 xl:h-full object-cover"
                 />
                 <div className="absolute top-15 left-[calc(50%-100px)] w-0 h-0 border-l-100 border-r-100 border-b-170 border-l-transparent border-r-transparent border-b-[rgba(180,180,180,0.7)]" />
@@ -148,14 +143,15 @@ const About = () => {
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8 sm:gap-6 lg:gap-10 xl:gap-36 items-start mb-8 sm:mb-10 lg:mb-16 xl:mb-25">
               {features.map((feature, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 sm:gap-4 xl:gap-4.5"
-                >
+                <div key={i} className="flex items-start gap-3 sm:gap-4 xl:gap-4.5">
                   <div className="w-9.5 h-9.5 sm:w-10 sm:h-10 lg:w-10.5 lg:h-10.5 xl:w-11.25 xl:h-11.25 shrink-0 flex items-center justify-center">
-                    <img
+                    <CldImage
                       src={feature.icon}
                       alt=""
+                      width={45}
+                      height={45}
+                      quality="auto"
+                      format="auto"
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -176,9 +172,13 @@ const About = () => {
           <div className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-0 grid grid-cols-4 sm:grid-cols-7 gap-4 sm:gap-3 md:gap-5 lg:gap-6 xl:gap-0 xl:flex xl:items-center xl:justify-between">
             {brands.map((brand, i) => (
               <div key={i} className="flex items-center justify-center">
-                <img
+                <CldImage
                   src={brand.src}
                   alt={brand.alt}
+                  width={120}
+                  height={40}
+                  quality="auto"
+                  format="auto"
                   className="max-h-5.5 sm:max-h-6.5 md:max-h-7 lg:max-h-7.5 xl:max-h-none w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                 />
               </div>
