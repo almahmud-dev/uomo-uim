@@ -1,17 +1,20 @@
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 
-const Images = ({ imgSrc, className, imgAlt, width, height, priority }) => {
+const Images = ({ imgSrc, className, imgAlt, width, height, priority, sizes }) => {
   if (!imgSrc) return null;
 
   if (width && height) {
     return (
-      <Image
+      <CldImage
         src={imgSrc}
         alt={imgAlt || ""}
         width={width}
         height={height}
         className={className}
         priority={priority || false}
+        quality="auto"
+        format="auto"
+        sizes={sizes}
       />
     );
   }

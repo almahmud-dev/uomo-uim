@@ -14,12 +14,13 @@ const nextConfig = {
       { protocol: "https", hostname: "dummyjson.com" },
       { protocol: "https", hostname: "cdn.dummyjson.com" },
       { protocol: "https", hostname: "i.dummyjson.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" }, // ✅ এটা নতুন যোগ করা হয়েছে
     ],
   },
 
   async headers() {
     return [
-      // Cache headers - normaly thake:
+      // Cache headers
       {
         source: "/assets/:path*",
         headers: [
@@ -38,7 +39,7 @@ const nextConfig = {
           },
         ],
       },
-      // Security headers - er jonno:
+      // Security headers
       {
         source: "/(.*)",
         headers: [
