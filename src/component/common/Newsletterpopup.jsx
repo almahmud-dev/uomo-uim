@@ -1,7 +1,5 @@
 "use client";
-import allImages from "@/helper/imagesProvider";
 import { useState, useEffect } from "react";
-import Images from "./Images";
 import { auth, db } from "@/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";

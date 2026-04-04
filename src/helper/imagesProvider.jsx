@@ -7,7 +7,6 @@ const allImages = {
   navtabImg: "/assets/images/nav-tabs2.avif",
   footerPaymenetImg: "/assets/images/footer-payment.png",
   shopimg: "/assets/images/insideBlog.png",
-  letterimg: "/assets/images/letterPopup.jpg",
 };
 
 export default allImages;
