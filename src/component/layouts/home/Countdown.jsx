@@ -1,4 +1,5 @@
 "use client";
+import { CldImage } from "next-cloudinary";
 import Button from "@/component/common/Button";
 import Container from "@/component/common/Container";
 import React from "react";
@@ -7,7 +8,6 @@ import dynamic from "next/dynamic";
 import { zeroPad } from "react-countdown";
 
 const ReactCountdown = dynamic(() => import("react-countdown"), { ssr: false });
-const coundown = "/assets/images/countdown.png";
 
 const Countdown = () => {
   return (
@@ -101,9 +101,11 @@ const Countdown = () => {
 
               {/* Image Div — w-[426px] */}
               <div className="hidden md:block w-106.5 min-w-106.5 h-full">
-                <img
-                  src={coundown}
+                <CldImage
+                  src="countdown_nijyho"
                   alt="Spring Collection"
+                  width={426}
+                  height={600}
                   className="w-full h-full object-cover"
                 />
               </div>
