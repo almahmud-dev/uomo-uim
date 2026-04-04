@@ -143,7 +143,10 @@ const About = () => {
             {/* Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8 sm:gap-6 lg:gap-10 xl:gap-36 items-start mb-8 sm:mb-10 lg:mb-16 xl:mb-25">
               {features.map((feature, i) => (
-                <div key={i} className="flex items-start gap-3 sm:gap-4 xl:gap-4.5">
+                <div
+                  key={i}
+                  className="flex items-start gap-3 sm:gap-4 xl:gap-4.5"
+                >
                   <div className="w-9.5 h-9.5 sm:w-10 sm:h-10 lg:w-10.5 lg:h-10.5 xl:w-11.25 xl:h-11.25 shrink-0 flex items-center justify-center">
                     <CldImage
                       src={feature.icon}
