@@ -6,26 +6,24 @@ import { auth, db } from "@/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
 import { IoMdClose } from "react-icons/io";
-
+import { CldImage } from "next-cloudinary";
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
 
-  const { letterimg } = allImages;
-
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true); // logout hole popup show korbe
-    }
-    setChecking(false);
-  });
-  return () => unsubscribe();
-}, []);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true); // logout hole popup show korbe
+      }
+      setChecking(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,9 +51,11 @@ export default function NewsletterPopup() {
         <div className="relative flex flex-col md:flex-row w-full max-w-[calc(100vw-24px)] sm:max-w-135 md:max-w-180 lg:max-w-215 xl:max-w-225 shadow-2xl">
           {/* Left — image panel */}
           <div className="hidden md:flex relative md:w-65 lg:w-85 xl:w-100 shrink-0 overflow-hidden md:min-h-112.5 lg:min-h-125 xl:min-h-137.5">
-            <Images
-              imgSrc={letterimg}
-              imgAlt="newsletter"
+            <CldImage
+              src="letterPopup_dp13xv"
+              alt="newsletter"
+              width={500}
+              height={700}
               className="w-full h-full object-cover"
             />
           </div>
@@ -76,11 +76,15 @@ export default function NewsletterPopup() {
             </h2>
 
             <p className="texts_14_regular text-second my-3 sm:my-4">
-              Be the first to get the latest news about trends, promotions, and much more!
+              Be the first to get the latest news about trends, promotions, and
+              much more!
             </p>
 
             <div className="flex items-stretch border border-footer">
-              <form onSubmit={handleSubmit} className="flex items-stretch w-full">
+              <form
+                onSubmit={handleSubmit}
+                className="flex items-stretch w-full"
+              >
                 <input
                   type="email"
                   value={email}
