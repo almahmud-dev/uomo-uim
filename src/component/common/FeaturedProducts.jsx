@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import Images from "./Images";
 import Button from "./Button";
@@ -9,6 +9,8 @@ const FeaturedProducts = ({ imgSrc, imgAlt, price, category }) => {
       <Images
         imgSrc={imgSrc}
         imgAlt={imgAlt}
+        width={800}
+        height={700}
         className="w-full h-full object-cover"
       />
       <div className="absolute bottom-0 left-0 right-0 w-full h-0 bg-red/80 group-hover:h-full transition-all duration-700 ease-in-out"></div>
