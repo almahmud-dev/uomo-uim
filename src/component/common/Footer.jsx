@@ -7,9 +7,8 @@ import allIcons from "@/helper/iconProvider";
 import { RiArrowUpSLine } from "react-icons/ri";
 import Link from 'next/link';
 import Images from "./Images";
-
+import { CldImage } from "next-cloudinary";
 const Footer = () => {
-  const { navLogo, footerPaymenetImg } = allImages;
   const { socialIcons } = allIcons;
 
   return (
@@ -20,9 +19,11 @@ const Footer = () => {
           {/* ── COL 1-2 : Brand info ── */}
           <div className="col-span-2  lg:flex-col md:flex md:justify-between md:items-start ">
             {/* Logo */}
-            <Images
-              imgSrc={navLogo}
-              imgAlt={"footerlogo"}
+            <CldImage
+              src="navicon_is7dpu"
+              alt="footerlogo"
+              width={400}
+              height={800}
               className={`h-[27px] w-[111px] object-contain object-left   `}
             />
 
@@ -140,10 +141,12 @@ const Footer = () => {
             >
               Secure payments
             </p>
-            <img
-              src={footerPaymenetImg}
+            <CldImage
+              src="footer-payment_azt5oh"
               alt="Payment methods"
-              className="h-auto w-auto max-w-full object-contain object-left"
+              width={500}
+              height={800}
+              className="h-auto w-auto max-w-full object-contain object-left cursor-pointer"
             />
           </div>
         </div>
