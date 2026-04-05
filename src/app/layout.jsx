@@ -9,7 +9,7 @@ import SmoothScroll from "@/component/common/SmoothScroll";
 
 const jost = Jost({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-jost",
   display: "swap",

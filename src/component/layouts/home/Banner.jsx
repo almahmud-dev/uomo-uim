@@ -62,6 +62,7 @@ const Banner = () => {
                     width={600}
                     height={800}
                     alt={`banner slide ${idx + 1}`}
+                    fetchPriority={idx === 0 ? "high" : "low"}
                     priority={idx === 0}
                     loading={idx === 0 ? "eager" : "lazy"}
                     quality="auto"
