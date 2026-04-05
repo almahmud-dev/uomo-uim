@@ -1,39 +1,19 @@
-'use client';
 import dynamic from "next/dynamic";
 import Banner from "@/component/layouts/home/Banner";
-import Collection from "@/component/layouts/home/Collection";
-import Products from "@/component/layouts/home/Products";
-import Countdown from "@/component/layouts/home/Countdown";
-import Feature from "@/component/layouts/home/Feature";
-import LimitedEdition from "@/component/layouts/home/LimitedEdition";
-import Uomo from "@/component/layouts/home/Uomo";
-import Support from "@/component/layouts/home/Support";
-import React, { useEffect, useState } from "react";
+import ClientProviders from "@/component/layouts/home/ClientProviders";
 
-const NewsletterPopup = dynamic(() => import("@/component/common/Newsletterpopup"), {
-  ssr: false,
-});
-const CookieConsent = dynamic(() => import("@/component/common/CookieConsent"), {
-  ssr: false,
-});
+const Collection = dynamic(() => import("@/component/layouts/home/Collection"));
+const Products = dynamic(() => import("@/component/layouts/home/Products"));
+const Countdown = dynamic(() => import("@/component/layouts/home/Countdown"));
+const Feature = dynamic(() => import("@/component/layouts/home/Feature"));
+const LimitedEdition = dynamic(() => import("@/component/layouts/home/LimitedEdition"));
+const Uomo = dynamic(() => import("@/component/layouts/home/Uomo"));
+const Support = dynamic(() => import("@/component/layouts/home/Support"));
 
 const Home = () => {
-  const [showNewsletter, setShowNewsletter] = useState(false);
-  const [showCookie, setShowCookie] = useState(false);
-
-  useEffect(() => {
-    const newsletterTimer = setTimeout(() => setShowNewsletter(true), 3000);
-    const cookieTimer = setTimeout(() => setShowCookie(true), 10000);
-    return () => {
-      clearTimeout(newsletterTimer);
-      clearTimeout(cookieTimer);
-    };
-  }, []);
-
   return (
     <>
-      {showNewsletter && <NewsletterPopup />}
-      {showCookie && <CookieConsent />}
+      <ClientProviders />  {/* Newsletter + Cookie এখানে */}
       <Banner />
       <Collection />
       <Products />
