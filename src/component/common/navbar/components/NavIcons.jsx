@@ -1,18 +1,5 @@
-// ============================================================
-// NavIcons.jsx
-// Desktop Navbar the right side icons:
-// Search, Account, Wishlist, Cart, Mobile Menu।
-//
-// Account icon er Auth Rule:
-//   - Logged IN  → click go to the /dashboard
-//   - Logged OUT → click to open Login/Register sidebar
-//
-// Wishlist: Filled red if there is an item heart + badge
-// Cart: click go to open the cart sidebar
-// ============================================================
-
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
@@ -24,6 +11,7 @@ import Register from "@/component/auth/Register";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import NavTabs from "@/component/navtabs/NavTabs";
 import Container from "@/component/common/Container";
+import Images from "@/component/common/Images";
 import { quickLinks } from "@/helper/projectArrayObj";
 
 const NavIcons = () => {
@@ -37,9 +25,36 @@ const NavIcons = () => {
 
   const [open, setOpen] = useState(null);
   const [authTab, setAuthTab] = useState("login");
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const timeoutRef = useRef(null);
+
+  // ── Live search ──────────────────────────────────────────
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+    setSearching(true);
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}&limit=6`
+        );
+        const data = await res.json();
+        setResults(data.products || []);
+      } catch {
+        setResults([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 400);
+    return () => clearTimeout(timeoutRef.current);
+  }, [query]);
 
   const handleClick = (item) => {
-    // Account: if logged in, redirect to dashboard
     if (item.name === "Account" && user) {
       router.push("/dashboard");
       return;
@@ -49,6 +64,12 @@ const NavIcons = () => {
 
   const handleUnMount = (val) => setOpen(val);
   const stopProp = (e) => e.stopPropagation();
+
+  const handleSearchClose = () => {
+    setOpen(null);
+    setQuery("");
+    setResults([]);
+  };
 
   return (
     <ul className="flex gap-x-7.5">
@@ -107,7 +128,8 @@ const NavIcons = () => {
                 item.icon
               )}
             </Link>
-            {/* Search panel */}
+
+            {/* ── Search Panel ── */}
             {isActive && item.name === "Search" && (
               <div
                 className="pt-15.5 pb-18.25 absolute bg-white left-0 w-full shadow-[0_10px_25px_-10px_rgba(0,0,0,0.18)] top-full"
@@ -120,32 +142,106 @@ const NavIcons = () => {
                   <div className="relative">
                     <input
                       type="text"
-                      className="w-full py-2.5 border-b-2 border-second text-head"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && query.trim()) {
+                          router.push(`/shop?search=${encodeURIComponent(query)}`);
+                          handleSearchClose();
+                        }
+                      }}
+                      className="w-full py-2.5 border-b-2 border-second text-head outline-none"
                       placeholder="SEARCH PRODUCTS"
+                      autoFocus
                     />
-                    <span className="absolute top-1/2 translate-y-[-65%] text-[22px] right-0 cursor-pointer">
+                    <span
+                      onClick={() => {
+                        if (query.trim()) {
+                          router.push(`/shop?search=${encodeURIComponent(query)}`);
+                          handleSearchClose();
+                        }
+                      }}
+                      className="absolute top-1/2 translate-y-[-65%] text-[22px] right-0 cursor-pointer"
+                    >
                       {item.icon}
                     </span>
                   </div>
-                  <div className="pt-6.75">
-                    <p className="texts_14_medium text-second">
-                      {quickLinks.title}
-                    </p>
-                    <ul>
-                      {quickLinks.links.map((link) => (
-                        <li
-                          key={link.id}
-                          className="texts_14_regular text-head w-fit leading-8.75! relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out"
-                        >
-                          <Link href={link.link}>{link.name}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+
+                  {/* Live Results */}
+                  {query.trim() ? (
+                    <div className="mt-6">
+                      {searching ? (
+                        <p className="texts_14_regular text-second">
+                          Searching...
+                        </p>
+                      ) : results.length > 0 ? (
+                        <>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            {results.map((product) => (
+                              <Link
+                                key={product.id}
+                                href={`/shop/${product.id}`}
+                                onClick={handleSearchClose}
+                                className="flex items-center gap-3 p-2 hover:bg-gray-50 transition-colors rounded"
+                              >
+                                <Images
+                                  imgSrc={product.thumbnail}
+                                  imgAlt={product.title}
+                                  width={48}
+                                  height={48}
+                                  className="w-12 h-12 object-cover shrink-0"
+                                />
+                                <div className="flex flex-col overflow-hidden">
+                                  <span className="texts_13_medium text-head truncate">
+                                    {product.title}
+                                  </span>
+                                  <span className="text-[12px] text-second">
+                                    ${product.price}
+                                  </span>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          {/* View All */}
+                          <button
+                            onClick={() => {
+                              router.push(`/shop?search=${encodeURIComponent(query)}`);
+                              handleSearchClose();
+                            }}
+                            className="mt-5 texts_13_medium text-head underline underline-offset-4 cursor-pointer"
+                          >
+                            View all results for &quot;{query}&quot;
+                          </button>
+                        </>
+                      ) : (
+                        <p className="texts_14_regular text-second">
+                          No products found.
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    /* Quick Links */
+                    <div className="pt-6.75">
+                      <p className="texts_14_medium text-second">
+                        {quickLinks.title}
+                      </p>
+                      <ul>
+                        {quickLinks.links.map((link) => (
+                          <li
+                            key={link.id}
+                            className="texts_14_regular text-head w-fit leading-8.75! relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.25 after:left-0 hover:after:w-[50%] after:duration-500 after:ease-in-out"
+                          >
+                            <Link href={link.link}>{link.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </Container>
               </div>
             )}
-            {/* Account Login/Register sidebar — show only when logged out */}
+
+            {/* ── Account Login/Register Sidebar ── */}
             {isActive && item.name === "Account" && (
               <div
                 className="absolute z-999 bg-head h-screen w-full top-0 left-0"
@@ -174,7 +270,8 @@ const NavIcons = () => {
                 </div>
               </div>
             )}
-            {/* Mobile menu sidebar */}
+
+            {/* ── Mobile Menu Sidebar ── */}
             {isActive && item.name === "Mobile Menu" && (
               <div
                 className="absolute z-999 bg-[#22222258] h-screen w-full top-0 left-0"
