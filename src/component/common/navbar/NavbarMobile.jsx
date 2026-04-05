@@ -1,60 +1,52 @@
-// ============================================================
-// NavbarMobile.jsx
-// Mobile Navbar — Upore Hamburger + Logo + Wishlist + Cart।
-// Hamburger click korle left theke slide-in drawer ber hobe।
-//
-// Drawer এ 5ti sliding panel:
-//   main     → All nav items
-//   shop     → SHOP categories (WOMEN/MEN/KIDS tabs)
-//   shopSub  → SHOP sub-links
-//   journal  → JOURNAL mega menu
-//   simple   → PAGES simple dropdown
-//
-// Auth Rule (drawer footer):
-//   - Logged IN  → Avatar + Name + Email + LOGOUT button
-//   - Logged OUT → LOGIN text, click korle /login-register e jai
-// ============================================================
-
 "use client";
-import { useState } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
+import PropTypes from "prop-types";
 import { FaHeart } from "react-icons/fa6";
-import { FaRegUser } from "react-icons/fa6";
-import { IoMdClose } from "react-icons/io";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
-import { GoSearch } from "react-icons/go";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaYoutube,
-  FaPinterestP,
-} from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
+import { CldImage } from "next-cloudinary";
 import Container from "@/component/common/Container";
-import allIcons from "@/helper/iconProvider";
+import { navIconItems } from "@/helper/iconProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
 import useAuthStore from "@/store/authSlice";
-import { CldImage } from "next-cloudinary";
+import DrawerHeader from "./components/DrawerHeader";
+import DrawerSearch from "./components/DrawerSearch";
+import DrawerFooter from "./components/DrawerFooter";
+import DrawerTabRow from "./components/DrawerTabRow";
 
-const socialIcons = [
-  { id: 1, icon: FaFacebookF, link: "https://www.facebook.com" },
-  { id: 2, icon: FaTwitter, link: "https://www.twitter.com" },
-  { id: 3, icon: FaInstagram, link: "https://www.instagram.com" },
-  { id: 4, icon: FaYoutube, link: "https://www.youtube.com" },
-  { id: 5, icon: FaPinterestP, link: "https://www.pinterest.com" },
-];
+// ── Constants ──────────────────────────────────────────────
+const DRAWER_CLOSE_DELAY = 310;
 
+const PANEL_RIGHT_OF = {
+  main: ["shop", "shopSub", "journal", "simple"],
+  shop: ["shopSub"],
+  shopSub: [],
+  journal: [],
+  simple: [],
+};
+
+const UNDERLINE =
+  "relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out";
+
+// ── Pure helpers ───────────────────────────────────────────
+const getPanelPosition = (current, target) => {
+  if (current === target) return "translate-x-0";
+  return PANEL_RIGHT_OF[current]?.includes(target)
+    ? "translate-x-full"
+    : "-translate-x-full";
+};
+
+// ──────────────────────────────────────────────────────────
 const NavbarMobile = () => {
-  const { navIconItems } = allIcons;
   const { cartItems, wishlistItems } = useCartStore();
   const { user, clearUser } = useAuthStore();
   const router = useRouter();
+  const drawerRef = useRef(null);
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const wishlistCount = wishlistItems.length;
@@ -69,218 +61,149 @@ const NavbarMobile = () => {
 
   const currentTabData = navTabsData.find((t) => t.tab === activeTab);
 
-  // Panel slide position
-  const pos = (target) => {
-    if (panel === target) return "translate-x-0";
-    const rightOf = {
-      main: ["shop", "shopSub", "journal", "simple"],
-      shop: ["shopSub"],
-      shopSub: [],
-      journal: [],
-      simple: [],
-    };
-    return rightOf[panel]?.includes(target)
-      ? "translate-x-full"
-      : "-translate-x-full";
-  };
-
+  // ── Panel class ───────────────────────────────────────────
   const panelClass = (name) =>
-    `absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos(name)}`;
+    `absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${getPanelPosition(panel, name)}`;
 
-  const handleOpen = () => {
+  // ── Handlers (useCallback —불필요한 re-render 방지) ────────
+  const handleOpen = useCallback(() => {
     setIsOpen(true);
     setPanel("main");
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
     setTimeout(() => {
       setPanel("main");
-      setActiveSimpleNav(null);
+      setActiveTab(navTabsData[0].tab);
       setActiveCategory(null);
       setActiveMegaItem(null);
-      setActiveTab(navTabsData[0].tab);
-    }, 310);
-  };
+      setActiveSimpleNav(null);
+    }, DRAWER_CLOSE_DELAY);
+  }, []);
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     if (panel === "shopSub") setPanel("shop");
     else if (["shop", "journal", "simple"].includes(panel)) setPanel("main");
-  };
+  }, [panel]);
 
-  const handleNavItemClick = (item) => {
-    if (item.label === "SHOP") setPanel("shop");
-    else if (item.hasMegaMenu) {
+  const handleNavItemClick = useCallback((item) => {
+    if (item.label === "SHOP") {
+      setPanel("shop");
+    } else if (item.hasMegaMenu) {
       setActiveMegaItem(item);
       setPanel("journal");
     } else if (item.hasDropdown) {
       setActiveSimpleNav(item);
       setPanel("simple");
     }
-  };
+  }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await signOut(auth);
     clearUser();
     handleClose();
     router.push("/");
-  };
+  }, [clearUser, handleClose, router]);
+
+  const handleLoginClick = useCallback(() => {
+    handleClose();
+    router.push("/login-register");
+  }, [handleClose, router]);
 
   const isDirectLink = (item) =>
     !item.hasDropdown && !item.hasMegaMenu && item.path;
 
-  // ---- Reusable JSX variables (component-er vitore component na) ----
+  // ── Escape key — drawer বন্ধ ──────────────────────────────
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        if (isCartOpen) setIsCartOpen(false);
+        else if (isOpen) handleClose();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, isCartOpen, handleClose]);
 
-  const headerJSX = (
-    <div className="flex items-center justify-between px-5 py-4 border-b border-footer">
-      <button
-        onClick={handleClose}
-        className="text-[22px] text-head cursor-pointer"
-      >
-        <IoMdClose />
-      </button>
-      <CldImage
-        src="navicon_is7dpu"
-        alt="mobile-nav"
-        width={400}
-        height={800}
-        className="w-27.75 h-6.75"
-      />
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="relative cursor-pointer pr-2.5"
-      >
-        <span className="text-[23px] text-head">
-          <HiOutlineShoppingBag />
-        </span>
-        <span className="absolute bg-third w-4.25 h-4.25 flex items-center justify-center text-[10px] font-medium text-white rounded-full -bottom-1.25 right-0.5">
-          {cartCount}
-        </span>
-      </button>
-    </div>
-  );
+  // ── Focus trap — drawer খোলা থাকলে focus ভেতরে থাকবে ────
+  useEffect(() => {
+    if (!isOpen || !drawerRef.current) return;
 
-  const searchJSX = (
-    <div className="flex items-center gap-2.5 px-5 py-4 mb-3 border-b border-footer">
-      <input
-        type="text"
-        placeholder="Search products..."
-        className="flex-1 texts_14_regular text-head bg-transparent placeholder:text-second"
-      />
-      <GoSearch className="text-[18px] text-head" />
-    </div>
-  );
+    const focusable = drawerRef.current.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
 
-  const footerJSX = (
-    <div className="px-5 pt-7.25 pb-5 border-t border-footer">
-      {user ? (
-        <div className="mb-4">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-full bg-secondbg border border-footer flex items-center justify-center shrink-0">
-              <span className="text-sm font-medium text-head">
-                {(user.displayName || user.email)?.[0]?.toUpperCase()}
-              </span>
-            </div>
-            <div className="flex flex-col overflow-hidden">
-              <span className="texts_14_medium text-head tracking-[0.3px] truncate">
-                {user.displayName || "My Account"}
-              </span>
-              <span className="text-[12px] text-second truncate">
-                {user.email}
-              </span>
-            </div>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="w-full bg-head text-white text-[13px] font-medium tracking-widest py-2.5 hover:bg-[#DB4444] transition-colors"
-          >
-            LOGOUT
-          </button>
-        </div>
-      ) : (
-        <div
-          className="flex items-center gap-2.5 mb-4 cursor-pointer"
-          onClick={() => {
-            handleClose();
-            router.push("/login-register");
-          }}
-        >
-          <FaRegUser className="text-[16px] text-head" />
-          <span className="texts_14_medium text-head tracking-[0.5px]">
-            LOGIN
-          </span>
-        </div>
-      )}
-      <div className="flex items-center mb-2.5">
-        <span className="texts_14_regular text-second w-20 shrink-0">
-          Language
-        </span>
-        <span className="texts_13_regular text-head flex items-center gap-1">
-          United Kingdom | English <span className="text-[10px]">▼</span>
-        </span>
-      </div>
-      <div className="flex items-center mb-4">
-        <span className="texts_13_regular text-second w-20 shrink-0">
-          Currency
-        </span>
-        <span className="texts_13_regular text-head flex items-center gap-1">
-          $ USD <span className="text-[10px]">▼</span>
-        </span>
-      </div>
-      <div className="flex items-center gap-8">
-        {socialIcons.map((s) => (
-          <Link
-            key={s.id}
-            href={s.link}
-            className="text-[15px] text-head hover:text-second transition-colors"
-          >
-            <s.icon />
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
+    const trapFocus = (e) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
 
-  const tabRowJSX = (onChange) => (
-    <div className="flex items-center px-5 gap-2 pt-6 pb-5">
-      {navTabsData.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => onChange?.(tab.tab)}
-          className={`texts_15_medium px-3 py-1.25 rounded-lg tracking-[0.5px] transition-colors cursor-pointer ${
-            activeTab === tab.tab
-              ? "bg-head text-white"
-              : "text-head hover:bg-secondbg"
-          }`}
-        >
-          {tab.tab}
-        </button>
-      ))}
-    </div>
-  );
+    document.addEventListener("keydown", trapFocus);
+    first?.focus();
+    return () => document.removeEventListener("keydown", trapFocus);
+  }, [isOpen, panel]);
+
+  // ── Scroll lock — drawer খোলা থাকলে body scroll বন্ধ ────
+  useEffect(() => {
+    document.body.style.overflow = isOpen || isCartOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, isCartOpen]);
+
+  // ── Shared header props ───────────────────────────────────
+  const headerProps = {
+    onClose: handleClose,
+    onCartOpen: () => setIsCartOpen(true),
+    cartCount,
+  };
+
+  const footerProps = {
+    user,
+    onLogout: handleLogout,
+    onLoginClick: handleLoginClick,
+  };
 
   return (
     <>
-      {/* ===== Top bar ===== */}
+      {/* ── Top Bar ── */}
       <nav className="py-5.25">
         <Container>
           <div className="flex items-center justify-between">
             <button
               onClick={handleOpen}
+              aria-label="Open navigation menu"
+              aria-expanded={isOpen}
               className="text-[28px] text-head cursor-pointer"
             >
               {navIconItems[4].icon}
             </button>
+
             <CldImage
               src="navicon_is7dpu"
-              alt="mobile-nav"
+              alt="Uomo logo"
               width={400}
               height={800}
               className="w-27.75 h-6.75"
             />
+
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard/wishlist"
+                aria-label={`Wishlist (${wishlistCount} items)`}
                 className="relative text-[22px] text-head pr-2.5"
               >
                 {wishlistCount > 0 ? (
@@ -294,25 +217,30 @@ const NavbarMobile = () => {
                   </span>
                 )}
               </Link>
+
               <button
                 onClick={() => setIsCartOpen(true)}
+                aria-label={`Open cart (${cartCount} items)`}
                 className="relative cursor-pointer pr-2.5"
               >
                 <span className="text-[26px] text-head">
                   {navIconItems[3].icon}
                 </span>
-                <span className="absolute bg-third w-4.5 h-4.5 flex items-center justify-center text-[11px] font-medium text-white rounded-full -bottom-1.5 right-0.5">
-                  {cartCount}
-                </span>
+                {cartCount > 0 && (
+                  <span className="absolute bg-third w-4.5 h-4.5 flex items-center justify-center text-[11px] font-medium text-white rounded-full -bottom-1.5 right-0.5">
+                    {cartCount}
+                  </span>
+                )}
               </button>
             </div>
           </div>
         </Container>
       </nav>
 
-      {/* ===== Backdrop ===== */}
+      {/* ── Drawer Backdrop ── */}
       <div
         onClick={handleClose}
+        aria-hidden="true"
         className={`fixed inset-0 bg-black/30 z-998 transition-opacity duration-300 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
@@ -320,36 +248,44 @@ const NavbarMobile = () => {
         }`}
       />
 
-      {/* ===== Drawer ===== */}
+      {/* ── Drawer ── */}
       <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
         className={`fixed top-0 left-0 w-70 h-full bg-white z-999 overflow-hidden transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Panel 1: Main nav */}
+        {/* Panel 1 — Main */}
         <div className={panelClass("main")}>
-          {headerJSX}
-          {searchJSX}
+          <DrawerHeader {...headerProps} />
+          <DrawerSearch onClose={handleClose} />
           <div className="flex-1 overflow-y-auto custom-scrollbar">
-            {navItems.map((item, idx) =>
+            {navItems.map((item) =>
               isDirectLink(item) ? (
                 <Link
-                  key={idx}
+                  key={item.label}
                   href={item.path}
                   onClick={handleClose}
-                  className="w-full flex items-center justify-between px-5 bg-transparent text-left"
+                  className="w-full flex items-center px-5 bg-transparent text-left"
                 >
-                  <span className="texts_16_medium leading-13.75 text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-2.25 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <span
+                    className={`texts_16_medium leading-13.75 text-head tracking-[0.5px] ${UNDERLINE} after:bottom-2.25`}
+                  >
                     {item.label}
                   </span>
                 </Link>
               ) : (
                 <button
-                  key={idx}
+                  key={item.label}
                   onClick={() => handleNavItemClick(item)}
                   className="w-full flex items-center justify-between px-5 bg-transparent cursor-pointer text-left"
                 >
-                  <span className="texts_16_medium leading-13.75 text-head tracking-[0.5px] relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-2.25 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                  <span
+                    className={`texts_16_medium leading-13.75 text-head tracking-[0.5px] ${UNDERLINE} after:bottom-2.25`}
+                  >
                     {item.label}
                   </span>
                   <IoChevronForward className="text-[16px] text-head shrink-0" />
@@ -357,14 +293,14 @@ const NavbarMobile = () => {
               ),
             )}
           </div>
-          {footerJSX}
+          <DrawerFooter {...footerProps} />
         </div>
 
-        {/* Panel 2: SHOP */}
+        {/* Panel 2 — SHOP */}
         <div className={panelClass("shop")}>
-          {headerJSX}
-          {searchJSX}
-          {tabRowJSX(setActiveTab)}
+          <DrawerHeader {...headerProps} />
+          <DrawerSearch onClose={handleClose} />
+          <DrawerTabRow activeTab={activeTab} onChange={setActiveTab} />
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {currentTabData?.categories.map((cat) => (
               <button
@@ -376,9 +312,7 @@ const NavbarMobile = () => {
                 className="w-full flex items-center justify-between px-5 h-11.25 bg-transparent cursor-pointer text-left"
               >
                 <span
-                  className={`texts_14_medium relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out tracking-[0.3px] ${
-                    cat.isRed ? "text-red" : "text-head"
-                  }`}
+                  className={`texts_14_medium tracking-[0.3px] ${UNDERLINE} after:bottom-0 ${cat.isRed ? "text-red" : "text-head"}`}
                 >
                   {cat.name}
                 </span>
@@ -388,11 +322,11 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* Panel 3: SHOP sub-links */}
+        {/* Panel 3 — SHOP Sub */}
         <div className={panelClass("shopSub")}>
-          {headerJSX}
-          {searchJSX}
-          {tabRowJSX()}
+          <DrawerHeader {...headerProps} />
+          <DrawerSearch onClose={handleClose} />
+          <DrawerTabRow activeTab={activeTab} />
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-12.5 bg-transparent cursor-pointer text-left"
@@ -410,7 +344,7 @@ const NavbarMobile = () => {
                 onClick={handleClose}
                 className="flex items-center px-5 h-11.5 texts_14_regular text-head"
               >
-                <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                <span className={`${UNDERLINE} after:bottom-0`}>
                   {link.name}
                 </span>
               </Link>
@@ -418,10 +352,10 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* Panel 4: JOURNAL */}
+        {/* Panel 4 — JOURNAL */}
         <div className={panelClass("journal")}>
-          {headerJSX}
-          {searchJSX}
+          <DrawerHeader {...headerProps} />
+          <DrawerSearch onClose={handleClose} />
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-13 pt-4 pb-2 border-b border-footer bg-transparent cursor-pointer text-left"
@@ -446,7 +380,7 @@ const NavbarMobile = () => {
                     onClick={handleClose}
                     className="flex items-center px-5 h-11 texts_13_regular"
                   >
-                    <span className="relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0.5 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                    <span className={`${UNDERLINE} after:bottom-0.5`}>
                       {link.name}
                     </span>
                   </Link>
@@ -456,10 +390,10 @@ const NavbarMobile = () => {
           </div>
         </div>
 
-        {/* Panel 5: PAGES simple dropdown */}
+        {/* Panel 5 — PAGES */}
         <div className={panelClass("simple")}>
-          {headerJSX}
-          {searchJSX}
+          <DrawerHeader {...headerProps} />
+          <DrawerSearch onClose={handleClose} />
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-13 border-b border-footer bg-transparent cursor-pointer text-left"
@@ -477,19 +411,22 @@ const NavbarMobile = () => {
                 onClick={handleClose}
                 className="flex items-center px-5 texts_14_regular text-head"
               >
-                <span className="relative leading-11.25 after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-1.75 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out">
+                <span
+                  className={`leading-11.25 ${UNDERLINE} after:bottom-1.75`}
+                >
                   {link.name}
                 </span>
               </Link>
             ))}
           </div>
-          {footerJSX}
+          <DrawerFooter {...footerProps} />
         </div>
       </div>
 
-      {/* ===== Cart Backdrop ===== */}
+      {/* ── Cart Backdrop ── */}
       <div
         onClick={() => setIsCartOpen(false)}
+        aria-hidden="true"
         className={`fixed inset-0 bg-black/30 z-1000 transition-opacity duration-300 ${
           isCartOpen
             ? "opacity-100 pointer-events-auto"
@@ -497,7 +434,7 @@ const NavbarMobile = () => {
         }`}
       />
 
-      {/* ===== Cart Drawer ===== */}
+      {/* ── Cart Drawer ── */}
       <div
         className={`fixed top-0 right-0 h-full bg-white z-1001 transition-transform duration-300 ease-in-out ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
