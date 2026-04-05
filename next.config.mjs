@@ -14,7 +14,7 @@ const nextConfig = {
       { protocol: "https", hostname: "dummyjson.com" },
       { protocol: "https", hostname: "cdn.dummyjson.com" },
       { protocol: "https", hostname: "i.dummyjson.com" },
-      { protocol: "https", hostname: "res.cloudinary.com" }, // ✅ এটা নতুন যোগ করা হয়েছে
+      { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
 
