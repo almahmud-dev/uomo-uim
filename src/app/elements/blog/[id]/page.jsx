@@ -21,6 +21,7 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function BlogDetailPage({ params }) {
-  return <SingleBlog id={params?.id} />;
+export default async function BlogDetailPage({ params }) {
+  const { id } = await params;
+  return <SingleBlog id={id} />;
 }
