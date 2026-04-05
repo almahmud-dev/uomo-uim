@@ -69,12 +69,12 @@ const Footer = () => {
           </div>
 
           {/* ── COL 3-5 : Nav columns (COMPANY, SHOP, HELP) ── */}
-          <div className="col-span-3 grid grid-cols-2 gap-[34px] sm:gap-0 sm:grid-cols-3">
+          <div className="col-span-3 grid grid-cols-2 gap-8.5 sm:gap-0 sm:grid-cols-3">
             {footerData.columns.map((col, colIdx) => (
               <div key={colIdx} className="flex flex-col ">
                 {/* Column Title */}
                 <h4
-                  className="texts_18_medium   text-head  mb-[10px] lg:mb-[27px]"
+                  className="texts_18_medium   text-head  mb-2.5 lg:mb-6.75"
                   style={{ fontWeight: 600, letterSpacing: "0.08em" }}
                 >
                   {col.title}
@@ -86,7 +86,7 @@ const Footer = () => {
                     <li key={item.id} className="relative group w-fit">
                       <Link
                         href={item.link}
-                        className={`texts_14_regular text-head  !leading-[40px]`}
+                        className={`texts_14_regular text-head leading-10!`}
                       >
                         {item.name}
                       </Link>
