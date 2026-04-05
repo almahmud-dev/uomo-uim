@@ -9,7 +9,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import { CldImage } from "next-cloudinary";
 import Container from "@/component/common/Container";
-import { navIconItems } from "@/helper/iconProvider";
+import allIcons from "@/helper/iconProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
@@ -18,6 +18,8 @@ import DrawerHeader from "./components/DrawerHeader";
 import DrawerSearch from "./components/DrawerSearch";
 import DrawerFooter from "./components/DrawerFooter";
 import DrawerTabRow from "./components/DrawerTabRow";
+
+const { navIconItems } = allIcons;
 
 // ── Constants ──────────────────────────────────────────────
 const DRAWER_CLOSE_DELAY = 310;
@@ -65,7 +67,7 @@ const NavbarMobile = () => {
   const panelClass = (name) =>
     `absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${getPanelPosition(panel, name)}`;
 
-  // ── Handlers (useCallback —불필요한 re-render 방지) ────────
+  // ── Handlers ──────────────────────────────────────────────
   const handleOpen = useCallback(() => {
     setIsOpen(true);
     setPanel("main");
@@ -114,7 +116,7 @@ const NavbarMobile = () => {
   const isDirectLink = (item) =>
     !item.hasDropdown && !item.hasMegaMenu && item.path;
 
-  // ── Escape key — drawer বন্ধ ──────────────────────────────
+  // ── Escape key ────────────────────────────────────────────
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -126,7 +128,7 @@ const NavbarMobile = () => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen, isCartOpen, handleClose]);
 
-  // ── Focus trap — drawer খোলা থাকলে focus ভেতরে থাকবে ────
+  // ── Focus trap ────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen || !drawerRef.current) return;
 
@@ -156,7 +158,7 @@ const NavbarMobile = () => {
     return () => document.removeEventListener("keydown", trapFocus);
   }, [isOpen, panel]);
 
-  // ── Scroll lock — drawer খোলা থাকলে body scroll বন্ধ ────
+  // ── Scroll lock ───────────────────────────────────────────
   useEffect(() => {
     document.body.style.overflow = isOpen || isCartOpen ? "hidden" : "";
     return () => {
@@ -164,7 +166,7 @@ const NavbarMobile = () => {
     };
   }, [isOpen, isCartOpen]);
 
-  // ── Shared header props ───────────────────────────────────
+  // ── Shared props ──────────────────────────────────────────
   const headerProps = {
     onClose: handleClose,
     onCartOpen: () => setIsCartOpen(true),
