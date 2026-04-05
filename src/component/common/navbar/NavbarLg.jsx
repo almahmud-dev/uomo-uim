@@ -19,9 +19,8 @@ import { navItems } from "@/helper/projectArrayObj";
 import ShopMegaMenu from "./components/ShopMegaMenu";
 import PagesDropdown from "./components/PagesDropdown";
 import NavIcons from "./components/NavIcons";
-
+import { CldImage } from "next-cloudinary";
 const NavbarLg = () => {
-  const { navLogo } = allImages;
   const [hoverItem, setHoverItem] = useState(null);
 
   return (
@@ -31,9 +30,11 @@ const NavbarLg = () => {
           {/* ---- Left: Logo + Nav links ---- */}
           <div className="flex items-center gap-x-14">
             <Link href="/">
-              <Images
-                imgSrc={navLogo}
-                imgAlt="uomo-logo"
+              <CldImage
+                src="/navicon_is7dpu"
+                alt="uomo-logo"
+                width={400}
+                height={800}
                 className="w-27.75 h-6.75"
               />
             </Link>
