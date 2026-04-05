@@ -35,13 +35,12 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import Container from "@/component/common/Container";
-import Images from "@/component/common/Images";
 import allIcons from "@/helper/iconProvider";
-import allImages from "@/helper/imagesProvider";
 import { navItems, navTabsData } from "@/helper/projectArrayObj";
 import AddToCart from "@/component/shopMain/addToCart/AddToCart";
 import useCartStore from "@/store/cartSlice";
 import useAuthStore from "@/store/authSlice";
+import { CldImage } from "next-cloudinary";
 
 const socialIcons = [
   { id: 1, icon: FaFacebookF, link: "https://www.facebook.com" },
@@ -53,7 +52,6 @@ const socialIcons = [
 
 const NavbarMobile = () => {
   const { navIconItems } = allIcons;
-  const { navLogo } = allImages;
   const { cartItems, wishlistItems } = useCartStore();
   const { user, clearUser } = useAuthStore();
   const router = useRouter();
@@ -85,6 +83,7 @@ const NavbarMobile = () => {
       ? "translate-x-full"
       : "-translate-x-full";
   };
+
   const panelClass = (name) =>
     `absolute inset-0 flex flex-col transition-transform duration-300 ease-in-out ${pos(name)}`;
 
@@ -92,6 +91,7 @@ const NavbarMobile = () => {
     setIsOpen(true);
     setPanel("main");
   };
+
   const handleClose = () => {
     setIsOpen(false);
     setTimeout(() => {
@@ -102,10 +102,12 @@ const NavbarMobile = () => {
       setActiveTab(navTabsData[0].tab);
     }, 310);
   };
+
   const handleBack = () => {
     if (panel === "shopSub") setPanel("shop");
     else if (["shop", "journal", "simple"].includes(panel)) setPanel("main");
   };
+
   const handleNavItemClick = (item) => {
     if (item.label === "SHOP") setPanel("shop");
     else if (item.hasMegaMenu) {
@@ -116,6 +118,7 @@ const NavbarMobile = () => {
       setPanel("simple");
     }
   };
+
   const handleLogout = async () => {
     await signOut(auth);
     clearUser();
@@ -126,8 +129,9 @@ const NavbarMobile = () => {
   const isDirectLink = (item) =>
     !item.hasDropdown && !item.hasMegaMenu && item.path;
 
-  // Reusable drawer top pieces
-  const Header = () => (
+  // ---- Reusable JSX variables (component-er vitore component na) ----
+
+  const headerJSX = (
     <div className="flex items-center justify-between px-5 py-4 border-b border-footer">
       <button
         onClick={handleClose}
@@ -135,7 +139,13 @@ const NavbarMobile = () => {
       >
         <IoMdClose />
       </button>
-      <Images imgAlt="mobile-nav" imgSrc={navLogo} className="w-27.75 h-6.75" />
+      <CldImage
+        src="navicon_is7dpu"
+        alt="mobile-nav"
+        width={400}
+        height={800}
+        className="w-27.75 h-6.75"
+      />
       <button
         onClick={() => setIsCartOpen(true)}
         className="relative cursor-pointer pr-2.5"
@@ -144,13 +154,13 @@ const NavbarMobile = () => {
           <HiOutlineShoppingBag />
         </span>
         <span className="absolute bg-third w-4.25 h-4.25 flex items-center justify-center text-[10px] font-medium text-white rounded-full -bottom-1.25 right-0.5">
-          {navIconItems[3].badge}
+          {cartCount}
         </span>
       </button>
     </div>
   );
 
-  const Search = () => (
+  const searchJSX = (
     <div className="flex items-center gap-2.5 px-5 py-4 mb-3 border-b border-footer">
       <input
         type="text"
@@ -161,8 +171,7 @@ const NavbarMobile = () => {
     </div>
   );
 
-  // Auth footer — logged in hole name/email/logout, nahole login link
-  const Footer = () => (
+  const footerJSX = (
     <div className="px-5 pt-7.25 pb-5 border-t border-footer">
       {user ? (
         <div className="mb-4">
@@ -232,13 +241,17 @@ const NavbarMobile = () => {
     </div>
   );
 
-  const TabRow = ({ onChange }) => (
+  const tabRowJSX = (onChange) => (
     <div className="flex items-center px-5 gap-2 pt-6 pb-5">
       {navTabsData.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onChange?.(tab.tab)}
-          className={`texts_15_medium px-3 py-1.25 rounded-lg tracking-[0.5px] transition-colors cursor-pointer ${activeTab === tab.tab ? "bg-head text-white" : "text-head hover:bg-secondbg"}`}
+          className={`texts_15_medium px-3 py-1.25 rounded-lg tracking-[0.5px] transition-colors cursor-pointer ${
+            activeTab === tab.tab
+              ? "bg-head text-white"
+              : "text-head hover:bg-secondbg"
+          }`}
         >
           {tab.tab}
         </button>
@@ -258,9 +271,11 @@ const NavbarMobile = () => {
             >
               {navIconItems[4].icon}
             </button>
-            <Images
-              imgAlt="mobile-nav"
-              imgSrc={navLogo}
+            <CldImage
+              src="navicon_is7dpu"
+              alt="mobile-nav"
+              width={400}
+              height={800}
               className="w-27.75 h-6.75"
             />
             <div className="flex items-center gap-4">
@@ -298,17 +313,23 @@ const NavbarMobile = () => {
       {/* ===== Backdrop ===== */}
       <div
         onClick={handleClose}
-        className={`fixed inset-0 bg-black/30 z-998 transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 bg-black/30 z-998 transition-opacity duration-300 ${
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
       />
 
       {/* ===== Drawer ===== */}
       <div
-        className={`fixed top-0 left-0 w-70 h-full bg-white z-999 overflow-hidden transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed top-0 left-0 w-70 h-full bg-white z-999 overflow-hidden transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         {/* Panel 1: Main nav */}
         <div className={panelClass("main")}>
-          <Header />
-          <Search />
+          {headerJSX}
+          {searchJSX}
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {navItems.map((item, idx) =>
               isDirectLink(item) ? (
@@ -336,14 +357,14 @@ const NavbarMobile = () => {
               ),
             )}
           </div>
-          <Footer />
+          {footerJSX}
         </div>
 
         {/* Panel 2: SHOP */}
         <div className={panelClass("shop")}>
-          <Header />
-          <Search />
-          <TabRow onChange={setActiveTab} />
+          {headerJSX}
+          {searchJSX}
+          {tabRowJSX(setActiveTab)}
           <div className="flex-1 overflow-y-auto custom-scrollbar">
             {currentTabData?.categories.map((cat) => (
               <button
@@ -355,7 +376,9 @@ const NavbarMobile = () => {
                 className="w-full flex items-center justify-between px-5 h-11.25 bg-transparent cursor-pointer text-left"
               >
                 <span
-                  className={`texts_14_medium relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out tracking-[0.3px] ${cat.isRed ? "text-red" : "text-head"}`}
+                  className={`texts_14_medium relative after:absolute after:content-[''] after:w-[0%] after:h-0.5 after:bg-head after:bottom-0 after:left-0 hover:after:w-[60%] after:duration-500 after:ease-in-out tracking-[0.3px] ${
+                    cat.isRed ? "text-red" : "text-head"
+                  }`}
                 >
                   {cat.name}
                 </span>
@@ -367,9 +390,9 @@ const NavbarMobile = () => {
 
         {/* Panel 3: SHOP sub-links */}
         <div className={panelClass("shopSub")}>
-          <Header />
-          <Search />
-          <TabRow />
+          {headerJSX}
+          {searchJSX}
+          {tabRowJSX()}
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-12.5 bg-transparent cursor-pointer text-left"
@@ -397,8 +420,8 @@ const NavbarMobile = () => {
 
         {/* Panel 4: JOURNAL */}
         <div className={panelClass("journal")}>
-          <Header />
-          <Search />
+          {headerJSX}
+          {searchJSX}
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-13 pt-4 pb-2 border-b border-footer bg-transparent cursor-pointer text-left"
@@ -435,8 +458,8 @@ const NavbarMobile = () => {
 
         {/* Panel 5: PAGES simple dropdown */}
         <div className={panelClass("simple")}>
-          <Header />
-          <Search />
+          {headerJSX}
+          {searchJSX}
           <button
             onClick={handleBack}
             className="w-full flex items-center gap-2 px-5 h-13 border-b border-footer bg-transparent cursor-pointer text-left"
@@ -460,19 +483,25 @@ const NavbarMobile = () => {
               </Link>
             ))}
           </div>
-          <Footer />
+          {footerJSX}
         </div>
       </div>
 
       {/* ===== Cart Backdrop ===== */}
       <div
         onClick={() => setIsCartOpen(false)}
-        className={`fixed inset-0 bg-black/30 z-1000 transition-opacity duration-300 ${isCartOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 bg-black/30 z-1000 transition-opacity duration-300 ${
+          isCartOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
       />
 
       {/* ===== Cart Drawer ===== */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white z-1001 transition-transform duration-300 ease-in-out ${isCartOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-full bg-white z-1001 transition-transform duration-300 ease-in-out ${
+          isCartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <AddToCart unMount={() => setIsCartOpen(false)} />
       </div>

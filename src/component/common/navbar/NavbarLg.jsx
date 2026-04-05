@@ -12,9 +12,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Container from "@/component/common/Container";
-import Images from "@/component/common/Images";
-import allImages from "@/helper/imagesProvider";
-import allIcons from "@/helper/iconProvider";
 import { navItems } from "@/helper/projectArrayObj";
 import ShopMegaMenu from "./components/ShopMegaMenu";
 import PagesDropdown from "./components/PagesDropdown";
@@ -31,7 +28,7 @@ const NavbarLg = () => {
           <div className="flex items-center gap-x-14">
             <Link href="/">
               <CldImage
-                src="/navicon_is7dpu"
+                src="navicon_is7dpu"
                 alt="uomo-logo"
                 width={400}
                 height={800}
