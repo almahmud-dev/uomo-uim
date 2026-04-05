@@ -101,7 +101,7 @@ const Footer = () => {
           <div className="col-span-2 flex flex-col">
             {/* Title */}
             <h4
-              className="texts_18_medium text-head mb-[27px]"
+              className="texts_18_medium text-head mb-6.75"
               style={{ fontWeight: 600, letterSpacing: "0.08em" }}
             >
               SUBSCRIBE
@@ -109,21 +109,21 @@ const Footer = () => {
 
             <div className="md:flex md:gap-x-8  lg:block">
               {/* Subtitle */}
-              <p className="texts_14_regular text-head  mb-[15px] max-w-[270px]">
+              <p className="texts_14_regular text-head  mb-3.75 max-w-67.6">
                 Be the first to get the latest news about trends, promotions,
                 and much more!
               </p>
 
               {/* Email Input */}
-              <div className="flex items-stretch border border-[#CFCDCD] bg-white mb-[41px] ">
+              <div className="flex items-stretch border border-[#CFCDCD] bg-white mb-10.25">
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-1 px-[21px] pt-[17px] pb-[14px] texts_14_regular text-head placeholder:text-second bg-transparent"
+                  className="flex-1 px-5.25 pt-4.25 pb-3.5 texts_14_regular text-head placeholder:text-second bg-transparent"
                 />
 
                 <button
-                  className="pr-3  texts_13_regular text-head  border-[#CFCDCD]   cursor-pointer  "
+                  className="pr-3  texts_13_regular text-head  border-[#CFCDCD] cursor-pointer"
                   style={{ fontWeight: 600, letterSpacing: "0.08em" }}
                 >
                   {" "}
@@ -134,7 +134,7 @@ const Footer = () => {
 
             {/* Secure Payments */}
             <p
-              className="texts_14_regular text-head mb-[11px]"
+              className="texts_14_regular text-head mb-2.75"
               style={{ fontWeight: 500 }}
             >
               Secure payments
