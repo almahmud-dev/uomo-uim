@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import Image from "next/image";
 
 const sliderData = [
   { id: 1, img: "bannerRightImg_fcjrx7" },
@@ -20,6 +21,9 @@ const sliderData = [
   { id: 4, img: "bannerRightImg4_xy5i2o" },
   { id: 5, img: "bannerRightImg5_x4vfka" },
 ];
+
+const BG_URL =
+  "https://res.cloudinary.com/dlqvctrgm/image/upload/q_auto/f_auto/v1775147827/bannerBg_waubaz.png";
 
 const Banner = () => {
   const swiperRef = useRef(null);
@@ -37,39 +41,33 @@ const Banner = () => {
           autoplay={{ delay: 3000, disableOnInteraction: false }}
         >
           {sliderData.map((item, idx) => (
-            <SwiperSlide key={idx}>
-              <div
-                style={{
-                  backgroundImage: `url('https://res.cloudinary.com/dlqvctrgm/image/upload/q_auto/f_auto/v1775147827/bannerBg_waubaz.png')`,
-                }}
-                className="mx-auto max-w-450 w-full bg-no-repeat bg-cover bg-center overflow-hidden relative h-105 sm:h-150 md:h-187.5 lg:h-200"
-              >
-                {/* Desktop image */}
-                <div className="absolute top-0 bottom-0 right-0 hidden lg:block">
-                  <CldImage
-                    src={item.img}
-                    width={800}
-                    height={800}
-                    alt="banner"
-                    priority={idx === 0}
-                    quality="auto"
-                    format="auto"
-                    className="h-full w-auto object-cover object-top"
-                  />
-                </div>
+            <SwiperSlide key={item.id}>
+              <div className="mx-auto max-w-450 w-full bg-no-repeat bg-cover bg-center overflow-hidden relative h-105 sm:h-150 md:h-187.5 lg:h-200">
+                
+                {/* ✅ Background Image - next/image দিয়ে preload হবে */}
+                <Image
+                  src={BG_URL}
+                  alt=""
+                  fill
+                  priority={idx === 0}
+                  quality={75}
+                  className="object-cover object-center -z-10"
+                  sizes="100vw"
+                />
 
-                {/* Mobile image */}
-                <div className="absolute z-0 right-0 bottom-0 md:h-full h-[95%] w-[60%] sm:w-[65%] lg:w-[60%] flex items-end justify-end lg:hidden">
+                {/* ✅ একটাই CldImage - mobile + desktop দুইটা আলাদা নেই */}
+                <div className="absolute z-0 right-0 bottom-0 lg:top-0 lg:bottom-0 h-[95%] lg:h-full w-[60%] sm:w-[65%] lg:w-auto flex items-end lg:items-stretch justify-end">
                   <CldImage
                     src={item.img}
-                    width={400}
-                    height={700}
-                    alt="banner"
+                    width={600}
+                    height={800}
+                    alt={`banner slide ${idx + 1}`}
                     priority={idx === 0}
+                    loading={idx === 0 ? "eager" : "lazy"}
                     quality="auto"
                     format="auto"
-                    sizes="60vw"
-                    className="h-full w-full object-cover object-top"
+                    sizes="(max-width: 768px) 60vw, (max-width: 1024px) 65vw, 50vw"
+                    className="h-full w-auto object-cover object-top"
                   />
                 </div>
 
@@ -82,13 +80,14 @@ const Banner = () => {
                         NEW TREND
                       </p>
                     </div>
+
+                    {/* Desktop heading */}
                     <h1 className="head_70_regular pb-2 text-head hidden lg:block">
-                      <span className="whitespace-nowrap">
-                        {" "}
-                        SUMMER SALE STYLISH
-                      </span>
+                      <span className="whitespace-nowrap"> SUMMER SALE STYLISH</span>
                       <span className="head_70_bold block">WOMENS</span>
                     </h1>
+
+                    {/* Mobile heading */}
                     <h1 className="head_70_regular pb-2 text-head block lg:hidden">
                       <span className="whitespace-nowrap"> SUMMER SALE</span>
                       <span className="block whitespace-nowrap">
@@ -96,10 +95,13 @@ const Banner = () => {
                         <span className="head_70_bold">WOMENS</span>
                       </span>
                     </h1>
+
                     <Button
                       className={"hover:after:w-24"}
                       btnText={"DISCOVER MORE"}
                     />
+
+                    {/* Dots */}
                     <div className="mt-6 sm:mt-10 lg:mt-16 flex gap-1">
                       {sliderData.map((_, index) => (
                         <div
@@ -108,10 +110,18 @@ const Banner = () => {
                           className="group relative flex items-center justify-center p-2 sm:p-3 cursor-pointer"
                         >
                           <div
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeIndex === index ? "bg-black" : "bg-[#DDC2B9] group-hover:bg-black"}`}
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                              activeIndex === index
+                                ? "bg-black"
+                                : "bg-[#DDC2B9] group-hover:bg-black"
+                            }`}
                           ></div>
                           <div
-                            className={`absolute inset-0 border-2 border-black rounded-full transition-all duration-300 ${activeIndex === index ? "scale-100" : "scale-0 group-hover:scale-100"}`}
+                            className={`absolute inset-0 border-2 border-black rounded-full transition-all duration-300 ${
+                              activeIndex === index
+                                ? "scale-100"
+                                : "scale-0 group-hover:scale-100"
+                            }`}
                           ></div>
                         </div>
                       ))}
@@ -123,20 +133,13 @@ const Banner = () => {
           ))}
         </Swiper>
 
+        {/* Social links - left */}
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
           <div className="flex flex-col gap-y-6.25 z-10">
-            <Link href="#">
-              <FaFacebookF className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaTwitter className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaInstagram className="text-second" size={15} />
-            </Link>
-            <Link href="#">
-              <FaPinterest className="text-second" size={15} />
-            </Link>
+            <Link href="#"><FaFacebookF className="text-second" size={15} /></Link>
+            <Link href="#"><FaTwitter className="text-second" size={15} /></Link>
+            <Link href="#"><FaInstagram className="text-second" size={15} /></Link>
+            <Link href="#"><FaPinterest className="text-second" size={15} /></Link>
             <Link href="#">
               <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
                 FOLLOW US
@@ -144,6 +147,8 @@ const Banner = () => {
             </Link>
           </div>
         </div>
+
+        {/* Scroll indicator - right */}
         <div className="absolute bottom-5.75 right-0 xl:-right-20 -translate-y-[50%] hidden lg:block">
           <div className="flex space-x-2.5 items-center rotate-270 z-10">
             <div className="w-7.5 h-0.5 bg-head"></div>
