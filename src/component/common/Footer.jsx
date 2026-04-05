@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
 import Container from "./Container";
-import allImages from "@/helper/imagesProvider";
 import { footerData } from "@/helper/projectArrayObj";
 import allIcons from "@/helper/iconProvider";
 import { RiArrowUpSLine } from "react-icons/ri";
@@ -15,7 +14,7 @@ const Footer = () => {
     <footer className="bg-footer ">
       <Container>
         {/* ── MAIN GRID ── */}
-        <div className="grid grid-cols-1  lg:grid-cols-7 lg:gap-x-5 gap-y-[50px] py-[50px] lg:pt-[100px] lg:pb-[88px]">
+        <div className="grid grid-cols-1  lg:grid-cols-7 lg:gap-x-5 gap-y-12.5 py-12.5 lg:pt-25 lg:pb-22">
           {/* ── COL 1-2 : Brand info ── */}
           <div className="col-span-2  lg:flex-col md:flex md:justify-between md:items-start ">
             {/* Logo */}
