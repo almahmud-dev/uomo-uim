@@ -150,25 +150,25 @@ const Footer = () => {
         </div>
 
         {/* ── BOTTOM BAR ── */}
-        <div className=" sm:flex  space-y-4    sm:space-y-0 sm:items-center sm:justify-between py-[28px] md:pt-[34px] lg:pb-[28px]  border-t border-[#CFCDCD]">
+        <div className=" sm:flex  space-y-4    sm:space-y-0 sm:items-center sm:justify-between py-7 md:pt-8.5 lg:pb-7  border-t border-[#CFCDCD]">
           {/* Copyright */}
           <p className="texts_13_regular text-head">©2020 Uomo</p>
 
           {/* Language & Currency */}
-          <div className="sm:flex sm:items-center  space-y-4 sm:space-y-0 gap-[48px]">
+          <div className="sm:flex sm:items-center  space-y-4 sm:space-y-0 gap-12">
             {/* Language */}
-            <div className="flex items-center gap-[10px]">
+            <div className="flex items-center gap-2.5">
               <span className="texts_13_regular text-second">Language</span>
-              <button className="flex items-center gap-[4px] texts_13_regular text-head hover:text-second transition-colors duration-200">
+              <button className="flex items-center gap-1 texts_13_regular text-head hover:text-second transition-colors duration-200">
                 United Kingdom | English
                 <RiArrowUpSLine size={15} />
               </button>
             </div>
 
             {/* Currency */}
-            <div className="flex items-center gap-[10px]">
+            <div className="flex items-center gap-2.5">
               <span className="texts_13_regular text-second">Currency</span>
-              <button className="flex items-center gap-[4px] texts_13_regular text-head hover:text-second transition-colors duration-200">
+              <button className="flex items-center gap-1 texts_13_regular text-head hover:text-second transition-colors duration-200">
                 $ USD
                 <RiArrowUpSLine size={15} />
               </button>
