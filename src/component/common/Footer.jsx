@@ -5,7 +5,6 @@ import { footerData } from "@/helper/projectArrayObj";
 import allIcons from "@/helper/iconProvider";
 import { RiArrowUpSLine } from "react-icons/ri";
 import Link from 'next/link';
-import Images from "./Images";
 import { CldImage } from "next-cloudinary";
 const Footer = () => {
   const { socialIcons } = allIcons;
@@ -23,10 +22,10 @@ const Footer = () => {
               alt="footerlogo"
               width={400}
               height={800}
-              className={`h-[27px] w-[111px] object-contain object-left   `}
+              className={`h-6.25 w-27.75 object-contain object-left`}
             />
 
-            <div className=" py-7 md:py-0 lg:pt-[44px] lg:pb-[47px]">
+            <div className=" py-7 md:py-0 lg:pt-11 lg:pb-11.75">
               {/* Address */}
               <div>
                 <p className="texts_14_regular text-head ">
