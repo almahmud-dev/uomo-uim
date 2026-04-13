@@ -33,11 +33,11 @@ const Store_location = () => {
               <p className="texts_14_regular text-head">
                 10 am - 10 pm EST, 7 days a week
               </p>
-              <h5 className="text-[13px] font-medium text-head uppercase pt-5 relative after:absolute after:bottom-0 after:left-0 after:contant-[''] after:bg-head after:w-[68px] after:h-[2px] hover:after:w-[103px] duration-300">
+              <h5 className="text-[13px] font-medium text-head uppercase pt-5 relative after:absolute after:bottom-0 after:left-0 after:contant-[''] after:bg-head after:w-17 after:h-0.5 hover:after:w-25.75 duration-300">
                 SEE ON THE MAP
               </h5>
             </div>
-            <div className="lg:w-[468px] pb-[33px] border-b border-[#E4E4E4]">
+            <div className="lg:w-[468px] pb-8.25 border-b border-[#E4E4E4]">
               <h5 className="texts_18_medium text-head pt-7.5">
                 Store in Istanbul
               </h5>
