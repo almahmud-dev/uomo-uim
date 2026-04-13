@@ -68,7 +68,7 @@ const ComingSoon = () => {
             placeholder="Your email address"
             className="flex-1 p-[clamp(12px,2vw,18px)] w-full border border-footer rounded texts_14_regular text-second placeholder:text-second bg-white"
           />
-          <button className="bg-head rounded py-[clamp(12px,2vw,20px)] px-[clamp(24px,4vw,61px)] text-white texts_13_regular font-semibold tracking-[1.5px] uppercase hover:bg-[#d6001c] transition-colors duration-200 flex-shrink-0 cursor-pointer w-full sm:w-auto">
+          <button className="bg-head rounded py-[clamp(12px,2vw,20px)] px-[clamp(24px,4vw,61px)] text-white texts_13_regular font-semibold tracking-[1.5px] uppercase hover:bg-red transition-colors duration-200 shrink-0 cursor-pointer w-full sm:w-auto">
             JOIN
           </button>
         </div>
@@ -81,7 +81,7 @@ const TimeBlock = ({ value, label }) => (
   <div className="flex flex-col items-center min-w-[clamp(48px,10vw,72px)]">
     <span className="head_26_regular text-head">{value}</span>
 
-    <span className="texts_13_regular text-second uppercase mt-[6px]">
+    <span className="texts_13_regular text-second uppercase mt-1.5">
       {label}
     </span>
   </div>
