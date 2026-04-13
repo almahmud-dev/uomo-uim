@@ -43,7 +43,7 @@ const Banner = () => {
           {sliderData.map((item, idx) => (
             <SwiperSlide key={item.id}>
               <div className="mx-auto max-w-450 w-full bg-no-repeat bg-cover bg-center overflow-hidden relative h-105 sm:h-150 md:h-187.5 lg:h-200">
-                {/* Background Image - next/image দিয়ে preload হবে */}
+                {/* Background Image - next/image diye preload */}
                 <Image
                   src={BG_URL}
                   alt=""
@@ -54,7 +54,7 @@ const Banner = () => {
                   sizes="100vw"
                 />
 
-                {/* ✅ একটাই CldImage - mobile + desktop দুইটা আলাদা নেই */}
+                {/* Same CldImage - mobile + desktop */}
                 <div className="absolute z-0 right-0 bottom-0 lg:top-0 lg:bottom-0 h-[95%] lg:h-full w-[60%] sm:w-[65%] lg:w-auto flex items-end lg:items-stretch justify-end">
                   <CldImage
                     src={item.img}
@@ -140,16 +140,16 @@ const Banner = () => {
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
           <div className="flex flex-col gap-y-6.25 z-10">
             <Link href="#">
-              <FaFacebookF className="text-second" size={15} />
+              <FaFacebookF className="text-second" size={15}/>
             </Link>
             <Link href="#">
-              <FaTwitter className="text-second" size={15} />
+              <FaTwitter className="text-second" size={15}/>
             </Link>
             <Link href="#">
-              <FaInstagram className="text-second" size={15} />
+              <FaInstagram className="text-second" size={15}/>
             </Link>
             <Link href="#">
-              <FaPinterest className="text-second" size={15} />
+              <FaPinterest className="text-second" size={15}/>
             </Link>
             <Link href="#">
               <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
