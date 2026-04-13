@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React from "react";
 import Container from "../common/Container";
 import { IoSearchOutline } from "react-icons/io5";
@@ -11,14 +11,14 @@ const Store_location = () => {
         <h3 className="text-2xl font-bold lg:head_35_bold text-head uppercase">
           Store Locator
         </h3>
-        <div className="mt-3 lg:mt-[49px] flex flex-col  xl:flex-row lg:px-4 lg:px-0 lg:gap-x-2.5">
+        <div className="mt-3 lg:mt-12.5 flex flex-col  xl:flex-row lg:px-0 lg:gap-x-2.5">
           <div className="">
-            <div className="lg:w-[468px] pb-[33px] border-b border-[#E4E4E4]">
+            <div className="lg:w-[468px] pb-8.25 border-b border-[#E4E4E4]">
               <div className="p-5 border border-[#E4E4E4] flex items-center justify-between">
                 <input
                   type="text"
                   placeholder="Enter your country or city"
-                  className="texts_14_regular text-[#767676] w-full lg:w-117"
+                  className="texts_14_regular text-second w-full lg:w-117"
                 />
                 <IoSearchOutline />
               </div>
@@ -81,15 +81,15 @@ const Store_location = () => {
             ></iframe>
             <div
               className=" mt-4 
-    md:absolute md:mt-0   
-    md:top-1/2 md:left-[50px] lg:left-[166px] 
-    md:-translate-y-1/2 
-    w-full md:w-[400px]    
-    py-[27px] px-[31px] 
-    bg-white 
-    shadow-[0_0_25px_0_rgba(34,34,34,0.05)] 
-    rounded-sm
-    z-10"
+              md:absolute md:mt-0   
+              md:top-1/2 md:left-[50px] lg:left-[166px] 
+              md:-translate-y-1/2 
+              w-full md:w-[400px]    
+              py-[27px] px-[31px] 
+              bg-white 
+              shadow-[0_0_25px_0_rgba(34,34,34,0.05)] 
+              rounded-sm
+              z-10"
             >
               <h5 className="texts_18_medium text-head flex  justify-between">
                 Store in Istanbul <IoClose />
