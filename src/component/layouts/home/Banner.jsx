@@ -43,8 +43,7 @@ const Banner = () => {
           {sliderData.map((item, idx) => (
             <SwiperSlide key={item.id}>
               <div className="mx-auto max-w-450 w-full bg-no-repeat bg-cover bg-center overflow-hidden relative h-105 sm:h-150 md:h-187.5 lg:h-200">
-                
-                {/* ✅ Background Image - next/image দিয়ে preload হবে */}
+                {/* Background Image - next/image দিয়ে preload হবে */}
                 <Image
                   src={BG_URL}
                   alt=""
@@ -84,7 +83,10 @@ const Banner = () => {
 
                     {/* Desktop heading */}
                     <h1 className="head_70_regular pb-2 text-head hidden lg:block">
-                      <span className="whitespace-nowrap"> SUMMER SALE STYLISH</span>
+                      <span className="whitespace-nowrap">
+                        {" "}
+                        SUMMER SALE STYLISH
+                      </span>
                       <span className="head_70_bold block">WOMENS</span>
                     </h1>
 
@@ -137,10 +139,18 @@ const Banner = () => {
         {/* Social links - left */}
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
           <div className="flex flex-col gap-y-6.25 z-10">
-            <Link href="#"><FaFacebookF className="text-second" size={15} /></Link>
-            <Link href="#"><FaTwitter className="text-second" size={15} /></Link>
-            <Link href="#"><FaInstagram className="text-second" size={15} /></Link>
-            <Link href="#"><FaPinterest className="text-second" size={15} /></Link>
+            <Link href="#">
+              <FaFacebookF className="text-second" size={15} />
+            </Link>
+            <Link href="#">
+              <FaTwitter className="text-second" size={15} />
+            </Link>
+            <Link href="#">
+              <FaInstagram className="text-second" size={15} />
+            </Link>
+            <Link href="#">
+              <FaPinterest className="text-second" size={15} />
+            </Link>
             <Link href="#">
               <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
                 FOLLOW US
