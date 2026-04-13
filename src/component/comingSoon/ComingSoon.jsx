@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import allImages from "@/helper/imagesProvider";
 import React, { useEffect, useState } from "react";
 
@@ -39,13 +39,10 @@ const ComingSoon = () => {
       style={{ backgroundImage: `url(${notFoundPage})` }}
     >
       <div className="flex flex-col  items-center justify-center w-full max-w-[771px] mx-auto">
-
-     
         <h1 className="head_70_bold lg:!text-[100px] text-head text-center">
           COMING SOON
         </h1>
 
-      
         <p className="texts_14_regular text-head text-center mt-5 pb-[clamp(24px,4vw,45px)] max-w-[505px] px-2">
           Sorry, we couldn't find the page you where looking for. We suggest
           that you return to home page.
@@ -75,7 +72,6 @@ const ComingSoon = () => {
             JOIN
           </button>
         </div>
-
       </div>
     </div>
   );
@@ -83,10 +79,7 @@ const ComingSoon = () => {
 
 const TimeBlock = ({ value, label }) => (
   <div className="flex flex-col items-center min-w-[clamp(48px,10vw,72px)]">
- 
-    <span className="head_26_regular text-head">
-      {value}
-    </span>
+    <span className="head_26_regular text-head">{value}</span>
 
     <span className="texts_13_regular text-second uppercase mt-[6px]">
       {label}
@@ -94,9 +87,6 @@ const TimeBlock = ({ value, label }) => (
   </div>
 );
 
-const Colon = () => (
-
-  <span className="head_26_regular text-head">:</span>
-);
+const Colon = () => <span className="head_26_regular text-head">:</span>;
 
 export default ComingSoon;
