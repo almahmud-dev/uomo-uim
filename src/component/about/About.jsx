@@ -11,7 +11,7 @@ const features = [
   {
     icon: "shield_fjfoco",
     title: "24/7 CUSTOMER SUPPORT",
-    desc: "Friendly 24/7 customer support",
+    desc: "Friendly 24/7 customer supports",
   },
   {
     icon: "support_sjgchb",
